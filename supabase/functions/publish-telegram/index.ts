@@ -137,12 +137,6 @@ serve(async (req) => {
                 .eq('post_id', post_id)
                 .eq('platform', 'telegram');
 
-            // Update parent post status
-            await supabaseAdmin
-                .from('posts')
-                .update({ status: 'published', updated_at: new Date().toISOString() })
-                .eq('id', post_id);
-
             // Log activity
             await supabaseAdmin.from('activity_logs').insert({
                 user_id: user.id,
@@ -175,12 +169,6 @@ serve(async (req) => {
                 })
                 .eq('post_id', post_id)
                 .eq('platform', 'telegram');
-
-            // Update parent post status to failed
-            await supabaseAdmin
-                .from('posts')
-                .update({ status: 'failed', updated_at: new Date().toISOString() })
-                .eq('id', post_id);
 
             // Log activity error
             await supabaseAdmin.from('activity_logs').insert({

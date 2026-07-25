@@ -127,3 +127,30 @@ body {
     padding: 6px 14px;
     font-size: 0.875rem;
 }
+
+/* App Logo Styling */
+.app-logo {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    object-fit: cover;
+    box-shadow: 0 2px 10px rgba(99, 102, 241, 0.35);
+    transition: transform 0.2s ease;
+}
+
+.app-logo:hover {
+    transform: scale(1.05);
+}
+
+.app-logo-lg {
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.45);
+}
+
+.app-logo-sm {
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+}

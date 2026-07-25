@@ -4,18 +4,19 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2.48.1";
 const corsHeaders = {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+    'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT, DELETE',
 };
 
 serve(async (req) => {
     if (req.method === 'OPTIONS') {
-        return new Response('ok', { headers: corsHeaders });
+        return new Response('ok', { status: 200, headers: corsHeaders });
     }
 
     try {
         const authHeader = req.headers.get('Authorization');
         if (!authHeader) {
-            return new Response(JSON.stringify({ error: 'Missing Authorization header' }), {
-                status: 401,
+            return new Response(JSON.stringify({ success: false, error: 'Missing Authorization header' }), {
+                status: 200,
                 headers: { ...corsHeaders, 'Content-Type': 'application/json' }
             });
         }
@@ -28,8 +29,8 @@ serve(async (req) => {
         const { data: { user }, error: userError } = await supabaseAdmin.auth.getUser(token);
 
         if (userError || !user) {
-            return new Response(JSON.stringify({ error: 'Unauthorized token' }), {
-                status: 401,
+            return new Response(JSON.stringify({ success: false, error: 'Unauthorized token' }), {
+                status: 200,
                 headers: { ...corsHeaders, 'Content-Type': 'application/json' }
             });
         }
@@ -45,8 +46,8 @@ serve(async (req) => {
             .single();
 
         if (fbError || !fbAccount || !fbAccount.access_token || !fbAccount.account_id) {
-            return new Response(JSON.stringify({ error: 'Facebook account not connected. Connect Facebook Page in Settings.' }), {
-                status: 400,
+            return new Response(JSON.stringify({ success: false, error: 'Facebook account not connected. Connect Facebook Page in Settings.' }), {
+                status: 200,
                 headers: { ...corsHeaders, 'Content-Type': 'application/json' }
             });
         }
@@ -59,8 +60,8 @@ serve(async (req) => {
             .single();
 
         if (postError || !post) {
-            return new Response(JSON.stringify({ error: 'Post not found' }), {
-                status: 404,
+            return new Response(JSON.stringify({ success: false, error: 'Post not found' }), {
+                status: 200,
                 headers: { ...corsHeaders, 'Content-Type': 'application/json' }
             });
         }
@@ -73,18 +74,45 @@ serve(async (req) => {
         let bodyParams = new URLSearchParams();
         bodyParams.append('access_token', pageAccessToken);
 
-        if (post.image_url) {
+        if (post.image_url && post.image_url.trim() !== '') {
             fbEndpoint = `https://graph.facebook.com/v19.0/${pageId}/photos`;
-            bodyParams.append('url', post.image_url);
-            bodyParams.append('caption', post.caption);
+            bodyParams.append('url', post.image_url.trim());
+            bodyParams.append('caption', post.caption || '');
         } else {
-            bodyParams.append('message', post.caption);
+            bodyParams.append('message', post.caption || '');
         }
 
-        const fbResponse = await fetch(fbEndpoint, {
-            method: 'POST',
-            body: bodyParams
-        });
+        // Apply a 15-second timeout via AbortController to prevent long delays/hanging requests
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 15000);
+
+        let fbResponse: Response;
+        try {
+            fbResponse = await fetch(fbEndpoint, {
+                method: 'POST',
+                body: bodyParams,
+                signal: controller.signal
+            });
+        } catch (fetchErr: any) {
+            clearTimeout(timeoutId);
+            const isTimeout = fetchErr.name === 'AbortError';
+            const errorMsg = isTimeout
+                ? 'Facebook API request timed out after 15 seconds.'
+                : `Network error connecting to Facebook API: ${fetchErr.message}`;
+
+            await supabaseAdmin.from('post_platforms').upsert({
+                post_id: post_id,
+                platform: 'facebook',
+                status: 'failed',
+                error_message: errorMsg
+            }, { onConflict: 'post_id, platform' });
+
+            return new Response(JSON.stringify({ success: false, error: errorMsg }), {
+                status: 200,
+                headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+            });
+        }
+        clearTimeout(timeoutId);
 
         const fbResult = await fbResponse.json();
 
@@ -124,14 +152,14 @@ serve(async (req) => {
             }, { onConflict: 'post_id, platform' });
 
             return new Response(JSON.stringify({ success: false, error: errorMsg }), {
-                status: 400,
+                status: 200,
                 headers: { ...corsHeaders, 'Content-Type': 'application/json' }
             });
         }
 
     } catch (err: any) {
-        return new Response(JSON.stringify({ error: err.message }), {
-            status: 500,
+        return new Response(JSON.stringify({ success: false, error: err.message || 'Internal error' }), {
+            status: 200,
             headers: { ...corsHeaders, 'Content-Type': 'application/json' }
         });
     }
