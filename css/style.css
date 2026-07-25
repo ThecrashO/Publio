@@ -1,0 +1,129 @@
+/* ==================================================
+   PostPilot - Custom Design System & Stylesheet
+   File: css/style.css
+   ================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --pp-primary: #4f46e5;
+    --pp-primary-hover: #4338ca;
+    --pp-secondary: #06b6d4;
+    --pp-bg-dark: #0f172a;
+    --pp-card-bg: #1e293b;
+    --pp-border-color: #334155;
+    --pp-text-main: #f8fafc;
+    --pp-text-muted: #94a3b8;
+}
+
+body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: var(--pp-bg-dark);
+    color: var(--pp-text-main);
+    min-height: 100vh;
+}
+
+/* Navbar styling */
+.navbar-postpilot {
+    background-color: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--pp-border-color);
+}
+
+.brand-text {
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Card custom styling */
+.card-postpilot {
+    background-color: var(--pp-card-bg);
+    border: 1px solid var(--pp-border-color);
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+}
+
+.card-header-postpilot {
+    background-color: rgba(255, 255, 255, 0.03);
+    border-bottom: 1px solid var(--pp-border-color);
+    padding: 1rem 1.25rem;
+}
+
+/* Form Controls Dark Theme */
+.form-control, .form-select {
+    background-color: #0f172a;
+    border: 1px solid var(--pp-border-color);
+    color: var(--pp-text-main);
+    border-radius: 8px;
+}
+
+.form-control:focus, .form-select:focus {
+    background-color: #0f172a;
+    border-color: var(--pp-primary);
+    color: var(--pp-text-main);
+    box-shadow: 0 0 0 0.25rem rgba(79, 70, 229, 0.25);
+}
+
+.form-control::placeholder {
+    color: var(--pp-text-muted);
+}
+
+/* Buttons */
+.btn-postpilot-primary {
+    background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+    color: #ffffff;
+    border: none;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn-postpilot-primary:hover {
+    background: linear-gradient(135deg, #4338ca 0%, #4f46e5 100%);
+    color: #ffffff;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.35);
+}
+
+/* Stat Cards */
+.stat-card {
+    background-color: var(--pp-card-bg);
+    border: 1px solid var(--pp-border-color);
+    border-radius: 12px;
+    padding: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.stat-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+}
+
+/* Animations */
+.spin {
+    animation: spin-anim 1s linear infinite;
+}
+
+@keyframes spin-anim {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Platform badge icons */
+.platform-pill {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--pp-border-color);
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 0.875rem;
+}

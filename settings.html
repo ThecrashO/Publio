@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Settings - PostPilot</title>
+    <!-- CDN Dependencies -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-postpilot sticky-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="dashboard.html">
+                <i class="bi bi-send-fill text-primary"></i>
+                <span class="brand-text fw-bold fs-4">PostPilot</span>
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                    <li class="nav-item">
+                        <a class="nav-link fw-medium" href="dashboard.html"><i class="bi bi-speedometer2 me-1"></i> Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link fw-medium" href="posts.html"><i class="bi bi-file-earmark-post me-1"></i> Posts</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active fw-medium" href="settings.html"><i class="bi bi-gear me-1"></i> Social Settings</a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center gap-3">
+                    <span id="user-display-name" class="text-secondary small d-none d-sm-inline">...</span>
+                    <button id="btn-logout" class="btn btn-outline-danger btn-sm">
+                        <i class="bi bi-box-arrow-right me-1"></i> Logout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTAINER -->
+    <div class="container py-4">
+
+        <div class="mb-4">
+            <h2 class="fw-bold mb-1">Platform Connections</h2>
+            <p class="text-secondary small mb-0">Manage secure API credentials for publishing target platforms.</p>
+        </div>
+
+        <div id="settings-alert-container"></div>
+
+        <div class="row g-4">
+            <!-- PLATFORM STATUS SUMMARY -->
+            <div class="col-lg-5">
+                <div class="card card-postpilot mb-4">
+                    <div class="card-header card-header-postpilot">
+                        <h5 class="mb-0 fw-bold"><i class="bi bi-link-45deg me-2 text-primary"></i>Connected Accounts</h5>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="list-group list-group-flush border-0" id="platform-status-list">
+
+                            <!-- Telegram -->
+                            <div class="list-group-item bg-transparent text-white border-secondary p-3 d-flex align-items-center justify-content-between">
+                                <div class="d-flex align-items-center gap-3">
+                                    <i class="bi bi-telegram fs-3 text-info"></i>
+                                    <div>
+                                        <h6 class="mb-0 fw-semibold">Telegram Bot</h6>
+                                        <span id="status-badge-telegram" class="badge bg-secondary extra-small">Not Connected</span>
+                                        <div id="account-name-telegram" class="extra-small text-muted mt-1 d-none"></div>
+                                    </div>
+                                </div>
+                                <div class="d-flex gap-2 align-items-center">
+                                    <button type="button" class="btn btn-sm btn-outline-light" data-bs-toggle="collapse" data-bs-target="#telegram-config-card">
+                                        Configure
+                                    </button>
+                                    <button type="button" id="btn-disconnect-telegram-side" class="btn btn-sm btn-outline-danger d-none" onclick="disconnectPlatform('telegram')">
+                                        <i class="bi bi-x-lg"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Facebook -->
+                            <div class="list-group-item bg-transparent text-white border-secondary p-3 d-flex align-items-center justify-content-between">
+                                <div class="d-flex align-items-center gap-3">
+                                    <i class="bi bi-facebook fs-3 text-primary"></i>
+                                    <div>
+                                        <h6 class="mb-0 fw-semibold">Facebook Page</h6>
+                                        <span id="status-badge-facebook" class="badge bg-secondary extra-small">Not Connected</span>
+                                        <div id="account-name-facebook" class="extra-small text-muted mt-1 d-none"></div>
+                                    </div>
+                                </div>
+                                <div class="d-flex gap-2 align-items-center">
+                                    <button type="button" id="btn-connect-facebook" class="btn btn-sm btn-outline-primary" onclick="connectOAuth('facebook')">
+                                        <i class="bi bi-facebook me-1"></i> Connect
+                                    </button>
+                                    <button type="button" id="btn-disconnect-facebook" class="btn btn-sm btn-outline-danger d-none" onclick="disconnectPlatform('facebook')">
+                                        <i class="bi bi-x-lg"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Instagram -->
+                            <div class="list-group-item bg-transparent text-white border-secondary p-3 d-flex align-items-center justify-content-between">
+                                <div class="d-flex align-items-center gap-3">
+                                    <i class="bi bi-instagram fs-3 text-danger"></i>
+                                    <div>
+                                        <h6 class="mb-0 fw-semibold">Instagram Business</h6>
+                                        <span id="status-badge-instagram" class="badge bg-secondary extra-small">Not Connected</span>
+                                        <div id="account-name-instagram" class="extra-small text-muted mt-1 d-none"></div>
+                                    </div>
+                                </div>
+                                <div class="d-flex gap-2 align-items-center">
+                                    <button type="button" id="btn-connect-instagram" class="btn btn-sm btn-outline-danger" onclick="connectOAuth('instagram')">
+                                        <i class="bi bi-instagram me-1"></i> Connect
+                                    </button>
+                                    <button type="button" id="btn-disconnect-instagram" class="btn btn-sm btn-outline-danger d-none" onclick="disconnectPlatform('instagram')">
+                                        <i class="bi bi-x-lg"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- LinkedIn -->
+                            <div class="list-group-item bg-transparent text-white border-secondary p-3 d-flex align-items-center justify-content-between">
+                                <div class="d-flex align-items-center gap-3">
+                                    <i class="bi bi-linkedin fs-3 text-info"></i>
+                                    <div>
+                                        <h6 class="mb-0 fw-semibold">LinkedIn Profile</h6>
+                                        <span id="status-badge-linkedin" class="badge bg-secondary extra-small">Not Connected</span>
+                                        <div id="account-name-linkedin" class="extra-small text-muted mt-1 d-none"></div>
+                                    </div>
+                                </div>
+                                <div class="d-flex gap-2 align-items-center">
+                                    <button type="button" id="btn-connect-linkedin" class="btn btn-sm btn-outline-info" onclick="connectOAuth('linkedin')">
+                                        <i class="bi bi-linkedin me-1"></i> Connect
+                                    </button>
+                                    <button type="button" id="btn-disconnect-linkedin" class="btn btn-sm btn-outline-danger d-none" onclick="disconnectPlatform('linkedin')">
+                                        <i class="bi bi-x-lg"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- X (Twitter) -->
+                            <div class="list-group-item bg-transparent text-white border-secondary p-3 d-flex align-items-center justify-content-between">
+                                <div class="d-flex align-items-center gap-3">
+                                    <i class="bi bi-twitter-x fs-3 text-white"></i>
+                                    <div>
+                                        <h6 class="mb-0 fw-semibold">X (Twitter)</h6>
+                                        <span id="status-badge-x" class="badge bg-secondary extra-small">Not Connected</span>
+                                        <div id="account-name-x" class="extra-small text-muted mt-1 d-none"></div>
+                                    </div>
+                                </div>
+                                <div class="d-flex gap-2 align-items-center">
+                                    <button type="button" id="btn-connect-x" class="btn btn-sm btn-outline-light" onclick="connectOAuth('x')">
+                                        <i class="bi bi-twitter-x me-1"></i> Connect
+                                    </button>
+                                    <button type="button" id="btn-disconnect-x" class="btn btn-sm btn-outline-danger d-none" onclick="disconnectPlatform('x')">
+                                        <i class="bi bi-x-lg"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TELEGRAM CONFIGURATION FORM -->
+            <div class="col-lg-7">
+                <div id="telegram-config-card" class="card card-postpilot collapse show">
+                    <div class="card-header card-header-postpilot d-flex align-items-center justify-content-between">
+                        <h5 class="mb-0 fw-bold text-info"><i class="bi bi-telegram me-2"></i>Telegram Bot Configuration</h5>
+                        <span class="badge bg-primary">First-Class Platform</span>
+                    </div>
+                    <div class="card-body p-4">
+                        <form id="form-telegram-config">
+                            <!-- BOT TOKEN -->
+                            <div class="mb-3">
+                                <label for="tg-bot-token" class="form-label text-secondary small fw-medium">
+                                    Telegram Bot Token <span class="text-danger">*</span>
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-dark border-secondary text-secondary"><i class="bi bi-key"></i></span>
+                                    <input type="password" id="tg-bot-token" class="form-control" placeholder="123456789:ABCdefGhIJKlmNoPQRsTUVwxyZ" required>
+                                    <button type="button" id="btn-toggle-token" class="btn btn-outline-secondary">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+                                </div>
+                                <div class="form-text extra-small text-secondary">Obtained from Telegram @BotFather. Never exposed to browser visitors.</div>
+                            </div>
+
+                            <!-- CHANNEL ID -->
+                            <div class="mb-3">
+                                <label for="tg-chat-id" class="form-label text-secondary small fw-medium">
+                                    Telegram Channel / Chat ID <span class="text-danger">*</span>
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-dark border-secondary text-secondary"><i class="bi bi-hash"></i></span>
+                                    <input type="text" id="tg-chat-id" class="form-control" placeholder="-1001234567890 or @mychannelname" required>
+                                </div>
+                                <div class="form-text extra-small text-secondary">Unique channel ID (e.g. -100xxxxxxxxxx) or public channel handle.</div>
+                            </div>
+
+                            <!-- CHANNEL USERNAME (OPTIONAL) -->
+                            <div class="mb-4">
+                                <label for="tg-channel-username" class="form-label text-secondary small fw-medium">
+                                    Channel Username (Optional)
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-dark border-secondary text-secondary">@</span>
+                                    <input type="text" id="tg-channel-username" class="form-control" placeholder="mychannel">
+                                </div>
+                            </div>
+
+                            <div class="d-flex gap-3">
+                                <button type="submit" id="btn-save-telegram" class="btn btn-postpilot-primary w-100 py-2">
+                                    <i class="bi bi-check2-circle me-1"></i> Save Telegram Credentials
+                                </button>
+                                <button type="button" id="btn-disconnect-telegram" class="btn btn-outline-danger w-auto d-none">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </div>
+                        </form>
+
+                        <!-- TELEGRAM GUIDE ACCORDION -->
+                        <div class="accordion accordion-flush mt-4 border border-secondary rounded" id="tgGuideAccordion">
+                            <div class="accordion-item bg-transparent">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed bg-dark text-white extra-small fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#guideBody">
+                                        <i class="bi bi-info-circle me-2 text-info"></i> How to set up Telegram Bot & Channel (Step-by-Step)
+                                    </button>
+                                </h2>
+                                <div id="guideBody" class="accordion-collapse collapse" data-bs-parent="#tgGuideAccordion">
+                                    <div class="accordion-body extra-small text-secondary lh-lg">
+                                        <ol class="mb-0 ps-3">
+                                            <li>Open Telegram and search for <strong>@BotFather</strong>.</li>
+                                            <li>Send <code>/newbot</code>, choose a name and username for your Bot.</li>
+                                            <li>Copy the generated <strong>HTTP API Token</strong> and paste it into the field above.</li>
+                                            <li>Add your Bot as an <strong>Administrator</strong> inside your target Telegram Channel.</li>
+                                            <li>Ensure the Bot has administrative permission to <strong>Post Messages</strong>.</li>
+                                            <li>For channel ID, forward a message from your channel to <strong>@userinfobot</strong> or <strong>@RawDataBot</strong> to find your <code>-100...</code> ID.</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- =============================================
+             PLATFORM SETUP GUIDE CARDS (Below main row)
+             ============================================= -->
+
+        <!-- FACEBOOK SETUP GUIDE -->
+        <div class="card card-postpilot mt-4" id="facebook-setup-card">
+            <div class="card-header card-header-postpilot d-flex align-items-center justify-content-between">
+                <h5 class="mb-0 fw-bold text-primary"><i class="bi bi-facebook me-2"></i>Facebook Page — Setup Guide</h5>
+                <div class="d-flex gap-2 align-items-center">
+                    <span id="fb-card-status" class="badge bg-secondary small">Not Connected</span>
+                    <button type="button" id="btn-connect-facebook-card" class="btn btn-sm btn-primary" onclick="connectOAuth('facebook')">
+                        <i class="bi bi-facebook me-1"></i> Connect Facebook
+                    </button>
+                    <button type="button" id="btn-disconnect-facebook-card" class="btn btn-sm btn-outline-danger d-none" onclick="disconnectPlatform('facebook')">
+                        <i class="bi bi-x-lg me-1"></i> Disconnect
+                    </button>
+                </div>
+            </div>
+            <div class="card-body p-4">
+
+                <!-- App ID Input Field -->
+                <div class="mb-3">
+                    <label class="form-label text-secondary small fw-medium">Facebook App ID <span class="text-danger">*</span></label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-dark border-secondary text-secondary"><i class="bi bi-app"></i></span>
+                        <input type="text" id="facebook-app-id" class="form-control" placeholder="1234567890123456">
+                    </div>
+                    <div class="form-text extra-small text-secondary">From Facebook Developers → Your App → Settings → Basic → App ID</div>
+                </div>
+
+                <!-- Step-by-Step Guide -->
+                <div class="accordion accordion-flush border border-secondary rounded" id="fbGuideAccordion">
+                    <div class="accordion-item bg-transparent">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed bg-dark text-white extra-small fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#fbGuideBody">
+                                <i class="bi bi-info-circle me-2 text-primary"></i> How to create a Facebook App & get App ID (Step-by-Step)
+                            </button>
+                        </h2>
+                        <div id="fbGuideBody" class="accordion-collapse collapse" data-bs-parent="#fbGuideAccordion">
+                            <div class="accordion-body extra-small text-secondary lh-lg">
+                                <ol class="ps-3 mb-2">
+                                    <li>Go to <a href="https://developers.facebook.com/apps" target="_blank" class="text-primary">developers.facebook.com/apps</a> and log in with your Facebook account.</li>
+                                    <li>Click <strong>"Create App"</strong> → Choose type <strong>"Other"</strong> → <strong>"Business"</strong> → Give it any name (e.g., PostPilot).</li>
+                                    <li>Inside the app, go to <strong>Settings → Basic</strong>. Copy your <strong>App ID</strong> and paste it into the field above.</li>
+                                    <li>Copy your <strong>App Secret</strong> (click Show) → You'll need to add this to Supabase Secrets.</li>
+                                    <li>In the left sidebar, click <strong>"Add Product"</strong> → Set up <strong>Facebook Login for Business</strong>.</li>
+                                    <li>Go to <strong>Facebook Login → Settings</strong> → Under <em>"Valid OAuth Redirect URIs"</em>, add this URL:</li>
+                                </ol>
+                                <div class="bg-dark border border-secondary rounded p-2 mb-2 font-monospace" style="font-size:10px; word-break:break-all;">
+                                    https://chzcqxzebsxiqgxbmurq.supabase.co/functions/v1/oauth-facebook-callback
+                                </div>
+                                <ol class="ps-3 mb-2" start="7">
+                                    <li>Click <strong>"Save Changes"</strong>.</li>
+                                    <li>In your terminal, run:</li>
+                                </ol>
+                                <div class="bg-dark border border-secondary rounded p-2 mb-2 font-monospace" style="font-size:10px;">
+                                    npx supabase secrets set FACEBOOK_APP_ID=your_app_id<br>
+                                    npx supabase secrets set FACEBOOK_APP_SECRET=your_app_secret<br>
+                                    npx supabase secrets set SITE_URL=http://localhost:8080
+                                </div>
+                                <ol class="ps-3 mb-0" start="9">
+                                    <li>Paste your App ID above and click <strong>"Connect Facebook"</strong>.</li>
+                                    <li>Authorize and you'll be redirected back here with status <span class="badge bg-success" style="font-size:9px;">Connected</span>.</li>
+                                </ol>
+                                <div class="alert alert-warning py-2 px-3 mt-3 extra-small">
+                                    <i class="bi bi-exclamation-triangle me-1"></i> You must have a <strong>Facebook Page</strong> to publish posts. Personal profiles are not supported by the API.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- INSTAGRAM SETUP GUIDE -->
+        <div class="card card-postpilot mt-4" id="instagram-setup-card">
+            <div class="card-header card-header-postpilot d-flex align-items-center justify-content-between">
+                <h5 class="mb-0 fw-bold" style="color:#e1306c;"><i class="bi bi-instagram me-2"></i>Instagram Business — Setup Guide</h5>
+                <div class="d-flex gap-2 align-items-center">
+                    <span id="ig-card-status" class="badge bg-secondary small">Not Connected</span>
+                    <button type="button" id="btn-connect-instagram-card" class="btn btn-sm" style="background:#e1306c;border-color:#e1306c;color:#fff;" onclick="connectOAuth('instagram')">
+                        <i class="bi bi-instagram me-1"></i> Connect Instagram
+                    </button>
+                    <button type="button" id="btn-disconnect-instagram-card" class="btn btn-sm btn-outline-danger d-none" onclick="disconnectPlatform('instagram')">
+                        <i class="bi bi-x-lg me-1"></i> Disconnect
+                    </button>
+                </div>
+            </div>
+            <div class="card-body p-4">
+
+                <div class="mb-3">
+                    <label class="form-label text-secondary small fw-medium">Facebook App ID <span class="text-muted small">(Instagram uses the same Facebook App)</span></label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-dark border-secondary text-secondary"><i class="bi bi-app"></i></span>
+                        <input type="text" id="instagram-app-id" class="form-control" placeholder="Same App ID as Facebook above">
+                    </div>
+                </div>
+
+                <div class="accordion accordion-flush border border-secondary rounded" id="igGuideAccordion">
+                    <div class="accordion-item bg-transparent">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed bg-dark text-white extra-small fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#igGuideBody">
+                                <i class="bi bi-info-circle me-2" style="color:#e1306c;"></i> How to connect Instagram Business Account (Step-by-Step)
+                            </button>
+                        </h2>
+                        <div id="igGuideBody" class="accordion-collapse collapse" data-bs-parent="#igGuideAccordion">
+                            <div class="accordion-body extra-small text-secondary lh-lg">
+                                <div class="alert alert-info py-2 px-3 mb-3 extra-small">
+                                    <i class="bi bi-info-circle me-1"></i> Instagram uses the <strong>same Facebook App</strong>. If you've already done the Facebook setup, skip to Step 4.
+                                </div>
+                                <ol class="ps-3 mb-2">
+                                    <li>Inside your Facebook App (from Facebook setup above), click <strong>"Add Product"</strong> → Set up <strong>Instagram Graph API</strong>.</li>
+                                    <li>Go to <strong>Facebook Login → Settings</strong> → Add this redirect URI:</li>
+                                </ol>
+                                <div class="bg-dark border border-secondary rounded p-2 mb-2 font-monospace" style="font-size:10px; word-break:break-all;">
+                                    https://chzcqxzebsxiqgxbmurq.supabase.co/functions/v1/oauth-instagram-callback
+                                </div>
+                                <ol class="ps-3 mb-2" start="3">
+                                    <li>Make sure your Instagram account is set to <strong>Business</strong> or <strong>Creator</strong>:
+                                        <br>Instagram App → Profile → Settings → Account type → Switch to Professional.
+                                    </li>
+                                    <li>Link your Instagram to a <strong>Facebook Page</strong>:
+                                        <br>Facebook Page → Settings → Linked Accounts → Instagram → Connect.
+                                    </li>
+                                    <li>Paste the Facebook App ID in the field above and click <strong>"Connect Instagram"</strong>.</li>
+                                    <li>Authorize permissions — PostPilot will automatically detect your linked Instagram Business account.</li>
+                                </ol>
+                                <div class="alert alert-warning py-2 px-3 mt-3 extra-small">
+                                    <i class="bi bi-exclamation-triangle me-1"></i> Instagram API <strong>does not support personal accounts</strong>. Only Business or Creator accounts linked to a Facebook Page can publish posts via API.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- LINKEDIN SETUP GUIDE -->
+        <div class="card card-postpilot mt-4" id="linkedin-setup-card">
+            <div class="card-header card-header-postpilot d-flex align-items-center justify-content-between">
+                <h5 class="mb-0 fw-bold text-info"><i class="bi bi-linkedin me-2"></i>LinkedIn Profile — Setup Guide</h5>
+                <div class="d-flex gap-2 align-items-center">
+                    <span id="li-card-status" class="badge bg-secondary small">Not Connected</span>
+                    <button type="button" id="btn-connect-linkedin-card" class="btn btn-sm btn-info" onclick="connectOAuth('linkedin')" style="color:#fff;">
+                        <i class="bi bi-linkedin me-1"></i> Connect LinkedIn
+                    </button>
+                    <button type="button" id="btn-disconnect-linkedin-card" class="btn btn-sm btn-outline-danger d-none" onclick="disconnectPlatform('linkedin')">
+                        <i class="bi bi-x-lg me-1"></i> Disconnect
+                    </button>
+                </div>
+            </div>
+            <div class="card-body p-4">
+
+                <div class="mb-3">
+                    <label class="form-label text-secondary small fw-medium">LinkedIn Client ID <span class="text-danger">*</span></label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-dark border-secondary text-secondary"><i class="bi bi-key"></i></span>
+                        <input type="text" id="linkedin-client-id" class="form-control" placeholder="86xxxxxxxxxxxxxxxx">
+                    </div>
+                    <div class="form-text extra-small text-secondary">From LinkedIn Developers → Your App → Auth → Client ID</div>
+                </div>
+
+                <div class="accordion accordion-flush border border-secondary rounded" id="liGuideAccordion">
+                    <div class="accordion-item bg-transparent">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed bg-dark text-white extra-small fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#liGuideBody">
+                                <i class="bi bi-info-circle me-2 text-info"></i> How to create a LinkedIn App & get Client ID (Step-by-Step)
+                            </button>
+                        </h2>
+                        <div id="liGuideBody" class="accordion-collapse collapse" data-bs-parent="#liGuideAccordion">
+                            <div class="accordion-body extra-small text-secondary lh-lg">
+                                <ol class="ps-3 mb-2">
+                                    <li>Go to <a href="https://www.linkedin.com/developers/apps" target="_blank" class="text-info">linkedin.com/developers/apps</a> and sign in.</li>
+                                    <li>Click <strong>"Create App"</strong> → Fill in App Name, LinkedIn Page (create one if needed), and App Logo.</li>
+                                    <li>Go to the <strong>"Auth"</strong> tab. Copy your <strong>Client ID</strong> and <strong>Client Secret</strong>.</li>
+                                    <li>Under <em>"Authorized Redirect URLs"</em>, add:</li>
+                                </ol>
+                                <div class="bg-dark border border-secondary rounded p-2 mb-2 font-monospace" style="font-size:10px; word-break:break-all;">
+                                    https://chzcqxzebsxiqgxbmurq.supabase.co/functions/v1/oauth-linkedin-callback
+                                </div>
+                                <ol class="ps-3 mb-2" start="5">
+                                    <li>Go to <strong>"Products"</strong> tab → Request access to:
+                                        <ul class="mt-1">
+                                            <li><strong>Share on LinkedIn</strong></li>
+                                            <li><strong>Sign In with LinkedIn using OpenID Connect</strong></li>
+                                        </ul>
+                                    </li>
+                                    <li>In your terminal, run:</li>
+                                </ol>
+                                <div class="bg-dark border border-secondary rounded p-2 mb-2 font-monospace" style="font-size:10px;">
+                                    npx supabase secrets set LINKEDIN_CLIENT_ID=your_client_id<br>
+                                    npx supabase secrets set LINKEDIN_CLIENT_SECRET=your_client_secret
+                                </div>
+                                <ol class="ps-3 mb-0" start="7">
+                                    <li>Paste Client ID above and click <strong>"Connect LinkedIn"</strong>.</li>
+                                    <li>Authorize on LinkedIn → redirected back with <span class="badge bg-success" style="font-size:9px;">Connected</span>.</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- X (TWITTER) SETUP GUIDE -->
+        <div class="card card-postpilot mt-4 mb-5" id="x-setup-card">
+            <div class="card-header card-header-postpilot d-flex align-items-center justify-content-between">
+                <h5 class="mb-0 fw-bold text-white"><i class="bi bi-twitter-x me-2"></i>X (Twitter) — Setup Guide</h5>
+                <div class="d-flex gap-2 align-items-center">
+                    <span id="x-card-status" class="badge bg-secondary small">Not Connected</span>
+                    <button type="button" id="btn-connect-x-card" class="btn btn-sm btn-light" onclick="connectOAuth('x')">
+                        <i class="bi bi-twitter-x me-1"></i> Connect X
+                    </button>
+                    <button type="button" id="btn-disconnect-x-card" class="btn btn-sm btn-outline-danger d-none" onclick="disconnectPlatform('x')">
+                        <i class="bi bi-x-lg me-1"></i> Disconnect
+                    </button>
+                </div>
+            </div>
+            <div class="card-body p-4">
+
+                <div class="mb-3">
+                    <label class="form-label text-secondary small fw-medium">X (Twitter) Client ID <span class="text-danger">*</span></label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-dark border-secondary text-secondary"><i class="bi bi-key"></i></span>
+                        <input type="text" id="x-client-id" class="form-control" placeholder="xxxxxxxxxxxxxxxxxxxxxxxxxx">
+                    </div>
+                    <div class="form-text extra-small text-secondary">From X Developer Portal → Your App → Keys and Tokens → Client ID</div>
+                </div>
+
+                <div class="accordion accordion-flush border border-secondary rounded" id="xGuideAccordion">
+                    <div class="accordion-item bg-transparent">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed bg-dark text-white extra-small fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#xGuideBody">
+                                <i class="bi bi-info-circle me-2 text-light"></i> How to create an X Developer App & enable OAuth 2.0 (Step-by-Step)
+                            </button>
+                        </h2>
+                        <div id="xGuideBody" class="accordion-collapse collapse" data-bs-parent="#xGuideAccordion">
+                            <div class="accordion-body extra-small text-secondary lh-lg">
+                                <ol class="ps-3 mb-2">
+                                    <li>Go to <a href="https://developer.twitter.com/en/portal/dashboard" target="_blank" class="text-light">developer.twitter.com/portal/dashboard</a> and sign in with your X account.</li>
+                                    <li>Click <strong>"+ Create Project"</strong> → Name it (e.g., PostPilot) → Create an App inside it.</li>
+                                    <li>Inside the App, scroll to <strong>"User authentication settings"</strong> → Click <strong>"Set up"</strong>:
+                                        <ul class="mt-1">
+                                            <li>OAuth 2.0 → <strong>On</strong></li>
+                                            <li>App type → <strong>"Web App, Automated App or Bot"</strong></li>
+                                            <li>Callback URI / Redirect URL → paste this:</li>
+                                        </ul>
+                                    </li>
+                                </ol>
+                                <div class="bg-dark border border-secondary rounded p-2 mb-2 font-monospace" style="font-size:10px; word-break:break-all;">
+                                    https://chzcqxzebsxiqgxbmurq.supabase.co/functions/v1/oauth-x-callback
+                                </div>
+                                <ol class="ps-3 mb-2" start="4">
+                                    <li>Website URL → <code>http://localhost:8080</code></li>
+                                    <li>Click <strong>"Save"</strong>. Now go to <strong>"Keys and Tokens"</strong> tab.</li>
+                                    <li>Under <em>"OAuth 2.0 Client ID and Client Secret"</em> → copy both values.</li>
+                                    <li>In your terminal, run:</li>
+                                </ol>
+                                <div class="bg-dark border border-secondary rounded p-2 mb-2 font-monospace" style="font-size:10px;">
+                                    npx supabase secrets set X_CLIENT_ID=your_client_id<br>
+                                    npx supabase secrets set X_CLIENT_SECRET=your_client_secret
+                                </div>
+                                <ol class="ps-3 mb-0" start="8">
+                                    <li>Paste Client ID above and click <strong>"Connect X"</strong>.</li>
+                                    <li>Authorize on X → redirected back with <span class="badge bg-success" style="font-size:9px;">Connected</span>.</li>
+                                </ol>
+                                <div class="alert alert-info py-2 px-3 mt-3 extra-small">
+                                    <i class="bi bi-shield-check me-1"></i> X uses <strong>OAuth 2.0 with PKCE</strong> — PostPilot automatically generates a secure code challenge. Your credentials are never stored in the browser.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.48.1/dist/umd/supabase.min.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/supabase.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/platforms.js"></script>
+    <script>
+        let currentUser = null;
+
+        // =============================================
+        // Platform OAuth Configuration
+        // =============================================
+        const OAUTH_CONFIG = {
+            facebook: {
+                appId: '',  // Set via Supabase Secret — FACEBOOK_APP_ID
+                scopes: 'pages_manage_posts,pages_read_engagement,pages_show_list',
+                authUrl: 'https://www.facebook.com/v19.0/dialog/oauth'
+            },
+            instagram: {
+                appId: '',  // Same app as Facebook — FACEBOOK_APP_ID
+                scopes: 'instagram_basic,instagram_content_publish,pages_manage_posts,pages_show_list',
+                authUrl: 'https://www.facebook.com/v19.0/dialog/oauth'
+            },
+            linkedin: {
+                clientId: '',  // Set via Supabase Secret — LINKEDIN_CLIENT_ID
+                scopes: 'openid profile email w_member_social',
+                authUrl: 'https://www.linkedin.com/oauth/v2/authorization'
+            },
+            x: {
+                clientId: '',  // Set via Supabase Secret — X_CLIENT_ID
+                scopes: 'tweet.read tweet.write users.read offline.access',
+                authUrl: 'https://twitter.com/i/oauth2/authorize'
+            }
+        };
+
+        const SUPABASE_URL = SUPABASE_CONFIG.url;
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            currentUser = await Auth.requireAuth();
+            if (!currentUser) return;
+
+            document.getElementById('user-display-name').textContent = currentUser.email;
+            document.getElementById('btn-logout').addEventListener('click', () => Auth.signOut());
+
+            // Handle OAuth callback result (?connected=platform or ?error=...)
+            const params = new URLSearchParams(window.location.search);
+            if (params.get('connected')) {
+                const p = params.get('connected');
+                UI.showToast(`${Utils.getPlatformConfig(p).name} connected successfully!`, 'success', 'Connected ✅');
+                window.history.replaceState(null, null, 'settings.html');
+            }
+            if (params.get('error')) {
+                const errMessages = {
+                    facebook_no_pages: 'No Facebook Pages found. Please create a Facebook Page first.',
+                    instagram_no_business_account: 'No Instagram Business Account found. Link your Instagram to a Facebook Page and convert to Business/Creator account.',
+                    facebook_denied: 'Facebook authorization was cancelled.',
+                    linkedin_denied: 'LinkedIn authorization was cancelled.',
+                    x_denied: 'X authorization was cancelled.',
+                };
+                const errKey = params.get('error');
+                const msg = errMessages[errKey] || `Connection failed: ${errKey}`;
+                UI.showAlert('settings-alert-container', msg, 'danger');
+                window.history.replaceState(null, null, 'settings.html');
+            }
+
+            await loadPlatformStatuses();
+
+            // Telegram token toggle
+            const btnToggleToken = document.getElementById('btn-toggle-token');
+            const tokenInput = document.getElementById('tg-bot-token');
+            btnToggleToken.addEventListener('click', () => {
+                const type = tokenInput.type === 'password' ? 'text' : 'password';
+                tokenInput.type = type;
+                btnToggleToken.innerHTML = type === 'password' ? '<i class="bi bi-eye"></i>' : '<i class="bi bi-eye-slash"></i>';
+            });
+
+            // Save Telegram Settings
+            document.getElementById('form-telegram-config').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                UI.clearAlert('settings-alert-container');
+                const botToken = document.getElementById('tg-bot-token').value.trim();
+                const chatId = document.getElementById('tg-chat-id').value.trim();
+                const channelUsername = document.getElementById('tg-channel-username').value.trim();
+                const btnSave = document.getElementById('btn-save-telegram');
+                UI.setLoading(btnSave, true, 'Saving...');
+                try {
+                    await Platforms.saveTelegramAccount(currentUser.id, botToken, chatId, channelUsername);
+                    UI.setLoading(btnSave, false);
+                    UI.showToast('Telegram connection saved!', 'success', 'Telegram');
+                    await loadPlatformStatuses();
+                } catch (err) {
+                    UI.setLoading(btnSave, false);
+                    UI.showAlert('settings-alert-container', err.message || 'Failed to save Telegram credentials.');
+                }
+            });
+
+            // Disconnect Telegram (from form card)
+            document.getElementById('btn-disconnect-telegram').addEventListener('click', async () => {
+                if (!confirm('Disconnect Telegram?')) return;
+                await disconnectPlatform('telegram');
+                document.getElementById('tg-bot-token').value = '';
+                document.getElementById('tg-chat-id').value = '';
+                document.getElementById('tg-channel-username').value = '';
+            });
+        });
+
+        // =============================================
+        // OAuth Connect — redirect to platform auth
+        // =============================================
+        window.connectOAuth = async function(platform) {
+            // Encode user ID in state for the callback Edge Function
+            const state = btoa(JSON.stringify({ userId: currentUser.id, platform, ts: Date.now() }));
+            const callbackBase = `${SUPABASE_URL}/functions/v1/oauth-${platform}-callback`;
+
+            let authUrl = '';
+
+            if (platform === 'facebook') {
+                const params = new URLSearchParams({
+                    client_id: document.getElementById('btn-connect-facebook').dataset.appId || prompt('Enter your Facebook App ID:') || '',
+                    redirect_uri: callbackBase,
+                    scope: OAUTH_CONFIG.facebook.scopes,
+                    state: state,
+                    response_type: 'code'
+                });
+                if (!params.get('client_id')) { UI.showToast('Facebook App ID is required. Check setup guide.', 'warning'); return; }
+                authUrl = `${OAUTH_CONFIG.facebook.authUrl}?${params}`;
+
+            } else if (platform === 'instagram') {
+                const params = new URLSearchParams({
+                    client_id: prompt('Enter your Facebook App ID (used for Instagram too):') || '',
+                    redirect_uri: `${SUPABASE_URL}/functions/v1/oauth-instagram-callback`,
+                    scope: OAUTH_CONFIG.instagram.scopes,
+                    state: state,
+                    response_type: 'code'
+                });
+                if (!params.get('client_id')) { UI.showToast('Facebook App ID is required.', 'warning'); return; }
+                authUrl = `${OAUTH_CONFIG.instagram.authUrl}?${params}`;
+
+            } else if (platform === 'linkedin') {
+                const clientId = prompt('Enter your LinkedIn Client ID:') || '';
+                if (!clientId) { UI.showToast('LinkedIn Client ID is required.', 'warning'); return; }
+                const params = new URLSearchParams({
+                    response_type: 'code',
+                    client_id: clientId,
+                    redirect_uri: callbackBase,
+                    scope: OAUTH_CONFIG.linkedin.scopes,
+                    state: state
+                });
+                authUrl = `${OAUTH_CONFIG.linkedin.authUrl}?${params}`;
+
+            } else if (platform === 'x') {
+                const clientId = prompt('Enter your X (Twitter) Client ID:') || '';
+                if (!clientId) { UI.showToast('X Client ID is required.', 'warning'); return; }
+                // X requires PKCE — generate code verifier & challenge
+                const codeVerifier = generateRandomString(64);
+                const codeChallenge = await generateCodeChallenge(codeVerifier);
+                const xState = btoa(JSON.stringify({ userId: currentUser.id, platform: 'x', ts: Date.now(), codeVerifier }));
+
+                const params = new URLSearchParams({
+                    response_type: 'code',
+                    client_id: clientId,
+                    redirect_uri: callbackBase,
+                    scope: OAUTH_CONFIG.x.scopes,
+                    state: xState,
+                    code_challenge: codeChallenge,
+                    code_challenge_method: 'S256'
+                });
+                authUrl = `${OAUTH_CONFIG.x.authUrl}?${params}`;
+            }
+
+            if (authUrl) {
+                window.location.href = authUrl;
+            }
+        };
+
+        // =============================================
+        // Disconnect Platform
+        // =============================================
+        window.disconnectPlatform = async function(platform) {
+            const pName = Utils.getPlatformConfig(platform).name;
+            if (!confirm(`Are you sure you want to disconnect ${pName}?`)) return;
+            try {
+                await Platforms.disconnectAccount(currentUser.id, platform);
+                UI.showToast(`${pName} disconnected.`, 'info');
+                await loadPlatformStatuses();
+            } catch (err) {
+                UI.showAlert('settings-alert-container', err.message);
+            }
+        };
+
+        // =============================================
+        // Load & Render Platform Connection Statuses
+        // =============================================
+        async function loadPlatformStatuses() {
+            const accounts = await Platforms.getUserAccounts(currentUser.id);
+            const platforms = ['telegram', 'facebook', 'instagram', 'linkedin', 'x'];
+
+            platforms.forEach(p => {
+                const account = accounts.find(a => a.platform === p);
+                const badge = document.getElementById(`status-badge-${p}`);
+                const nameEl = document.getElementById(`account-name-${p}`);
+                const connectBtn = document.getElementById(`btn-connect-${p}`);
+                const disconnectBtn = document.getElementById(`btn-disconnect-${p}`);
+
+                if (account) {
+                    if (badge) { badge.className = 'badge bg-success extra-small'; badge.textContent = 'Connected'; }
+                    if (nameEl) { nameEl.textContent = account.account_name || ''; nameEl.classList.remove('d-none'); }
+                    if (connectBtn) connectBtn.classList.add('d-none');
+                    if (disconnectBtn) disconnectBtn.classList.remove('d-none');
+                } else {
+                    if (badge) { badge.className = 'badge bg-secondary extra-small'; badge.textContent = 'Not Connected'; }
+                    if (nameEl) { nameEl.classList.add('d-none'); }
+                    if (connectBtn) connectBtn.classList.remove('d-none');
+                    if (disconnectBtn) disconnectBtn.classList.add('d-none');
+                }
+            });
+
+            // Telegram-specific: also update form card disconnect button
+            const tgAccount = accounts.find(a => a.platform === 'telegram');
+            const btnTgSide = document.getElementById('btn-disconnect-telegram-side');
+            const btnTgForm = document.getElementById('btn-disconnect-telegram');
+            if (tgAccount) {
+                if (btnTgSide) btnTgSide.classList.remove('d-none');
+                if (btnTgForm) btnTgForm.classList.remove('d-none');
+                if (tgAccount.metadata) {
+                    document.getElementById('tg-bot-token').value = tgAccount.metadata.bot_token || '';
+                    document.getElementById('tg-chat-id').value = tgAccount.metadata.chat_id || '';
+                    document.getElementById('tg-channel-username').value = tgAccount.metadata.channel_username || '';
+                }
+            } else {
+                if (btnTgSide) btnTgSide.classList.add('d-none');
+                if (btnTgForm) btnTgForm.classList.add('d-none');
+            }
+        }
+
+        // =============================================
+        // PKCE Helpers for X OAuth 2.0
+        // =============================================
+        function generateRandomString(length) {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~';
+            const array = new Uint8Array(length);
+            crypto.getRandomValues(array);
+            return Array.from(array, b => chars[b % chars.length]).join('');
+        }
+
+        async function generateCodeChallenge(verifier) {
+            const encoder = new TextEncoder();
+            const data = encoder.encode(verifier);
+            const digest = await crypto.subtle.digest('SHA-256', data);
+            return btoa(String.fromCharCode(...new Uint8Array(digest)))
+                .replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+        }
+    </script>
+</body>
+</html>
