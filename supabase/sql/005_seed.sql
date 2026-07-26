@@ -1,9 +1,9 @@
--- =================================================═
--- PostPilot - Optional Verification & Seed Script
+﻿-- =================================================â•
+-- Publio - Optional Verification & Seed Script
 -- File: 005_seed.sql
--- =================================================═
+-- =================================================â•
 
--- Run this query to verify that all PostPilot tables and triggers have been created properly:
+-- Run this query to verify that all Publio tables and triggers have been created properly:
 SELECT table_name 
 FROM information_schema.tables 
 WHERE table_schema = 'public' 

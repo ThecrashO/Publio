@@ -1,5 +1,5 @@
-// ==================================================
-// PostPilot - Storage File Management Helper
+﻿// ==================================================
+// Publio - Storage File Management Helper
 // File: js/storage.js
 // ==================================================
 

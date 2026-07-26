@@ -1,5 +1,5 @@
-// ==================================================
-// PostPilot - Supabase Client Initialization
+﻿// ==================================================
+// Publio - Supabase Client Initialization
 // File: js/supabase.js
 // ==================================================
 

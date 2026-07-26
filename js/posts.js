@@ -1,5 +1,5 @@
-// ==================================================
-// PostPilot - Post Management & Publishing Orchestrator
+﻿// ==================================================
+// Publio - Post Management & Publishing Orchestrator
 // File: js/posts.js
 // ==================================================
 

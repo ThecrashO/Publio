@@ -1,7 +1,7 @@
--- =================================================═
--- PostPilot - Database Functions & Automation Triggers
+﻿-- =================================================â•
+-- Publio - Database Functions & Automation Triggers
 -- File: 004_functions.sql
--- =================================================═
+-- =================================================â•
 
 -- 1. AUTOMATIC UPDATED_AT TRIGGER FUNCTION
 CREATE OR REPLACE FUNCTION public.handle_updated_at()

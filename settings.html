@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" data-bs-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Social Settings - PostPilot</title>
+    <title>Social Settings - Publio</title>
     <link rel="icon" type="image/png" href="assets/logo.png">
     <!-- CDN Dependencies -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -13,11 +13,11 @@
 <body>
 
     <!-- NAVBAR -->
-    <nav class="navbar navbar-expand-lg navbar-postpilot sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-publio sticky-top">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center gap-2" href="dashboard.html">
-                <img src="assets/logo.png" alt="PostPilot Logo" class="app-logo">
-                <span class="brand-text fw-bold fs-4">PostPilot</span>
+                <img src="assets/logo.png" alt="Publio Logo" class="app-logo">
+                <span class="brand-text fw-bold fs-4">Publio</span>
             </a>
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -57,8 +57,8 @@
         <div class="row g-4">
             <!-- PLATFORM STATUS SUMMARY -->
             <div class="col-lg-5">
-                <div class="card card-postpilot mb-4">
-                    <div class="card-header card-header-postpilot">
+                <div class="card card-publio mb-4">
+                    <div class="card-header card-header-publio">
                         <h5 class="mb-0 fw-bold"><i class="bi bi-link-45deg me-2 text-primary"></i>Connected Accounts</h5>
                     </div>
                     <div class="card-body p-0">
@@ -171,8 +171,8 @@
 
             <!-- TELEGRAM CONFIGURATION FORM -->
             <div class="col-lg-7">
-                <div id="telegram-config-card" class="card card-postpilot collapse show">
-                    <div class="card-header card-header-postpilot d-flex align-items-center justify-content-between">
+                <div id="telegram-config-card" class="card card-publio collapse show">
+                    <div class="card-header card-header-publio d-flex align-items-center justify-content-between">
                         <h5 class="mb-0 fw-bold text-info"><i class="bi bi-telegram me-2"></i>Telegram Bot Configuration</h5>
                         <span class="badge bg-primary">First-Class Platform</span>
                     </div>
@@ -217,7 +217,7 @@
                             </div>
 
                             <div class="d-flex gap-3">
-                                <button type="submit" id="btn-save-telegram" class="btn btn-postpilot-primary w-100 py-2">
+                                <button type="submit" id="btn-save-telegram" class="btn btn-publio-primary w-100 py-2">
                                     <i class="bi bi-check2-circle me-1"></i> Save Telegram Credentials
                                 </button>
                                 <button type="button" id="btn-disconnect-telegram" class="btn btn-outline-danger w-auto d-none">
@@ -259,9 +259,9 @@
              ============================================= -->
 
         <!-- FACEBOOK SETUP GUIDE -->
-        <div class="card card-postpilot mt-4" id="facebook-setup-card">
-            <div class="card-header card-header-postpilot d-flex align-items-center justify-content-between">
-                <h5 class="mb-0 fw-bold text-primary"><i class="bi bi-facebook me-2"></i>Facebook Page — Setup Guide</h5>
+        <div class="card card-publio mt-4" id="facebook-setup-card">
+            <div class="card-header card-header-publio d-flex align-items-center justify-content-between">
+                <h5 class="mb-0 fw-bold text-primary"><i class="bi bi-facebook me-2"></i>Facebook Page â€” Setup Guide</h5>
                 <div class="d-flex gap-2 align-items-center">
                     <span id="fb-card-status" class="badge bg-secondary small">Not Connected</span>
                     <button type="button" id="btn-connect-facebook-card" class="btn btn-sm btn-primary" onclick="connectOAuth('facebook')">
@@ -281,7 +281,7 @@
                         <span class="input-group-text bg-dark border-secondary text-secondary"><i class="bi bi-app"></i></span>
                         <input type="text" id="facebook-app-id" class="form-control" placeholder="1234567890123456">
                     </div>
-                    <div class="form-text extra-small text-secondary">From Facebook Developers → Your App → Settings → Basic → App ID</div>
+                    <div class="form-text extra-small text-secondary">From Facebook Developers â†’ Your App â†’ Settings â†’ Basic â†’ App ID</div>
                 </div>
 
                 <!-- Step-by-Step Guide -->
@@ -296,11 +296,11 @@
                             <div class="accordion-body extra-small text-secondary lh-lg">
                                 <ol class="ps-3 mb-2">
                                     <li>Go to <a href="https://developers.facebook.com/apps" target="_blank" class="text-primary">developers.facebook.com/apps</a> and log in with your Facebook account.</li>
-                                    <li>Click <strong>"Create App"</strong> → Choose type <strong>"Other"</strong> → <strong>"Business"</strong> → Give it any name (e.g., PostPilot).</li>
-                                    <li>Inside the app, go to <strong>Settings → Basic</strong>. Copy your <strong>App ID</strong> and paste it into the field above.</li>
-                                    <li>Copy your <strong>App Secret</strong> (click Show) → You'll need to add this to Supabase Secrets.</li>
-                                    <li>In the left sidebar, click <strong>"Add Product"</strong> → Set up <strong>Facebook Login for Business</strong>.</li>
-                                    <li>Go to <strong>Facebook Login → Settings</strong> → Under <em>"Valid OAuth Redirect URIs"</em>, add this URL:</li>
+                                    <li>Click <strong>"Create App"</strong> â†’ Choose type <strong>"Other"</strong> â†’ <strong>"Business"</strong> â†’ Give it any name (e.g., Publio).</li>
+                                    <li>Inside the app, go to <strong>Settings â†’ Basic</strong>. Copy your <strong>App ID</strong> and paste it into the field above.</li>
+                                    <li>Copy your <strong>App Secret</strong> (click Show) â†’ You'll need to add this to Supabase Secrets.</li>
+                                    <li>In the left sidebar, click <strong>"Add Product"</strong> â†’ Set up <strong>Facebook Login for Business</strong>.</li>
+                                    <li>Go to <strong>Facebook Login â†’ Settings</strong> â†’ Under <em>"Valid OAuth Redirect URIs"</em>, add this URL:</li>
                                 </ol>
                                 <div class="bg-dark border border-secondary rounded p-2 mb-2 font-monospace" style="font-size:10px; word-break:break-all;">
                                     https://chzcqxzebsxiqgxbmurq.supabase.co/functions/v1/oauth-facebook-callback
@@ -330,9 +330,9 @@
         </div>
 
         <!-- INSTAGRAM SETUP GUIDE -->
-        <div class="card card-postpilot mt-4" id="instagram-setup-card">
-            <div class="card-header card-header-postpilot d-flex align-items-center justify-content-between">
-                <h5 class="mb-0 fw-bold" style="color:#e1306c;"><i class="bi bi-instagram me-2"></i>Instagram Business — Setup Guide</h5>
+        <div class="card card-publio mt-4" id="instagram-setup-card">
+            <div class="card-header card-header-publio d-flex align-items-center justify-content-between">
+                <h5 class="mb-0 fw-bold" style="color:#e1306c;"><i class="bi bi-instagram me-2"></i>Instagram Business â€” Setup Guide</h5>
                 <div class="d-flex gap-2 align-items-center">
                     <span id="ig-card-status" class="badge bg-secondary small">Not Connected</span>
                     <button type="button" id="btn-connect-instagram-card" class="btn btn-sm" style="background:#e1306c;border-color:#e1306c;color:#fff;" onclick="connectOAuth('instagram')">
@@ -366,21 +366,21 @@
                                     <i class="bi bi-info-circle me-1"></i> Instagram uses the <strong>same Facebook App</strong>. If you've already done the Facebook setup, skip to Step 4.
                                 </div>
                                 <ol class="ps-3 mb-2">
-                                    <li>Inside your Facebook App (from Facebook setup above), click <strong>"Add Product"</strong> → Set up <strong>Instagram Graph API</strong>.</li>
-                                    <li>Go to <strong>Facebook Login → Settings</strong> → Add this redirect URI:</li>
+                                    <li>Inside your Facebook App (from Facebook setup above), click <strong>"Add Product"</strong> â†’ Set up <strong>Instagram Graph API</strong>.</li>
+                                    <li>Go to <strong>Facebook Login â†’ Settings</strong> â†’ Add this redirect URI:</li>
                                 </ol>
                                 <div class="bg-dark border border-secondary rounded p-2 mb-2 font-monospace" style="font-size:10px; word-break:break-all;">
                                     https://chzcqxzebsxiqgxbmurq.supabase.co/functions/v1/oauth-instagram-callback
                                 </div>
                                 <ol class="ps-3 mb-2" start="3">
                                     <li>Make sure your Instagram account is set to <strong>Business</strong> or <strong>Creator</strong>:
-                                        <br>Instagram App → Profile → Settings → Account type → Switch to Professional.
+                                        <br>Instagram App â†’ Profile â†’ Settings â†’ Account type â†’ Switch to Professional.
                                     </li>
                                     <li>Link your Instagram to a <strong>Facebook Page</strong>:
-                                        <br>Facebook Page → Settings → Linked Accounts → Instagram → Connect.
+                                        <br>Facebook Page â†’ Settings â†’ Linked Accounts â†’ Instagram â†’ Connect.
                                     </li>
                                     <li>Paste the Facebook App ID in the field above and click <strong>"Connect Instagram"</strong>.</li>
-                                    <li>Authorize permissions — PostPilot will automatically detect your linked Instagram Business account.</li>
+                                    <li>Authorize permissions â€” Publio will automatically detect your linked Instagram Business account.</li>
                                 </ol>
                                 <div class="alert alert-warning py-2 px-3 mt-3 extra-small">
                                     <i class="bi bi-exclamation-triangle me-1"></i> Instagram API <strong>does not support personal accounts</strong>. Only Business or Creator accounts linked to a Facebook Page can publish posts via API.
@@ -394,9 +394,9 @@
         </div>
 
         <!-- LINKEDIN SETUP GUIDE -->
-        <div class="card card-postpilot mt-4" id="linkedin-setup-card">
-            <div class="card-header card-header-postpilot d-flex align-items-center justify-content-between">
-                <h5 class="mb-0 fw-bold text-info"><i class="bi bi-linkedin me-2"></i>LinkedIn Profile — Setup Guide</h5>
+        <div class="card card-publio mt-4" id="linkedin-setup-card">
+            <div class="card-header card-header-publio d-flex align-items-center justify-content-between">
+                <h5 class="mb-0 fw-bold text-info"><i class="bi bi-linkedin me-2"></i>LinkedIn Profile â€” Setup Guide</h5>
                 <div class="d-flex gap-2 align-items-center">
                     <span id="li-card-status" class="badge bg-secondary small">Not Connected</span>
                     <button type="button" id="btn-connect-linkedin-card" class="btn btn-sm btn-info" onclick="connectOAuth('linkedin')" style="color:#fff;">
@@ -415,7 +415,7 @@
                         <span class="input-group-text bg-dark border-secondary text-secondary"><i class="bi bi-key"></i></span>
                         <input type="text" id="linkedin-client-id" class="form-control" placeholder="86xxxxxxxxxxxxxxxx">
                     </div>
-                    <div class="form-text extra-small text-secondary">From LinkedIn Developers → Your App → Auth → Client ID</div>
+                    <div class="form-text extra-small text-secondary">From LinkedIn Developers â†’ Your App â†’ Auth â†’ Client ID</div>
                 </div>
 
                 <div class="accordion accordion-flush border border-secondary rounded" id="liGuideAccordion">
@@ -429,7 +429,7 @@
                             <div class="accordion-body extra-small text-secondary lh-lg">
                                 <ol class="ps-3 mb-2">
                                     <li>Go to <a href="https://www.linkedin.com/developers/apps" target="_blank" class="text-info">linkedin.com/developers/apps</a> and sign in.</li>
-                                    <li>Click <strong>"Create App"</strong> → Fill in App Name, LinkedIn Page (create one if needed), and App Logo.</li>
+                                    <li>Click <strong>"Create App"</strong> â†’ Fill in App Name, LinkedIn Page (create one if needed), and App Logo.</li>
                                     <li>Go to the <strong>"Auth"</strong> tab. Copy your <strong>Client ID</strong> and <strong>Client Secret</strong>.</li>
                                     <li>Under <em>"Authorized Redirect URLs"</em>, add:</li>
                                 </ol>
@@ -437,7 +437,7 @@
                                     https://chzcqxzebsxiqgxbmurq.supabase.co/functions/v1/oauth-linkedin-callback
                                 </div>
                                 <ol class="ps-3 mb-2" start="5">
-                                    <li>Go to <strong>"Products"</strong> tab → Request access to:
+                                    <li>Go to <strong>"Products"</strong> tab â†’ Request access to:
                                         <ul class="mt-1">
                                             <li><strong>Share on LinkedIn</strong></li>
                                             <li><strong>Sign In with LinkedIn using OpenID Connect</strong></li>
@@ -451,7 +451,7 @@
                                 </div>
                                 <ol class="ps-3 mb-0" start="7">
                                     <li>Paste Client ID above and click <strong>"Connect LinkedIn"</strong>.</li>
-                                    <li>Authorize on LinkedIn → redirected back with <span class="badge bg-success" style="font-size:9px;">Connected</span>.</li>
+                                    <li>Authorize on LinkedIn â†’ redirected back with <span class="badge bg-success" style="font-size:9px;">Connected</span>.</li>
                                 </ol>
                             </div>
                         </div>
@@ -462,9 +462,9 @@
         </div>
 
         <!-- X (TWITTER) SETUP GUIDE -->
-        <div class="card card-postpilot mt-4 mb-5" id="x-setup-card">
-            <div class="card-header card-header-postpilot d-flex align-items-center justify-content-between">
-                <h5 class="mb-0 fw-bold text-white"><i class="bi bi-twitter-x me-2"></i>X (Twitter) — Setup Guide</h5>
+        <div class="card card-publio mt-4 mb-5" id="x-setup-card">
+            <div class="card-header card-header-publio d-flex align-items-center justify-content-between">
+                <h5 class="mb-0 fw-bold text-white"><i class="bi bi-twitter-x me-2"></i>X (Twitter) â€” Setup Guide</h5>
                 <div class="d-flex gap-2 align-items-center">
                     <span id="x-card-status" class="badge bg-secondary small">Not Connected</span>
                     <button type="button" id="btn-connect-x-card" class="btn btn-sm btn-light" onclick="connectOAuth('x')">
@@ -483,7 +483,7 @@
                         <span class="input-group-text bg-dark border-secondary text-secondary"><i class="bi bi-key"></i></span>
                         <input type="text" id="x-client-id" class="form-control" placeholder="xxxxxxxxxxxxxxxxxxxxxxxxxx">
                     </div>
-                    <div class="form-text extra-small text-secondary">From X Developer Portal → Your App → Keys and Tokens → Client ID</div>
+                    <div class="form-text extra-small text-secondary">From X Developer Portal â†’ Your App â†’ Keys and Tokens â†’ Client ID</div>
                 </div>
 
                 <div class="accordion accordion-flush border border-secondary rounded" id="xGuideAccordion">
@@ -497,12 +497,12 @@
                             <div class="accordion-body extra-small text-secondary lh-lg">
                                 <ol class="ps-3 mb-2">
                                     <li>Go to <a href="https://developer.twitter.com/en/portal/dashboard" target="_blank" class="text-light">developer.twitter.com/portal/dashboard</a> and sign in with your X account.</li>
-                                    <li>Click <strong>"+ Create Project"</strong> → Name it (e.g., PostPilot) → Create an App inside it.</li>
-                                    <li>Inside the App, scroll to <strong>"User authentication settings"</strong> → Click <strong>"Set up"</strong>:
+                                    <li>Click <strong>"+ Create Project"</strong> â†’ Name it (e.g., Publio) â†’ Create an App inside it.</li>
+                                    <li>Inside the App, scroll to <strong>"User authentication settings"</strong> â†’ Click <strong>"Set up"</strong>:
                                         <ul class="mt-1">
-                                            <li>OAuth 2.0 → <strong>On</strong></li>
-                                            <li>App type → <strong>"Web App, Automated App or Bot"</strong></li>
-                                            <li>Callback URI / Redirect URL → paste this:</li>
+                                            <li>OAuth 2.0 â†’ <strong>On</strong></li>
+                                            <li>App type â†’ <strong>"Web App, Automated App or Bot"</strong></li>
+                                            <li>Callback URI / Redirect URL â†’ paste this:</li>
                                         </ul>
                                     </li>
                                 </ol>
@@ -510,9 +510,9 @@
                                     https://chzcqxzebsxiqgxbmurq.supabase.co/functions/v1/oauth-x-callback
                                 </div>
                                 <ol class="ps-3 mb-2" start="4">
-                                    <li>Website URL → <code>http://localhost:8080</code></li>
+                                    <li>Website URL â†’ <code>http://localhost:8080</code></li>
                                     <li>Click <strong>"Save"</strong>. Now go to <strong>"Keys and Tokens"</strong> tab.</li>
-                                    <li>Under <em>"OAuth 2.0 Client ID and Client Secret"</em> → copy both values.</li>
+                                    <li>Under <em>"OAuth 2.0 Client ID and Client Secret"</em> â†’ copy both values.</li>
                                     <li>In your terminal, run:</li>
                                 </ol>
                                 <div class="bg-dark border border-secondary rounded p-2 mb-2 font-monospace" style="font-size:10px;">
@@ -521,10 +521,10 @@
                                 </div>
                                 <ol class="ps-3 mb-0" start="8">
                                     <li>Paste Client ID above and click <strong>"Connect X"</strong>.</li>
-                                    <li>Authorize on X → redirected back with <span class="badge bg-success" style="font-size:9px;">Connected</span>.</li>
+                                    <li>Authorize on X â†’ redirected back with <span class="badge bg-success" style="font-size:9px;">Connected</span>.</li>
                                 </ol>
                                 <div class="alert alert-info py-2 px-3 mt-3 extra-small">
-                                    <i class="bi bi-shield-check me-1"></i> X uses <strong>OAuth 2.0 with PKCE</strong> — PostPilot automatically generates a secure code challenge. Your credentials are never stored in the browser.
+                                    <i class="bi bi-shield-check me-1"></i> X uses <strong>OAuth 2.0 with PKCE</strong> â€” Publio automatically generates a secure code challenge. Your credentials are never stored in the browser.
                                 </div>
                             </div>
                         </div>
@@ -553,22 +553,22 @@
         // =============================================
         const OAUTH_CONFIG = {
             facebook: {
-                appId: '',  // Set via Supabase Secret — FACEBOOK_APP_ID
+                appId: '',  // Set via Supabase Secret â€” FACEBOOK_APP_ID
                 scopes: 'pages_manage_posts,pages_read_engagement,pages_show_list',
                 authUrl: 'https://www.facebook.com/v19.0/dialog/oauth'
             },
             instagram: {
-                appId: '',  // Same app as Facebook — FACEBOOK_APP_ID
+                appId: '',  // Same app as Facebook â€” FACEBOOK_APP_ID
                 scopes: 'instagram_basic,instagram_content_publish,pages_manage_posts,pages_show_list',
                 authUrl: 'https://www.facebook.com/v19.0/dialog/oauth'
             },
             linkedin: {
-                clientId: '',  // Set via Supabase Secret — LINKEDIN_CLIENT_ID
+                clientId: '',  // Set via Supabase Secret â€” LINKEDIN_CLIENT_ID
                 scopes: 'openid profile email w_member_social',
                 authUrl: 'https://www.linkedin.com/oauth/v2/authorization'
             },
             x: {
-                clientId: '',  // Set via Supabase Secret — X_CLIENT_ID
+                clientId: '',  // Set via Supabase Secret â€” X_CLIENT_ID
                 scopes: 'tweet.read tweet.write users.read offline.access',
                 authUrl: 'https://twitter.com/i/oauth2/authorize'
             }
@@ -587,7 +587,7 @@
             const params = new URLSearchParams(window.location.search);
             if (params.get('connected')) {
                 const p = params.get('connected');
-                UI.showToast(`${Utils.getPlatformConfig(p).name} connected successfully!`, 'success', 'Connected ✅');
+                UI.showToast(`${Utils.getPlatformConfig(p).name} connected successfully!`, 'success', 'Connected âœ…');
                 window.history.replaceState(null, null, 'settings.html');
             }
             if (params.get('error')) {
@@ -646,7 +646,7 @@
         });
 
         // =============================================
-        // OAuth Connect — redirect to platform auth
+        // OAuth Connect â€” redirect to platform auth
         // =============================================
         window.connectOAuth = async function(platform) {
             // Encode user ID in state for the callback Edge Function
@@ -692,7 +692,7 @@
             } else if (platform === 'x') {
                 const clientId = prompt('Enter your X (Twitter) Client ID:') || '';
                 if (!clientId) { UI.showToast('X Client ID is required.', 'warning'); return; }
-                // X requires PKCE — generate code verifier & challenge
+                // X requires PKCE â€” generate code verifier & challenge
                 const codeVerifier = generateRandomString(64);
                 const codeChallenge = await generateCodeChallenge(codeVerifier);
                 const xState = btoa(JSON.stringify({ userId: currentUser.id, platform: 'x', ts: Date.now(), codeVerifier }));

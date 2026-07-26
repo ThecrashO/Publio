@@ -1,7 +1,7 @@
--- =================================================═
--- PostPilot - Storage Bucket & Security Policies
+﻿-- =================================================â•
+-- Publio - Storage Bucket & Security Policies
 -- File: 003_storage.sql
--- =================================================═
+-- =================================================â•
 
 -- 1. CREATE BUCKET (IF NOT EXISTS)
 INSERT INTO storage.buckets (id, name, public, file_size_limit, allowed_mime_types)

@@ -1,7 +1,7 @@
--- =================================================═
--- PostPilot - Row Level Security (RLS) Policies
+﻿-- =================================================â•
+-- Publio - Row Level Security (RLS) Policies
 -- File: 002_rls.sql
--- =================================================═
+-- =================================================â•
 
 -- 1. ENABLE RLS ON ALL TABLES
 ALTER TABLE public.profiles ENABLE ROW LEVEL SECURITY;
@@ -10,9 +10,9 @@ ALTER TABLE public.posts ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.post_platforms ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.activity_logs ENABLE ROW LEVEL SECURITY;
 
--- =================================================═
+-- =================================================â•
 -- PROFILES POLICIES
--- =================================================═
+-- =================================================â•
 
 CREATE POLICY "Users can view own profile"
     ON public.profiles FOR SELECT
@@ -26,9 +26,9 @@ CREATE POLICY "Users can insert own profile"
     ON public.profiles FOR INSERT
     WITH CHECK (auth.uid() = id);
 
--- =================================================═
+-- =================================================â•
 -- SOCIAL ACCOUNTS POLICIES
--- =================================================═
+-- =================================================â•
 
 CREATE POLICY "Users can view own social accounts"
     ON public.social_accounts FOR SELECT
@@ -46,9 +46,9 @@ CREATE POLICY "Users can delete own social accounts"
     ON public.social_accounts FOR DELETE
     USING (auth.uid() = user_id);
 
--- =================================================═
+-- =================================================â•
 -- POSTS POLICIES
--- =================================================═
+-- =================================================â•
 
 CREATE POLICY "Users can view own posts"
     ON public.posts FOR SELECT
@@ -66,9 +66,9 @@ CREATE POLICY "Users can delete own posts"
     ON public.posts FOR DELETE
     USING (auth.uid() = user_id);
 
--- =================================================═
+-- =================================================â•
 -- POST PLATFORMS POLICIES
--- =================================================═
+-- =================================================â•
 
 CREATE POLICY "Users can view own post platforms"
     ON public.post_platforms FOR SELECT
@@ -110,9 +110,9 @@ CREATE POLICY "Users can delete own post platforms"
         )
     );
 
--- =================================================═
+-- =================================================â•
 -- ACTIVITY LOGS POLICIES
--- =================================================═
+-- =================================================â•
 
 CREATE POLICY "Users can view own activity logs"
     ON public.activity_logs FOR SELECT

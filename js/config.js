@@ -1,5 +1,5 @@
-// ==================================================
-// PostPilot - Environment & API Configuration
+﻿// ==================================================
+// Publio - Environment & API Configuration
 // File: js/config.js
 // ==================================================
 

@@ -1,5 +1,5 @@
-// ==================================================
-// PostPilot - Authentication Service & Route Guards
+﻿// ==================================================
+// Publio - Authentication Service & Route Guards
 // File: js/auth.js
 // ==================================================
 

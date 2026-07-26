@@ -1,7 +1,7 @@
--- =================================================═
--- PostPilot - Database Schema
+﻿-- =================================================â•
+-- Publio - Database Schema
 -- File: 001_schema.sql
--- =================================================═
+-- =================================================â•
 
 -- Enable UUID extension if not already enabled
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
@@ -68,9 +68,9 @@ CREATE TABLE IF NOT EXISTS public.activity_logs (
     created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
--- =================================================═
+-- =================================================â•
 -- INDEXES FOR HIGH PERFORMANCE
--- =================================================═
+-- =================================================â•
 
 CREATE INDEX IF NOT EXISTS idx_posts_user_id ON public.posts(user_id);
 CREATE INDEX IF NOT EXISTS idx_posts_status ON public.posts(status);

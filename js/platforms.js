@@ -1,5 +1,5 @@
-// ==================================================
-// PostPilot - Platform Connections & Credentials Manager
+﻿// ==================================================
+// Publio - Platform Connections & Credentials Manager
 // File: js/platforms.js
 // ==================================================
 
