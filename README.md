@@ -4,7 +4,7 @@
 
 Publio is a lightweight, self-hosted social media publishing platform that lets you create content once and publish it directly to **Telegram, Facebook, Instagram, LinkedIn, and X** using official platform APIs.
 
-![Publio Preview](assets/images/preview.png)
+![Publio Preview](assets/preview.png)
 
 ---
 
@@ -152,19 +152,19 @@ Publio/
 
 ### Dashboard
 
-![Dashboard](assets/images/dashboard.png)
+![Dashboard](assets/dashboard.png)
 
 ### Post Editor
 
-![Post Editor](assets/images/editor.png)
+![Post Editor](assets/editor.png)
 
 ### Publishing History
 
-![History](assets/images/history.png)
+![History](assets/history.png)
 
 ### Settings
 
-![Settings](assets/images/settings.png)
+![Settings](assets/settings.png)
 
 ---
 
