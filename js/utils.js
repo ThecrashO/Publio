@@ -1,4 +1,4 @@
-﻿// ==================================================
+// ==================================================
 // Publio - Utility & Helper Functions
 // File: js/utils.js
 // ==================================================
@@ -93,6 +93,10 @@ const Utils = {
                 return { name: 'LinkedIn', icon: 'bi-linkedin', color: '#0a66c2' };
             case 'x':
                 return { name: 'X (Twitter)', icon: 'bi-twitter-x', color: '#000000' };
+            case 'youtube':
+                return { name: 'YouTube', icon: 'bi-youtube', color: '#ff0000' };
+            case 'tiktok':
+                return { name: 'TikTok', icon: 'bi-tiktok', color: '#010101' };
             default:
                 return { name: platform, icon: 'bi-share', color: '#6c757d' };
         }
