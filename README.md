@@ -1,91 +1,217 @@
-# Publio - Multi-Platform Social Media Publishing Platform
+# Publio
 
-Publio is a lightweight, self-hosted, production-grade social media publishing application built with HTML5, Bootstrap 5, Vanilla JavaScript, and Supabase (Auth, PostgreSQL, Storage, Edge Functions).
+> **One post. Multiple platforms.**
 
-Create a post once (text or image + caption) and publish it directly to **Telegram, Facebook, Instagram, LinkedIn, and X**.
+Publio is a lightweight, self-hosted social media publishing platform that lets you create content once and publish it directly to **Telegram, Facebook, Instagram, LinkedIn, and X** using official platform APIs.
+
+![Publio Preview](assets/images/preview.png)
 
 ---
 
-## Key Architecture & Features
+## Overview
 
-- **Direct API Communications**: Zero third-party automation dependencies (No Make.com, Zapier, or n8n). Publio communicates directly with official social media platform REST and Graph APIs.
-- **Server-Side Credentials Security**: Platform API keys, bot tokens, and access tokens are strictly stored server-side in Supabase PostgreSQL (protected by Row Level Security) and processed inside Supabase Edge Functions. Credentials are **never** exposed to client-side JavaScript.
-- **First-Class Telegram Publishing**: Official Telegram Bot API integration supporting text-only (`sendMessage`) and media + caption (`sendPhoto`) posts.
-- **Supabase Storage**: Image uploads are stored in the `post-images` bucket with user-scoped RLS paths (`post-images/{user_id}/{post_id}/{filename}`). Base64 is never stored in PostgreSQL.
-- **Per-Platform Results & Granular Retries**: Each platform's status (`pending`, `publishing`, `published`, `failed`) and platform post IDs or error tracebacks are logged individually. If one platform fails, only that specific platform is retried.
+Publio is designed for creators, freelancers, agencies, and businesses who want complete control over their social media publishing workflow.
+
+Unlike traditional automation platforms, Publio communicates directly with official platform APIs through secure server-side Edge Functions, giving you better performance, security, and ownership of your data.
+
+---
+
+## Features
+
+### Multi-Platform Publishing
+
+Publish a single post across multiple platforms from one dashboard.
+
+- Telegram
+- Facebook
+- Instagram
+- LinkedIn
+- X (Twitter)
+
+### Secure Authentication
+
+- Supabase Authentication
+- User profile management
+- Session persistence
+
+### Media Management
+
+- Upload images to Supabase Storage
+- User-scoped storage
+- Caption support
+- Optimized media handling
+
+### Platform Connections
+
+Manage all connected social accounts from one place.
+
+- Telegram Bot
+- Facebook Page
+- Instagram Business
+- LinkedIn
+- X
+
+### Publishing History
+
+Track every publishing attempt.
+
+- Published
+- Pending
+- Publishing
+- Failed
+
+Retry only failed platforms without publishing everything again.
+
+---
+
+## Tech Stack
+
+### Frontend
+
+- HTML5
+- Bootstrap 5
+- Vanilla JavaScript
+
+### Backend
+
+- Supabase
+- PostgreSQL
+- Edge Functions
+- Storage
+- Authentication
+
+### APIs
+
+- Telegram Bot API
+- Facebook Graph API
+- Instagram Graph API
+- LinkedIn API
+- X API v2
+
+---
+
+## Architecture
+
+```text
+                Browser
+                   │
+                   ▼
+          Publio Frontend
+                   │
+                   ▼
+              Supabase
+     ┌──────────┼──────────┐
+     │          │          │
+ Authentication Database  Storage
+                   │
+                   ▼
+            Edge Functions
+     ┌────────┬────────┬────────┬────────┐
+     ▼        ▼        ▼        ▼        ▼
+ Telegram  Facebook Instagram LinkedIn    X
+```
 
 ---
 
 ## Project Structure
 
-```
+```text
 Publio/
-|-- index.html               # Authentication router & landing redirect
-|-- login.html               # Sign In and Sign Up page (tabbed interface)
-|-- dashboard.html           # Mobile-first dashboard & post creation UI
-|-- posts.html               # Post history, filterable list & platform details modal
-|-- settings.html            # Social connections & Telegram Bot setup form
-|-- css/
-|   |-- style.css            # Custom CSS dark theme & Bootstrap 5 extensions
-|-- js/
-|   |-- config.js            # Supabase Project URL & Public Anon Key configuration
-|   |-- supabase.js          # Supabase Client SDK singleton
-|   |-- auth.js              # Auth handlers, login/signup, session persistence & guards
-|   |-- posts.js             # Post management, draft saving & metrics calculation
-|   |-- storage.js           # Supabase Storage file upload & deletion helpers
-|   |-- platforms.js         # Settings & platform connection state manager
-|   |-- ui.js                # Toast notifications, alerts & loading spinners
-|   |-- utils.js             # Date formatting, string truncation & status badges
-|-- supabase/
-|   |-- functions/
-|   |   |-- publish-telegram/
-|   |   |   |-- index.ts     # Server-side Telegram Bot API publishing
-|   |   |-- publish-facebook/
-|   |   |   |-- index.ts     # Facebook Graph API Page publishing
-|   |   |-- publish-instagram/
-|   |   |   |-- index.ts     # Instagram Graph API two-step container publishing
-|   |   |-- publish-linkedin/
-|   |   |   |-- index.ts     # LinkedIn ugcPosts API publishing
-|   |   |-- publish-x/
-|   |       |-- index.ts     # X (Twitter) API v2 Tweet publishing
-|   |-- sql/
-|       |-- 001_schema.sql   # Tables (profiles, social_accounts, posts, post_platforms, activity_logs)
-|       |-- 002_rls.sql      # Row Level Security (RLS) policies
-|       |-- 003_storage.sql  # post-images bucket & storage RLS policies
-|       |-- 004_functions.sql# Triggers for updated_at & automatic profile creation
-|       |-- 005_seed.sql     # Verification query script
-|-- .env.example             # Environment variables template
-|-- README.md                # Project documentation
+│
+├── index.html
+├── login.html
+├── dashboard.html
+├── posts.html
+├── settings.html
+│
+├── css/
+│   └── style.css
+│
+├── js/
+│   ├── auth.js
+│   ├── config.js
+│   ├── platforms.js
+│   ├── posts.js
+│   ├── storage.js
+│   ├── supabase.js
+│   ├── ui.js
+│   └── utils.js
+│
+├── supabase/
+│   ├── functions/
+│   └── sql/
+│
+├── assets/
+├── README.md
+└── .env.example
 ```
 
 ---
 
-## Quick Setup & Deployment Guide
+## Screenshots
 
-### Step 1: Database Setup
-1. Open your [Supabase Dashboard](https://supabase.com/dashboard).
-2. Go to **SQL Editor** and run the following SQL scripts in order:
-   - `supabase/sql/001_schema.sql`
-   - `supabase/sql/002_rls.sql`
-   - `supabase/sql/003_storage.sql`
-   - `supabase/sql/004_functions.sql`
+### Dashboard
 
-### Step 2: Configure Client Keys
-Edit `js/config.js` with your project URL and public Anon Key:
+![Dashboard](assets/images/dashboard.png)
+
+### Post Editor
+
+![Post Editor](assets/images/editor.png)
+
+### Publishing History
+
+![History](assets/images/history.png)
+
+### Settings
+
+![Settings](assets/images/settings.png)
+
+---
+
+## Getting Started
+
+### 1. Clone Repository
+
+```bash
+git clone https://github.com/theprimev/publio.git
+cd publio
+```
+
+---
+
+### 2. Configure Supabase
+
+Create a new Supabase project and run the SQL files in order.
+
+```text
+001_schema.sql
+002_rls.sql
+003_storage.sql
+004_functions.sql
+```
+
+---
+
+### 3. Configure Client
+
+Update your project configuration.
+
 ```javascript
 const SUPABASE_CONFIG = {
-    url: 'https://your-project-ref.supabase.co',
-    anonKey: 'your-supabase-anon-key'
+    url: "https://your-project.supabase.co",
+    anonKey: "your-anon-key"
 };
 ```
 
-### Step 3: Deploy Edge Functions
-Deploy the serverless Edge Functions using the Supabase CLI:
+---
+
+### 4. Deploy Edge Functions
+
 ```bash
 npx supabase login
-npx supabase link --project-ref <your-project-ref>
 
-# Deploy Edge Functions
+npx supabase link --project-ref YOUR_PROJECT_REF
+
 npx supabase functions deploy publish-telegram
 npx supabase functions deploy publish-facebook
 npx supabase functions deploy publish-instagram
@@ -95,16 +221,56 @@ npx supabase functions deploy publish-x
 
 ---
 
-## Telegram Setup Instructions
+## Telegram Setup
 
-1. Start a chat with **@BotFather** on Telegram.
-2. Send `/newbot`, choose a bot name, and copy the **HTTP API Token**.
-3. Create or select a Telegram Channel.
-4. Add your Bot as an **Administrator** of the channel with **Post Messages** permission.
-5. In Publio, go to **Social Settings**, enter your Bot Token and Channel ID (e.g. `-1001234567890`), and click **Save Telegram Credentials**.
+1. Create a bot using **@BotFather**
+2. Copy your Bot Token
+3. Create a Telegram Channel
+4. Add the bot as an administrator
+5. Enable **Post Messages**
+6. Save the Bot Token and Channel ID in Publio Settings
+
+---
+
+## Roadmap
+
+- [x] Authentication
+- [x] Multi-platform publishing
+- [x] Telegram integration
+- [x] Facebook integration
+- [x] Instagram integration
+- [x] LinkedIn integration
+- [x] X integration  
+- [x] Publishing history
+- [ ] Tittok integration
+- [ ] Youtube integration
+- [ ] Scheduled publishing
+- [ ] Draft management
+- [ ] Analytics dashboard
+- [ ] Team workspace
+- [ ] AI caption generation
+- [ ] Content calendar
+
+---
+
+## Contributing
+
+Contributions, feature requests, and bug reports are welcome.
+
+If you have ideas to improve Publio, feel free to open an issue or submit a pull request.
+
+---
+
+## Author
+
+**Pyae Sone Phyo (TheprimeV)**
+
+- GitHub: https://github.com/theprimev
+- Telegram: https://t.me/theprimev
+- Email: theprimev0@gmail.com
 
 ---
 
 ## License
 
-MIT License - Free for personal and commercial deployment.
+This project is licensed under the **MIT License**.
