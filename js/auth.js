@@ -1,20 +1,29 @@
-﻿// ==================================================
+// ==================================================
 // Publio - Authentication Service & Route Guards
 // File: js/auth.js
 // ==================================================
 
 const Auth = {
     /**
-     * Get current user session
+     * Get current user session with graceful invalid refresh token handling
      */
     async getSession() {
         if (!window.sb) return null;
-        const { data: { session }, error } = await window.sb.auth.getSession();
-        if (error) {
-            console.error('Session retrieval error:', error);
+        try {
+            const { data: { session }, error } = await window.sb.auth.getSession();
+            if (error) {
+                console.warn('Session retrieval status:', error.message || error);
+                // Clear stale invalid session tokens from localStorage if invalid refresh token error occurs
+                if (error.status === 400 || (error.message && error.message.toLowerCase().includes('refresh token'))) {
+                    await window.sb.auth.signOut().catch(() => {});
+                }
+                return null;
+            }
+            return session;
+        } catch (err) {
+            console.warn('Authentication error:', err.message || err);
             return null;
         }
-        return session;
     },
 
     /**
