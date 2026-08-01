@@ -155,13 +155,19 @@ Publio/
 
 ![Dashboard](assets/dashboard.png)
 
+
+
 ### Post Editor
 
 ![Post Editor](assets/editor.png)
 
+
+
 ### Publishing History
 
 ![History](assets/history.png)
+
+
 
 ### Settings
 
@@ -268,9 +274,9 @@ If you have ideas to improve Publio, feel free to open an issue or submit a pull
 
 **Pyae Sone Phyo (TheprimeV)**
 
-- GitHub: https://github.com/theprimev
-- Telegram: https://t.me/theprimev
-- Email: theprimev0@gmail.com
+- GitHub: https://github.com/thecrasho
+- Telegram: https://t.me/thecrasho
+- Email: thecrasho99@gmail.com
 
 ---
 
