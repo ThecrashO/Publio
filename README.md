@@ -27,6 +27,7 @@ Publish a single post across multiple platforms from one dashboard.
 - Instagram
 - LinkedIn
 - X (Twitter)
+- YouTube (Videos & Community Posts)
 
 ### Secure Authentication
 
@@ -217,6 +218,8 @@ npx supabase functions deploy publish-facebook
 npx supabase functions deploy publish-instagram
 npx supabase functions deploy publish-linkedin
 npx supabase functions deploy publish-x
+npx supabase functions deploy publish-youtube
+npx supabase functions deploy oauth-youtube-callback
 ```
 
 ---
@@ -241,9 +244,9 @@ npx supabase functions deploy publish-x
 - [x] Instagram integration
 - [x] LinkedIn integration
 - [x] X integration  
+- [x] YouTube integration
 - [x] Publishing history
-- [ ] Tittok integration
-- [ ] Youtube integration
+- [ ] TikTok integration
 - [ ] Scheduled publishing
 - [ ] Draft management
 - [ ] Analytics dashboard

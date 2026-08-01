@@ -1,4 +1,4 @@
-﻿// ==================================================
+// ==================================================
 // Publio - Post Management & Publishing Orchestrator
 // File: js/posts.js
 // ==================================================
@@ -49,7 +49,7 @@ const Posts = {
     /**
      * Create Post & optional platform assignments
      */
-    async createPost(userId, { caption, imageFile, selectedPlatforms, isPublish = false }) {
+    async createPost(userId, { caption, imageFile, mediaFile, selectedPlatforms, isPublish = false }) {
         if (!window.sb) throw new Error('Supabase client is not initialized.');
 
         if (!caption || !caption.trim()) {
@@ -58,6 +58,7 @@ const Posts = {
 
         const cleanCaption = caption.trim();
         const initialStatus = isPublish ? 'publishing' : 'draft';
+        const targetFile = mediaFile || imageFile;
 
         // 1. Insert post parent record
         const { data: postData, error: postError } = await window.sb
@@ -78,13 +79,13 @@ const Posts = {
         const postId = postData.id;
         let imageUrl = null;
 
-        // 2. Handle image upload if selected
-        if (imageFile) {
+        // 2. Handle media (image or video) upload if selected
+        if (targetFile) {
             try {
-                const uploadResult = await Storage.uploadPostImage(userId, postId, imageFile);
+                const uploadResult = await Storage.uploadPostMedia(userId, postId, targetFile);
                 imageUrl = uploadResult.url;
 
-                // Update post with image_url
+                // Update post with image_url (used for photo or video media URL)
                 await window.sb
                     .from('posts')
                     .update({ image_url: imageUrl })
@@ -155,7 +156,7 @@ const Posts = {
     /**
      * Update existing draft or post
      */
-    async updatePost(userId, postId, { caption, imageFile, removeImage, selectedPlatforms, isPublish = false }) {
+    async updatePost(userId, postId, { caption, imageFile, mediaFile, removeImage, selectedPlatforms, isPublish = false }) {
         if (!window.sb) throw new Error('Supabase client is not initialized.');
 
         if (!caption || !caption.trim()) {
@@ -164,6 +165,7 @@ const Posts = {
 
         const cleanCaption = caption.trim();
         const newStatus = isPublish ? 'publishing' : 'draft';
+        const targetFile = mediaFile || imageFile;
 
         // Fetch current post
         const currentPost = await this.getPostById(userId, postId);
@@ -171,24 +173,24 @@ const Posts = {
 
         let imageUrl = currentPost.image_url;
 
-        // Handle image removal
+        // Handle image/media removal
         if (removeImage && imageUrl) {
             const urlParts = imageUrl.split('/post-images/');
             if (urlParts.length > 1) {
-                await Storage.deletePostImage(urlParts[1]);
+                await Storage.deletePostMedia(urlParts[1]);
             }
             imageUrl = null;
         }
 
-        // Handle new image upload
-        if (imageFile) {
+        // Handle new media upload
+        if (targetFile) {
             if (currentPost.image_url) {
                 const urlParts = currentPost.image_url.split('/post-images/');
                 if (urlParts.length > 1) {
-                    await Storage.deletePostImage(urlParts[1]);
+                    await Storage.deletePostMedia(urlParts[1]);
                 }
             }
-            const uploadResult = await Storage.uploadPostImage(userId, postId, imageFile);
+            const uploadResult = await Storage.uploadPostMedia(userId, postId, targetFile);
             imageUrl = uploadResult.url;
         }
 
@@ -259,10 +261,9 @@ const Posts = {
             .single();
 
         if (post && post.image_url) {
-            // Extract file path from URL if possible
             const urlParts = post.image_url.split('/post-images/');
             if (urlParts.length > 1) {
-                await Storage.deletePostImage(urlParts[1]);
+                await Storage.deletePostMedia(urlParts[1]);
             }
         }
 

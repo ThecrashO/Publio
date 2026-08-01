@@ -1,37 +1,72 @@
-﻿// ==================================================
+// ==================================================
 // Publio - Storage File Management Helper
 // File: js/storage.js
 // ==================================================
 
 const Storage = {
     BUCKET_NAME: 'post-images',
-    MAX_FILE_SIZE: 10 * 1024 * 1024, // 10 MB limit
-    ALLOWED_TYPES: ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'],
+    MAX_IMAGE_SIZE: 10 * 1024 * 1024, // 10 MB limit for photos
+    MAX_VIDEO_SIZE: 50 * 1024 * 1024, // 50 MB limit for videos
+    ALLOWED_IMAGE_TYPES: ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/gif'],
+    ALLOWED_VIDEO_TYPES: ['video/mp4', 'video/webm', 'video/quicktime', 'video/x-msvideo', 'video/mkv'],
 
     /**
-     * Validate selected image file
+     * Check if a file object or URL is a video
      */
-    validateImage(file) {
-        if (!file) return { valid: false, message: 'No file selected.' };
-
-        if (!this.ALLOWED_TYPES.includes(file.type.toLowerCase())) {
-            return { valid: false, message: 'Invalid file format. Only JPG, JPEG, PNG, and WEBP images are allowed.' };
+    isVideo(fileOrUrl) {
+        if (!fileOrUrl) return false;
+        if (typeof fileOrUrl === 'string') {
+            const ext = fileOrUrl.split('?')[0].split('.').pop().toLowerCase();
+            return ['mp4', 'webm', 'mov', 'avi', 'mkv'].includes(ext);
         }
-
-        if (file.size > this.MAX_FILE_SIZE) {
-            return { valid: false, message: 'File size exceeds 10 MB limit. Please select a smaller image.' };
+        if (fileOrUrl.type) {
+            return fileOrUrl.type.toLowerCase().startsWith('video/');
         }
-
-        return { valid: true };
+        return false;
     },
 
     /**
-     * Upload post image to Supabase Storage under: post-images/{user_id}/{post_id}/{filename}
+     * Validate selected image/video file
      */
-    async uploadPostImage(userId, postId, file) {
+    validateMedia(file) {
+        if (!file) return { valid: false, message: 'No file selected.' };
+
+        const mimeType = (file.type || '').toLowerCase();
+        const isImg = this.ALLOWED_IMAGE_TYPES.includes(mimeType);
+        const isVid = this.ALLOWED_VIDEO_TYPES.includes(mimeType) || mimeType.startsWith('video/');
+
+        if (!isImg && !isVid) {
+            return { 
+                valid: false, 
+                message: 'Invalid file format. Allowed formats: JPG, PNG, WEBP, GIF for photos, or MP4, WEBM, MOV for videos.' 
+            };
+        }
+
+        if (isVid && file.size > this.MAX_VIDEO_SIZE) {
+            return { valid: false, message: 'Video file size exceeds 50 MB limit. Please select a smaller video.' };
+        }
+
+        if (isImg && file.size > this.MAX_IMAGE_SIZE) {
+            return { valid: false, message: 'Photo file size exceeds 10 MB limit. Please select a smaller image.' };
+        }
+
+        return { valid: true, isVideo: isVid };
+    },
+
+    /**
+     * Backwards-compatible alias for validateMedia
+     */
+    validateImage(file) {
+        return this.validateMedia(file);
+    },
+
+    /**
+     * Upload post media (photo or video) to Supabase Storage under: post-images/{user_id}/{post_id}/{filename}
+     */
+    async uploadPostMedia(userId, postId, file) {
         if (!window.sb) throw new Error('Supabase client is not initialized.');
 
-        const validation = this.validateImage(file);
+        const validation = this.validateMedia(file);
         if (!validation.valid) {
             throw new Error(validation.message);
         }
@@ -50,7 +85,7 @@ const Storage = {
 
         if (error) {
             console.error('Storage upload error:', error);
-            throw new Error(`Image upload failed: ${error.message}`);
+            throw new Error(`Media upload failed: ${error.message}`);
         }
 
         // Get public URL
@@ -60,19 +95,34 @@ const Storage = {
 
         return {
             path: filePath,
-            url: publicUrlData.publicUrl
+            url: publicUrlData.publicUrl,
+            isVideo: validation.isVideo
         };
     },
 
     /**
-     * Delete image from storage
+     * Backwards-compatible alias for uploadPostMedia
      */
-    async deletePostImage(filePath) {
+    async uploadPostImage(userId, postId, file) {
+        return this.uploadPostMedia(userId, postId, file);
+    },
+
+    /**
+     * Delete media from storage
+     */
+    async deletePostMedia(filePath) {
         if (!window.sb || !filePath) return;
         const { error } = await window.sb.storage
             .from(this.BUCKET_NAME)
             .remove([filePath]);
-        if (error) console.error('Failed to delete image from storage:', error);
+        if (error) console.error('Failed to delete media from storage:', error);
+    },
+
+    /**
+     * Backwards-compatible alias for deletePostMedia
+     */
+    async deletePostImage(filePath) {
+        return this.deletePostMedia(filePath);
     }
 };
 

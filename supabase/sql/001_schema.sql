@@ -1,4 +1,4 @@
-﻿-- =================================================â•
+-- =================================================â•
 -- Publio - Database Schema
 -- File: 001_schema.sql
 -- =================================================â•
@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS public.profiles (
 CREATE TABLE IF NOT EXISTS public.social_accounts (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID NOT NULL REFERENCES public.profiles(id) ON DELETE CASCADE,
-    platform TEXT NOT NULL CHECK (platform IN ('telegram', 'facebook', 'instagram', 'linkedin', 'x')),
+    platform TEXT NOT NULL CHECK (platform IN ('telegram', 'facebook', 'instagram', 'linkedin', 'x', 'youtube', 'tiktok')),
     account_name TEXT,
     account_id TEXT,
     access_token TEXT,
@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS public.posts (
 CREATE TABLE IF NOT EXISTS public.post_platforms (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     post_id UUID NOT NULL REFERENCES public.posts(id) ON DELETE CASCADE,
-    platform TEXT NOT NULL CHECK (platform IN ('telegram', 'facebook', 'instagram', 'linkedin', 'x')),
+    platform TEXT NOT NULL CHECK (platform IN ('telegram', 'facebook', 'instagram', 'linkedin', 'x', 'youtube', 'tiktok')),
     status TEXT NOT NULL DEFAULT 'pending' CHECK (status IN ('pending', 'publishing', 'published', 'failed')),
     platform_post_id TEXT,
     error_message TEXT,
@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS public.activity_logs (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID NOT NULL REFERENCES public.profiles(id) ON DELETE CASCADE,
     post_id UUID REFERENCES public.posts(id) ON DELETE SET NULL,
-    platform TEXT CHECK (platform IN ('telegram', 'facebook', 'instagram', 'linkedin', 'x', 'system')),
+    platform TEXT CHECK (platform IN ('telegram', 'facebook', 'instagram', 'linkedin', 'x', 'youtube', 'tiktok', 'system')),
     action TEXT NOT NULL,
     status TEXT NOT NULL CHECK (status IN ('success', 'failed', 'info', 'warning')),
     message TEXT NOT NULL,

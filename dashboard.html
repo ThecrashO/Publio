@@ -126,22 +126,25 @@
                                 <textarea id="post-caption" class="form-control" rows="4" placeholder="Write your post caption here..." required></textarea>
                             </div>
 
-                            <!-- IMAGE ATTACHMENT SECTION -->
+                            <!-- MEDIA ATTACHMENT SECTION -->
                             <div class="mb-4">
-                                <label class="form-label text-secondary small fw-medium d-block">Image (Optional, max 10 MB)</label>
+                                <label class="form-label text-secondary small fw-medium d-block">Media Attachment (Optional, max 10 MB photo / 50 MB video)</label>
                                 
                                 <div id="image-select-area">
-                                    <input type="file" id="post-image-file" class="d-none" accept="image/jpeg,image/jpg,image/png,image/webp">
+                                    <input type="file" id="post-image-file" class="d-none" accept="image/jpeg,image/jpg,image/png,image/webp,image/gif,video/mp4,video/webm,video/quicktime">
                                     <button type="button" id="btn-select-image" class="btn btn-outline-secondary w-100 border-dashed py-3">
-                                        <i class="bi bi-image fs-4 d-block mb-1 text-info"></i>
-                                        <span>Add Image (JPG, PNG, WEBP)</span>
+                                        <i class="bi bi-file-earmark-play fs-4 d-block mb-1 text-info"></i>
+                                        <span>Add Photo (JPG, PNG, WEBP, GIF) or Video (MP4, WEBM, MOV)</span>
                                     </button>
                                 </div>
 
-                                <!-- IMAGE PREVIEW BOX -->
+                                <!-- MEDIA PREVIEW BOX -->
                                 <div id="image-preview-area" class="d-none mt-2 position-relative">
                                     <div class="card bg-dark border-secondary p-2 d-flex flex-row align-items-center gap-3">
-                                        <img id="preview-img-element" src="" alt="Preview" class="rounded object-fit-cover" style="width: 70px; height: 70px;">
+                                        <div id="media-preview-container" class="rounded overflow-hidden flex-shrink-0" style="width: 70px; height: 70px;">
+                                            <img id="preview-img-element" src="" alt="Preview" class="w-100 h-100 object-fit-cover">
+                                            <video id="preview-video-element" class="w-100 h-100 object-fit-cover d-none" controls></video>
+                                        </div>
                                         <div class="flex-grow-1 overflow-hidden">
                                             <div id="preview-file-name" class="fw-medium text-truncate small">filename.png</div>
                                             <div id="preview-file-size" class="text-secondary extra-small">0 MB</div>
@@ -309,7 +312,7 @@
                 const file = e.target.files[0];
                 if (!file) return;
 
-                const validation = Storage.validateImage(file);
+                const validation = Storage.validateMedia(file);
                 if (!validation.valid) {
                     UI.showAlert('post-alert-container', validation.message, 'danger');
                     fileInput.value = '';
@@ -319,11 +322,22 @@
                 selectedFile = file;
                 removeExistingImage = false;
                 document.getElementById('preview-file-name').textContent = file.name;
-                document.getElementById('preview-file-size').textContent = `${(file.size / (1024 * 1024)).toFixed(2)} MB`;
+                document.getElementById('preview-file-size').textContent = `${(file.size / (1024 * 1024)).toFixed(2)} MB (${validation.isVideo ? 'Video' : 'Photo'})`;
+
+                const imgEl = document.getElementById('preview-img-element');
+                const videoEl = document.getElementById('preview-video-element');
 
                 const reader = new FileReader();
                 reader.onload = (evt) => {
-                    document.getElementById('preview-img-element').src = evt.target.result;
+                    if (validation.isVideo) {
+                        videoEl.src = evt.target.result;
+                        videoEl.classList.remove('d-none');
+                        imgEl.classList.add('d-none');
+                    } else {
+                        imgEl.src = evt.target.result;
+                        imgEl.classList.remove('d-none');
+                        videoEl.classList.add('d-none');
+                    }
                     imgSelectArea.classList.add('d-none');
                     imgPreviewArea.classList.remove('d-none');
                 };
@@ -334,6 +348,12 @@
                 selectedFile = null;
                 removeExistingImage = true;
                 fileInput.value = '';
+                const imgEl = document.getElementById('preview-img-element');
+                const videoEl = document.getElementById('preview-video-element');
+                imgEl.src = '';
+                videoEl.src = '';
+                imgEl.classList.remove('d-none');
+                videoEl.classList.add('d-none');
                 imgSelectArea.classList.remove('d-none');
                 imgPreviewArea.classList.add('d-none');
             });
@@ -365,10 +385,23 @@
             editingPostId = post.id;
             document.getElementById('post-caption').value = post.caption;
 
-            // Load attached image if present
+            // Load attached media if present
             if (post.image_url) {
-                document.getElementById('preview-img-element').src = post.image_url;
-                document.getElementById('preview-file-name').textContent = 'Attached Image';
+                const imgEl = document.getElementById('preview-img-element');
+                const videoEl = document.getElementById('preview-video-element');
+                const isVid = Storage.isVideo(post.image_url);
+
+                if (isVid) {
+                    videoEl.src = post.image_url;
+                    videoEl.classList.remove('d-none');
+                    imgEl.classList.add('d-none');
+                } else {
+                    imgEl.src = post.image_url;
+                    imgEl.classList.remove('d-none');
+                    videoEl.classList.add('d-none');
+                }
+
+                document.getElementById('preview-file-name').textContent = isVid ? 'Attached Video' : 'Attached Image';
                 document.getElementById('preview-file-size').textContent = 'Saved in Storage';
                 document.getElementById('image-select-area').classList.add('d-none');
                 document.getElementById('image-preview-area').classList.remove('d-none');
@@ -398,14 +431,26 @@
             // Fill in caption only — this is a brand new post, not linked to the original
             document.getElementById('post-caption').value = post.caption;
 
-            // Pre-load image preview if original had an image (no new upload, just visual hint)
+            // Pre-load image/media preview if original had media
             if (post.image_url) {
-                document.getElementById('preview-img-element').src = post.image_url;
-                document.getElementById('preview-file-name').textContent = 'Original image (attach a new one to replace)';
+                const imgEl = document.getElementById('preview-img-element');
+                const videoEl = document.getElementById('preview-video-element');
+                const isVid = Storage.isVideo(post.image_url);
+
+                if (isVid) {
+                    videoEl.src = post.image_url;
+                    videoEl.classList.remove('d-none');
+                    imgEl.classList.add('d-none');
+                } else {
+                    imgEl.src = post.image_url;
+                    imgEl.classList.remove('d-none');
+                    videoEl.classList.add('d-none');
+                }
+
+                document.getElementById('preview-file-name').textContent = 'Original media (attach a new file to replace)';
                 document.getElementById('preview-file-size').textContent = 'From previous post';
                 document.getElementById('image-select-area').classList.add('d-none');
                 document.getElementById('image-preview-area').classList.remove('d-none');
-                // Note: selectedFile stays null — user must re-attach image if they want it uploaded
             }
 
             // Restore previously selected platforms
@@ -414,7 +459,7 @@
                 chk.checked = activePlatforms.includes(chk.value);
             });
 
-            // Update header to indicate reuse mode (NOT edit mode)
+            // Update header to indicate reuse mode
             const cardHeader = document.querySelector('#create-post-card .card-header h5');
             if (cardHeader) {
                 cardHeader.innerHTML = `<i class="bi bi-arrow-repeat me-2 text-success"></i>Reusing Published Post — New Draft <a href="dashboard.html" class="btn btn-sm btn-outline-secondary ms-3">Cancel</a>`;
@@ -431,9 +476,10 @@
 
             const missing = selectedPlatforms.filter(p => !connectedPlatforms.includes(p));
 
+            let html = '';
             if (missing.length > 0) {
                 const missingNames = missing.map(p => Utils.getPlatformConfig(p).name).join(', ');
-                warningContainer.innerHTML = `
+                html += `
                     <div class="alert alert-warning py-2 px-3 extra-small mb-3 d-flex align-items-center gap-2">
                         <i class="bi bi-exclamation-triangle-fill fs-6"></i>
                         <div>
@@ -443,6 +489,19 @@
                     </div>
                 `;
             }
+
+            if (selectedPlatforms.includes('youtube')) {
+                html += `
+                    <div class="alert alert-info py-2 px-3 extra-small mb-3 d-flex align-items-center gap-2">
+                        <i class="bi bi-youtube fs-6 text-danger"></i>
+                        <div>
+                            <strong>YouTube Rule:</strong> Text/photo posts publish to the <strong>Community tab</strong>. Video posts require an attached video file (via <code>videos.insert</code>).
+                        </div>
+                    </div>
+                `;
+            }
+
+            warningContainer.innerHTML = html;
         }
 
         async function loadDashboardData() {

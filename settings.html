@@ -198,6 +198,52 @@
                                 </div>
                             </div>
 
+                            <!-- YouTube -->
+                            <div
+                                class="list-group-item bg-transparent text-white border-secondary p-3 d-flex align-items-center justify-content-between">
+                                <div class="d-flex align-items-center gap-3">
+                                    <i class="bi bi-youtube fs-3 text-danger"></i>
+                                    <div>
+                                        <h6 class="mb-0 fw-semibold">YouTube Channel</h6>
+                                        <span id="status-badge-youtube" class="badge bg-secondary extra-small">Not
+                                            Connected</span>
+                                        <div id="account-name-youtube" class="extra-small text-muted mt-1 d-none"></div>
+                                    </div>
+                                </div>
+                                <div class="d-flex gap-2 align-items-center">
+                                    <button type="button" id="btn-connect-youtube" class="btn btn-sm btn-outline-danger"
+                                        onclick="connectOAuth('youtube')">
+                                        <i class="bi bi-youtube me-1"></i> Connect
+                                    </button>
+                                    <button type="button" id="btn-disconnect-youtube"
+                                        class="btn btn-sm btn-outline-danger d-none" onclick="disconnectPlatform('youtube')">
+                                        <i class="bi bi-x-lg"></i>
+                                    </button>
+                                </div>
+                            <!-- TikTok -->
+                            <div
+                                class="list-group-item bg-transparent text-white border-secondary p-3 d-flex align-items-center justify-content-between">
+                                <div class="d-flex align-items-center gap-3">
+                                    <i class="bi bi-tiktok fs-3 text-white"></i>
+                                    <div>
+                                        <h6 class="mb-0 fw-semibold">TikTok Account</h6>
+                                        <span id="status-badge-tiktok" class="badge bg-secondary extra-small">Not
+                                            Connected</span>
+                                        <div id="account-name-tiktok" class="extra-small text-muted mt-1 d-none"></div>
+                                    </div>
+                                </div>
+                                <div class="d-flex gap-2 align-items-center">
+                                    <button type="button" id="btn-connect-tiktok" class="btn btn-sm btn-outline-light"
+                                        onclick="connectOAuth('tiktok')">
+                                        <i class="bi bi-tiktok me-1"></i> Connect
+                                    </button>
+                                    <button type="button" id="btn-disconnect-tiktok"
+                                        class="btn btn-sm btn-outline-danger d-none" onclick="disconnectPlatform('tiktok')">
+                                        <i class="bi bi-x-lg"></i>
+                                    </button>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -649,6 +695,153 @@
                                     - Publio automatically generates a secure code challenge. Your credentials are never
                                     stored in the browser.
                                 </div>
+            </div>
+        </div>
+
+        <!-- YOUTUBE SETUP GUIDE -->
+        <div class="card card-publio mt-4 mb-5" id="youtube-setup-card">
+            <div class="card-header card-header-publio d-flex align-items-center justify-content-between">
+                <h5 class="mb-0 fw-bold text-danger"><i class="bi bi-youtube me-2"></i>YouTube Channel - Setup Guide</h5>
+                <div class="d-flex gap-2 align-items-center">
+                    <span id="youtube-card-status" class="badge bg-secondary small">Not Connected</span>
+                    <button type="button" id="btn-connect-youtube-card" class="btn btn-sm btn-danger"
+                        onclick="connectOAuth('youtube')">
+                        <i class="bi bi-youtube me-1"></i> Connect YouTube
+                    </button>
+                    <button type="button" id="btn-disconnect-youtube-card" class="btn btn-sm btn-outline-danger d-none"
+                        onclick="disconnectPlatform('youtube')">
+                        <i class="bi bi-x-lg me-1"></i> Disconnect
+                    </button>
+                </div>
+            </div>
+            <div class="card-body p-4">
+
+                <div class="mb-3">
+                    <label class="form-label text-secondary small fw-medium">Google Client ID <span
+                            class="text-danger">*</span></label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-dark border-secondary text-secondary"><i
+                                class="bi bi-key"></i></span>
+                        <input type="text" id="youtube-client-id" class="form-control"
+                            placeholder="xxxxxxxxx-xxxxxxxx.apps.googleusercontent.com">
+                    </div>
+                    <div class="form-text extra-small text-secondary">From Google Cloud Console -> APIs & Services -> Credentials -> OAuth 2.0 Client IDs</div>
+                </div>
+
+                <div class="accordion accordion-flush border border-secondary rounded" id="ytGuideAccordion">
+                    <div class="accordion-item bg-transparent">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed bg-dark text-white extra-small fw-semibold"
+                                type="button" data-bs-toggle="collapse" data-bs-target="#ytGuideBody">
+                                <i class="bi bi-info-circle me-2 text-danger"></i> How to set up Google OAuth 2.0 & YouTube Data API v3 (Step-by-Step)
+                            </button>
+                        </h2>
+                        <div id="ytGuideBody" class="accordion-collapse collapse" data-bs-parent="#ytGuideAccordion">
+                            <div class="accordion-body extra-small text-secondary lh-lg">
+                                <ol class="ps-3 mb-2">
+                                    <li>Go to <a href="https://console.cloud.google.com/" target="_blank"
+                                            class="text-danger">console.cloud.google.com</a> and sign in with your Google account.</li>
+                                    <li>Create a new project (e.g., "Publio Publisher").</li>
+                                    <li>Go to <strong>APIs & Services -> Library</strong> -> Search for <strong>YouTube Data API v3</strong> -> Click <strong>Enable</strong>.</li>
+                                    <li>Go to <strong>APIs & Services -> Credentials</strong> -> Click <strong>+ Create Credentials -> OAuth client ID</strong>.</li>
+                                    <li>Select Application type: <strong>Web application</strong>.</li>
+                                    <li>Under <em>"Authorized redirect URIs"</em>, add:</li>
+                                </ol>
+                                <div class="bg-dark border border-secondary rounded p-2 mb-2 font-monospace"
+                                    style="font-size:10px; word-break:break-all;">
+                                    https://chzcqxzebsxiqgxbmurq.supabase.co/functions/v1/oauth-youtube-callback
+                                </div>
+                                <ol class="ps-3 mb-2" start="7">
+                                    <li>Click <strong>Create</strong>. Copy your <strong>Client ID</strong> and <strong>Client Secret</strong>.</li>
+                                    <li>In your terminal, set Supabase secrets:</li>
+                                </ol>
+                                <div class="bg-dark border border-secondary rounded p-2 mb-2 font-monospace"
+                                    style="font-size:10px;">
+                                    npx supabase secrets set GOOGLE_CLIENT_ID=your_google_client_id<br>
+                                    npx supabase secrets set GOOGLE_CLIENT_SECRET=your_google_client_secret
+                                </div>
+                                <ol class="ps-3 mb-0" start="9">
+                                    <li>Paste your Google Client ID above and click <strong>"Connect YouTube"</strong>.</li>
+                                    <li>Authorize with your Google/YouTube account -> Redirected back with status <span class="badge bg-success" style="font-size:9px;">Connected</span>.</li>
+                                </ol>
+                                <div class="alert alert-info py-2 px-3 mt-3 extra-small mb-0">
+                                    <i class="bi bi-info-circle me-1"></i> Video posts publish via YouTube Data API v3 (<code>videos.insert</code>). Text-only & photo posts automatically route to the YouTube <strong>Community tab</strong>.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- TIKTOK SETUP GUIDE -->
+        <div class="card card-publio mt-4 mb-5" id="tiktok-setup-card">
+            <div class="card-header card-header-publio d-flex align-items-center justify-content-between">
+                <h5 class="mb-0 fw-bold text-white"><i class="bi bi-tiktok me-2"></i>TikTok Account - Setup Guide</h5>
+                <div class="d-flex gap-2 align-items-center">
+                    <span id="tiktok-card-status" class="badge bg-secondary small">Not Connected</span>
+                    <button type="button" id="btn-connect-tiktok-card" class="btn btn-sm btn-light"
+                        onclick="connectOAuth('tiktok')">
+                        <i class="bi bi-tiktok me-1"></i> Connect TikTok
+                    </button>
+                    <button type="button" id="btn-disconnect-tiktok-card" class="btn btn-sm btn-outline-danger d-none"
+                        onclick="disconnectPlatform('tiktok')">
+                        <i class="bi bi-x-lg me-1"></i> Disconnect
+                    </button>
+                </div>
+            </div>
+            <div class="card-body p-4">
+
+                <div class="mb-3">
+                    <label class="form-label text-secondary small fw-medium">TikTok Client Key <span
+                            class="text-danger">*</span></label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-dark border-secondary text-secondary"><i
+                                class="bi bi-key"></i></span>
+                        <input type="text" id="tiktok-client-key" class="form-control"
+                            placeholder="awxxxxxxxxxxxxxx">
+                    </div>
+                    <div class="form-text extra-small text-secondary">From TikTok Developer Portal -> App Details -> Client Key</div>
+                </div>
+
+                <div class="accordion accordion-flush border border-secondary rounded" id="ttGuideAccordion">
+                    <div class="accordion-item bg-transparent">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed bg-dark text-white extra-small fw-semibold"
+                                type="button" data-bs-toggle="collapse" data-bs-target="#ttGuideBody">
+                                <i class="bi bi-info-circle me-2 text-light"></i> How to set up TikTok Developer App & Enable Content Posting API (Step-by-Step)
+                            </button>
+                        </h2>
+                        <div id="ttGuideBody" class="accordion-collapse collapse" data-bs-parent="#ttGuideAccordion">
+                            <div class="accordion-body extra-small text-secondary lh-lg">
+                                <ol class="ps-3 mb-2">
+                                    <li>Go to <a href="https://developers.tiktok.com/" target="_blank"
+                                            class="text-light">developers.tiktok.com</a> and log in.</li>
+                                    <li>Create an App (e.g. "Publio Social Publisher").</li>
+                                    <li>Add <strong>Content Posting API</strong> and <strong>Login Kit</strong> to your App.</li>
+                                    <li>Under <em>"Redirect URI"</em>, set:</li>
+                                </ol>
+                                <div class="bg-dark border border-secondary rounded p-2 mb-2 font-monospace"
+                                    style="font-size:10px; word-break:break-all;">
+                                    https://chzcqxzebsxiqgxbmurq.supabase.co/functions/v1/oauth-tiktok-callback
+                                </div>
+                                <ol class="ps-3 mb-2" start="5">
+                                    <li>Copy your <strong>Client Key</strong> and <strong>Client Secret</strong>.</li>
+                                    <li>In your terminal, set Supabase secrets:</li>
+                                </ol>
+                                <div class="bg-dark border border-secondary rounded p-2 mb-2 font-monospace"
+                                    style="font-size:10px;">
+                                    npx supabase secrets set TIKTOK_CLIENT_KEY=your_client_key<br>
+                                    npx supabase secrets set TIKTOK_CLIENT_SECRET=your_client_secret
+                                </div>
+                                <ol class="ps-3 mb-0" start="7">
+                                    <li>Paste Client Key above and click <strong>"Connect TikTok"</strong>.</li>
+                                    <li>Authorize your TikTok account -> Redirected back with status <span class="badge bg-success" style="font-size:9px;">Connected</span>.</li>
+                                </ol>
+                                <div class="alert alert-info py-2 px-3 mt-3 extra-small mb-0">
+                                    <i class="bi bi-info-circle me-1"></i> Publio supports <strong>Photo Mode</strong> (Photo + Caption) and <strong>Video Mode</strong> for TikTok posts.
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -694,6 +887,11 @@
                 clientId: '',  // Set via Supabase Secret - X_CLIENT_ID
                 scopes: 'tweet.read tweet.write users.read offline.access',
                 authUrl: 'https://twitter.com/i/oauth2/authorize'
+            },
+            youtube: {
+                clientId: '', // Set via Supabase Secret - GOOGLE_CLIENT_ID
+                scopes: 'https://www.googleapis.com/auth/youtube.upload https://www.googleapis.com/auth/youtube.force-ssl https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email',
+                authUrl: 'https://accounts.google.com/o/oauth2/v2/auth'
             }
         };
 
@@ -710,7 +908,7 @@
             const params = new URLSearchParams(window.location.search);
             if (params.get('connected')) {
                 const p = params.get('connected');
-                UI.showToast(`${Utils.getPlatformConfig(p).name} connected successfully!`, 'success', 'Connected âœ…');
+                UI.showToast(`${Utils.getPlatformConfig(p).name} connected successfully!`, 'success', 'Connected');
                 window.history.replaceState(null, null, 'settings.html');
             }
             if (params.get('error')) {
@@ -720,6 +918,8 @@
                     facebook_denied: 'Facebook authorization was cancelled.',
                     linkedin_denied: 'LinkedIn authorization was cancelled.',
                     x_denied: 'X authorization was cancelled.',
+                    youtube_denied: 'YouTube Google authorization was cancelled.',
+                    youtube_token_failed: 'Failed to obtain access token from Google.',
                 };
                 const errKey = params.get('error');
                 const msg = errMessages[errKey] || `Connection failed: ${errKey}`;
@@ -830,6 +1030,21 @@
                     code_challenge_method: 'S256'
                 });
                 authUrl = `${OAUTH_CONFIG.x.authUrl}?${params}`;
+
+            } else if (platform === 'youtube') {
+                const inputClientId = document.getElementById('youtube-client-id')?.value.trim();
+                const clientId = inputClientId || prompt('Enter your Google Client ID for YouTube:') || '';
+                if (!clientId) { UI.showToast('Google Client ID is required.', 'warning'); return; }
+                const params = new URLSearchParams({
+                    response_type: 'code',
+                    client_id: clientId,
+                    redirect_uri: callbackBase,
+                    scope: OAUTH_CONFIG.youtube.scopes,
+                    access_type: 'offline',
+                    prompt: 'consent',
+                    state: state
+                });
+                authUrl = `${OAUTH_CONFIG.youtube.authUrl}?${params}`;
             }
 
             if (authUrl) {
@@ -857,25 +1072,34 @@
         // =============================================
         async function loadPlatformStatuses() {
             const accounts = await Platforms.getUserAccounts(currentUser.id);
-            const platforms = ['telegram', 'facebook', 'instagram', 'linkedin', 'x'];
+            const platforms = ['telegram', 'facebook', 'instagram', 'linkedin', 'x', 'youtube'];
 
             platforms.forEach(p => {
                 const account = accounts.find(a => a.platform === p);
                 const badge = document.getElementById(`status-badge-${p}`);
+                const cardBadge = document.getElementById(`${p}-card-status`);
                 const nameEl = document.getElementById(`account-name-${p}`);
                 const connectBtn = document.getElementById(`btn-connect-${p}`);
                 const disconnectBtn = document.getElementById(`btn-disconnect-${p}`);
+                const connectCardBtn = document.getElementById(`btn-connect-${p}-card`);
+                const disconnectCardBtn = document.getElementById(`btn-disconnect-${p}-card`);
 
                 if (account) {
                     if (badge) { badge.className = 'badge bg-success extra-small'; badge.textContent = 'Connected'; }
+                    if (cardBadge) { cardBadge.className = 'badge bg-success small'; cardBadge.textContent = 'Connected'; }
                     if (nameEl) { nameEl.textContent = account.account_name || ''; nameEl.classList.remove('d-none'); }
                     if (connectBtn) connectBtn.classList.add('d-none');
                     if (disconnectBtn) disconnectBtn.classList.remove('d-none');
+                    if (connectCardBtn) connectCardBtn.classList.add('d-none');
+                    if (disconnectCardBtn) disconnectCardBtn.classList.remove('d-none');
                 } else {
                     if (badge) { badge.className = 'badge bg-secondary extra-small'; badge.textContent = 'Not Connected'; }
+                    if (cardBadge) { cardBadge.className = 'badge bg-secondary small'; cardBadge.textContent = 'Not Connected'; }
                     if (nameEl) { nameEl.classList.add('d-none'); }
                     if (connectBtn) connectBtn.classList.remove('d-none');
                     if (disconnectBtn) disconnectBtn.classList.add('d-none');
+                    if (connectCardBtn) connectCardBtn.classList.remove('d-none');
+                    if (disconnectCardBtn) disconnectCardBtn.classList.add('d-none');
                 }
             });
 
