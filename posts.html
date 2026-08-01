@@ -17,25 +17,25 @@
         <div class="container">
             <a class="navbar-brand d-flex align-items-center gap-2" href="dashboard.html">
                 <img src="assets/logo.png" alt="Publio Logo" class="app-logo">
-                <span class="brand-text fw-bold fs-4">Publio</span>
+                <span class="brand-text fs-4">Publio</span>
             </a>
-            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <button class="navbar-toggler border-0 text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4 gap-1">
                     <li class="nav-item">
-                        <a class="nav-link fw-medium" href="dashboard.html"><i class="bi bi-speedometer2 me-1"></i> Dashboard</a>
+                        <a class="nav-link" href="dashboard.html"><i class="bi bi-speedometer2 me-1"></i> Dashboard</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active fw-medium" href="posts.html"><i class="bi bi-file-earmark-post me-1"></i> Posts</a>
+                        <a class="nav-link active" href="posts.html"><i class="bi bi-file-earmark-post me-1"></i> Posts</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link fw-medium" href="settings.html"><i class="bi bi-gear me-1"></i> Social Settings</a>
+                        <a class="nav-link" href="settings.html"><i class="bi bi-gear me-1"></i> Social Settings</a>
                     </li>
                 </ul>
                 <div class="d-flex align-items-center gap-3">
-                    <span id="user-display-name" class="text-secondary small d-none d-sm-inline">...</span>
+                    <span id="user-display-name" class="text-secondary small font-mono d-none d-sm-inline">...</span>
                     <button id="btn-logout" class="btn btn-outline-danger btn-sm">
                         <i class="bi bi-box-arrow-right me-1"></i> Logout
                     </button>
@@ -49,7 +49,7 @@
 
         <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
             <div>
-                <h2 class="fw-bold mb-1">Post History</h2>
+                <h2 class="h3 fw-bold mb-1">Post History</h2>
                 <p class="text-secondary small mb-0">Track publishing results, view platform responses, and retry failures.</p>
             </div>
             <a href="dashboard.html#create-post-card" class="btn btn-publio-primary btn-sm">
@@ -60,30 +60,28 @@
         <div id="posts-alert-container"></div>
 
         <!-- FILTER TABS -->
-        <div class="card card-publio mb-4">
-            <div class="card-header card-header-publio border-0 p-2">
-                <ul class="nav nav-pills nav-justified" id="status-filter-tabs">
-                    <li class="nav-item">
-                        <button class="nav-link active fw-semibold btn-sm filter-btn" data-filter="all">All Posts</button>
-                    </li>
-                    <li class="nav-item">
-                        <button class="nav-link fw-semibold btn-sm filter-btn text-success" data-filter="published">Published</button>
-                    </li>
-                    <li class="nav-item">
-                        <button class="nav-link fw-semibold btn-sm filter-btn text-secondary" data-filter="draft">Drafts</button>
-                    </li>
-                    <li class="nav-item">
-                        <button class="nav-link fw-semibold btn-sm filter-btn text-danger" data-filter="failed">Failed</button>
-                    </li>
-                </ul>
-            </div>
+        <div class="mb-4">
+            <ul class="nav nav-pills gap-2 border-bottom pb-3 border-secondary border-opacity-25" id="status-filter-tabs">
+                <li class="nav-item">
+                    <button class="nav-link active border-0 filter-btn" data-filter="all">All Posts</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link border-0 filter-btn" data-filter="published">Published</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link border-0 filter-btn" data-filter="draft">Drafts</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link border-0 filter-btn" data-filter="failed">Failed</button>
+                </li>
+            </ul>
         </div>
 
         <!-- POSTS LIST -->
         <div id="posts-list-container" class="row g-3">
             <div class="col-12 text-center py-5 text-secondary">
-                <div class="spinner-border text-info mb-3" role="status"></div>
-                <p>Loading posts history...</p>
+                <div class="spinner-border text-warning mb-3" role="status"></div>
+                <p class="small">Loading posts history...</p>
             </div>
         </div>
 
@@ -92,9 +90,9 @@
     <!-- POST DETAILS MODAL -->
     <div class="modal fade" id="postDetailsModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content bg-dark border-secondary text-white">
-                <div class="modal-header border-secondary">
-                    <h5 class="modal-title fw-bold" id="modal-post-title">Post Details</h5>
+            <div class="modal-content" style="background-color: var(--publio-bg-surface); border: 1px solid var(--publio-border-color); color: var(--publio-text-main);">
+                <div class="modal-header" style="border-bottom: 1px solid var(--publio-border-color); background-color: var(--publio-bg-surface-elevated);">
+                    <h5 class="modal-title fs-6 fw-bold" id="modal-post-title">Post Details</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body p-4">
@@ -102,8 +100,8 @@
                         <!-- Populated by JS -->
                     </div>
                 </div>
-                <div class="modal-footer border-secondary">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <div class="modal-footer" style="border-top: 1px solid var(--publio-border-color);">
+                    <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
@@ -177,10 +175,10 @@
                 const platformBadges = (post.post_platforms || []).map(pp => {
                     const pConfig = Utils.getPlatformConfig(pp.platform);
                     const pStatusBadge = pp.status === 'published' 
-                        ? '<span class="badge bg-success extra-small"><i class="bi bi-check"></i></span>'
-                        : (pp.status === 'failed' ? '<span class="badge bg-danger extra-small"><i class="bi bi-x"></i></span>' : '<span class="badge bg-warning text-dark extra-small">Pending</span>');
+                        ? '<span class="badge badge-success extra-small"><i class="bi bi-check"></i></span>'
+                        : (pp.status === 'failed' ? '<span class="badge badge-danger extra-small"><i class="bi bi-x"></i></span>' : '<span class="badge badge-warning extra-small">Pending</span>');
 
-                    return `<span class="badge bg-dark border border-secondary text-white d-inline-flex align-items-center gap-1">
+                    return `<span class="badge badge-secondary d-inline-flex align-items-center gap-1">
                         <i class="bi ${pConfig.icon}" style="color:${pConfig.color}"></i> ${pConfig.name} ${pStatusBadge}
                     </span>`;
                 }).join(' ');
@@ -199,7 +197,7 @@
                             <div class="card-body d-flex flex-column flex-grow-1 p-3">
                                 <div class="d-flex justify-content-between align-items-center mb-2">
                                     ${statusBadge}
-                                    <span class="extra-small text-secondary"><i class="bi bi-clock me-1"></i>${formattedDate}</span>
+                                    <span class="extra-small text-secondary font-mono"><i class="bi bi-clock me-1"></i>${formattedDate}</span>
                                 </div>
                                 <p class="card-text text-white small flex-grow-1 mb-3">${Utils.escapeHtml(captionSnippet)}</p>
                                 
@@ -207,17 +205,17 @@
                                     ${platformBadges || '<span class="extra-small text-muted">No platforms assigned</span>'}
                                 </div>
 
-                                <div class="d-flex gap-2 border-top border-secondary pt-2 mt-auto">
+                                <div class="d-flex gap-2 border-top border-secondary pt-2 mt-auto" style="border-color: var(--publio-border-subtle) !important;">
                                     ${post.status === 'draft' || post.status === 'failed' ? `
-                                        <a href="dashboard.html?edit=${post.id}" class="btn btn-sm btn-outline-warning w-50">
+                                        <a href="dashboard.html?edit=${post.id}" class="btn btn-sm btn-outline-secondary w-50">
                                             <i class="bi bi-pencil me-1"></i> Edit
                                         </a>
                                     ` : `
-                                        <a href="dashboard.html?reuse=${post.id}" class="btn btn-sm btn-outline-success w-50">
+                                        <a href="dashboard.html?reuse=${post.id}" class="btn btn-sm btn-outline-secondary w-50">
                                             <i class="bi bi-arrow-repeat me-1"></i> Reuse
                                         </a>
                                     `}
-                                    <button type="button" class="btn btn-sm btn-outline-info w-50" onclick="openDetailsModal('${post.id}')">
+                                    <button type="button" class="btn btn-sm btn-outline-secondary w-50" onclick="openDetailsModal('${post.id}')">
                                         <i class="bi bi-eye me-1"></i> Details
                                     </button>
                                     <button type="button" class="btn btn-sm btn-outline-danger" onclick="deletePost('${post.id}')">
@@ -241,18 +239,18 @@
                 const isFailed = pp.status === 'failed';
 
                 return `
-                    <div class="card bg-dark border-secondary p-3 mb-2">
+                    <div class="card p-3 mb-2" style="background-color: var(--publio-bg-input); border: 1px solid var(--publio-border-color);">
                         <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
                             <div class="d-flex align-items-center gap-2">
-                                <i class="bi ${pConfig.icon} fs-4" style="color: ${pConfig.color}"></i>
-                                <span class="fw-bold text-white">${pConfig.name}</span>
+                                <i class="bi ${pConfig.icon} fs-5" style="color: ${pConfig.color}"></i>
+                                <span class="fw-semibold text-white">${pConfig.name}</span>
                             </div>
                             <div>
                                 ${Utils.renderStatusBadge(pp.status)}
                             </div>
                         </div>
                         ${pp.platform_post_id ? `
-                            <div class="mt-2 extra-small text-secondary">
+                            <div class="mt-2 extra-small text-secondary font-mono">
                                 <strong>Platform Post ID / Msg ID:</strong> <code>${Utils.escapeHtml(pp.platform_post_id)}</code>
                             </div>
                         ` : ''}
@@ -263,7 +261,7 @@
                         ` : ''}
                         ${isFailed ? `
                             <div class="mt-2 text-end">
-                                <button type="button" class="btn btn-sm btn-warning text-dark fw-semibold" onclick="retryPlatformPublish('${post.id}', '${pp.platform}')">
+                                <button type="button" class="btn btn-sm btn-publio-primary" onclick="retryPlatformPublish('${post.id}', '${pp.platform}')">
                                     <i class="bi bi-arrow-clockwise me-1"></i> Retry ${pConfig.name}
                                 </button>
                             </div>
@@ -274,23 +272,23 @@
 
             modalContent.innerHTML = `
                 <div class="mb-3">
-                    <span class="text-secondary small fw-semibold text-uppercase d-block mb-1">Post Status & Date</span>
+                    <span class="text-secondary extra-small fw-semibold text-uppercase d-block mb-1">Post Status & Date</span>
                     <div class="d-flex align-items-center gap-2">
                         ${Utils.renderStatusBadge(post.status)}
-                        <span class="small text-secondary">${Utils.formatDate(post.created_at)}</span>
+                        <span class="small text-secondary font-mono">${Utils.formatDate(post.created_at)}</span>
                     </div>
                 </div>
 
                 ${post.status === 'draft' ? `
-                    <div class="alert alert-secondary p-3 mb-3 d-flex align-items-center justify-content-between flex-wrap gap-2">
+                    <div class="alert alert-warning p-3 mb-3 d-flex align-items-center justify-content-between flex-wrap gap-2" style="background-color: rgba(234, 179, 8, 0.1); border: 1px solid rgba(234, 179, 8, 0.2); color: var(--publio-text-main);">
                         <div>
-                            <i class="bi bi-info-circle text-info me-1"></i> <strong>Draft Post:</strong> You can edit caption/media or publish it now.
+                            <i class="bi bi-info-circle text-warning me-1"></i> <strong>Draft Post:</strong> You can edit caption/media or publish it now.
                         </div>
                         <div class="d-flex gap-2">
-                            <a href="dashboard.html?edit=${post.id}" class="btn btn-sm btn-warning text-dark fw-semibold">
+                            <a href="dashboard.html?edit=${post.id}" class="btn btn-sm btn-outline-secondary">
                                 <i class="bi bi-pencil me-1"></i> Edit Draft
                             </a>
-                            <button type="button" class="btn btn-sm btn-success fw-semibold" onclick="publishDraftDirectly('${post.id}')">
+                            <button type="button" class="btn btn-sm btn-publio-primary" onclick="publishDraftDirectly('${post.id}')">
                                 <i class="bi bi-send-check me-1"></i> Publish Now
                             </button>
                         </div>
@@ -298,27 +296,27 @@
                 ` : ''}
 
                 <div class="mb-3">
-                    <span class="text-secondary small fw-semibold text-uppercase d-block mb-1">Caption</span>
-                    <div class="p-3 bg-dark border border-secondary rounded text-white whitespace-pre-wrap small">
+                    <span class="text-secondary extra-small fw-semibold text-uppercase d-block mb-1">Caption</span>
+                    <div class="p-3 rounded text-white whitespace-pre-wrap small" style="background-color: var(--publio-bg-input); border: 1px solid var(--publio-border-color);">
                         ${Utils.escapeHtml(post.caption)}
                     </div>
                 </div>
 
                 ${post.image_url ? `
                     <div class="mb-3">
-                        <span class="text-secondary small fw-semibold text-uppercase d-block mb-1">Attached Media</span>
+                        <span class="text-secondary extra-small fw-semibold text-uppercase d-block mb-1">Attached Media</span>
                         ${Storage.isVideo(post.image_url) ? `
-                            <video src="${Utils.escapeHtml(post.image_url)}" class="w-100 rounded border border-secondary" style="max-height: 300px;" controls></video>
+                            <video src="${Utils.escapeHtml(post.image_url)}" class="w-100 rounded" style="max-height: 300px; border: 1px solid var(--publio-border-color);" controls></video>
                         ` : `
                             <a href="${Utils.escapeHtml(post.image_url)}" target="_blank">
-                                <img src="${Utils.escapeHtml(post.image_url)}" class="img-fluid rounded border border-secondary" style="max-height: 250px;" alt="Post Media">
+                                <img src="${Utils.escapeHtml(post.image_url)}" class="img-fluid rounded" style="max-height: 250px; border: 1px solid var(--publio-border-color);" alt="Post Media">
                             </a>
                         `}
                     </div>
                 ` : ''}
 
                 <div class="mt-4">
-                    <span class="text-secondary small fw-semibold text-uppercase d-block mb-2">Platform Publishing Breakdown</span>
+                    <span class="text-secondary extra-small fw-semibold text-uppercase d-block mb-2">Platform Publishing Breakdown</span>
                     ${platformResults || '<p class="text-muted small">No target platforms recorded.</p>'}
                 </div>
             `;

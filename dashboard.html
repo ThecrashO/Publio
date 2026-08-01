@@ -17,25 +17,25 @@
         <div class="container">
             <a class="navbar-brand d-flex align-items-center gap-2" href="dashboard.html">
                 <img src="assets/logo.png" alt="Publio Logo" class="app-logo">
-                <span class="brand-text fw-bold fs-4">Publio</span>
+                <span class="brand-text fs-4">Publio</span>
             </a>
-            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <button class="navbar-toggler border-0 text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4 gap-1">
                     <li class="nav-item">
-                        <a class="nav-link active fw-medium" href="dashboard.html"><i class="bi bi-speedometer2 me-1"></i> Dashboard</a>
+                        <a class="nav-link active" href="dashboard.html"><i class="bi bi-speedometer2 me-1"></i> Dashboard</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link fw-medium" href="posts.html"><i class="bi bi-file-earmark-post me-1"></i> Posts</a>
+                        <a class="nav-link" href="posts.html"><i class="bi bi-file-earmark-post me-1"></i> Posts</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link fw-medium" href="settings.html"><i class="bi bi-gear me-1"></i> Social Settings</a>
+                        <a class="nav-link" href="settings.html"><i class="bi bi-gear me-1"></i> Social Settings</a>
                     </li>
                 </ul>
                 <div class="d-flex align-items-center gap-3">
-                    <span id="user-display-name" class="text-secondary small d-none d-sm-inline">...</span>
+                    <span id="user-display-name" class="text-secondary small font-mono d-none d-sm-inline">...</span>
                     <button id="btn-logout" class="btn btn-outline-danger btn-sm">
                         <i class="bi bi-box-arrow-right me-1"></i> Logout
                     </button>
@@ -50,8 +50,8 @@
         <!-- Top Greeting Banner -->
         <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-2">
             <div>
-                <h2 class="fw-bold mb-0">Publish Dashboard</h2>
-                <p class="text-secondary small mb-0">Create once, publish directly across platforms.</p>
+                <h2 class="h3 fw-bold mb-1">Publish Dashboard</h2>
+                <p class="text-secondary small mb-0">Create content once, publish directly across social networks.</p>
             </div>
             <div>
                 <a href="#create-post-card" class="btn btn-publio-primary btn-sm">
@@ -65,10 +65,10 @@
             <div class="col-6 col-md-3">
                 <div class="stat-card">
                     <div>
-                        <div class="text-secondary small text-uppercase fw-semibold">Total Posts</div>
+                        <div class="text-secondary extra-small text-uppercase fw-semibold tracking-wider">Total Posts</div>
                         <div id="stat-total" class="fs-3 fw-bold mt-1">0</div>
                     </div>
-                    <div class="stat-icon bg-primary bg-opacity-10 text-primary">
+                    <div class="stat-icon bg-dark text-warning">
                         <i class="bi bi-collection"></i>
                     </div>
                 </div>
@@ -76,10 +76,10 @@
             <div class="col-6 col-md-3">
                 <div class="stat-card">
                     <div>
-                        <div class="text-secondary small text-uppercase fw-semibold">Published</div>
+                        <div class="text-secondary extra-small text-uppercase fw-semibold tracking-wider">Published</div>
                         <div id="stat-published" class="fs-3 fw-bold text-success mt-1">0</div>
                     </div>
-                    <div class="stat-icon bg-success bg-opacity-10 text-success">
+                    <div class="stat-icon bg-dark text-success">
                         <i class="bi bi-check-circle"></i>
                     </div>
                 </div>
@@ -87,10 +87,10 @@
             <div class="col-6 col-md-3">
                 <div class="stat-card">
                     <div>
-                        <div class="text-secondary small text-uppercase fw-semibold">Drafts</div>
+                        <div class="text-secondary extra-small text-uppercase fw-semibold tracking-wider">Drafts</div>
                         <div id="stat-drafts" class="fs-3 fw-bold text-secondary mt-1">0</div>
                     </div>
-                    <div class="stat-icon bg-secondary bg-opacity-10 text-secondary">
+                    <div class="stat-icon bg-dark text-secondary">
                         <i class="bi bi-pencil"></i>
                     </div>
                 </div>
@@ -98,10 +98,10 @@
             <div class="col-6 col-md-3">
                 <div class="stat-card">
                     <div>
-                        <div class="text-secondary small text-uppercase fw-semibold">Failed</div>
+                        <div class="text-secondary extra-small text-uppercase fw-semibold tracking-wider">Failed</div>
                         <div id="stat-failed" class="fs-3 fw-bold text-danger mt-1">0</div>
                     </div>
-                    <div class="stat-icon bg-danger bg-opacity-10 text-danger">
+                    <div class="stat-icon bg-dark text-danger">
                         <i class="bi bi-exclamation-triangle"></i>
                     </div>
                 </div>
@@ -113,8 +113,8 @@
             <div class="col-lg-7">
                 <div id="create-post-card" class="card card-publio">
                     <div class="card-header card-header-publio d-flex align-items-center justify-content-between">
-                        <h5 class="mb-0 fw-bold"><i class="bi bi-pencil-square me-2 text-info"></i>What's on your mind?</h5>
-                        <span class="badge bg-secondary">Publisher</span>
+                        <h5 class="mb-0 fs-6 fw-semibold"><i class="bi bi-pencil-square me-2 text-warning"></i>Compose Post</h5>
+                        <span class="badge badge-gold">Publisher</span>
                     </div>
                     <div class="card-body p-4">
                         <div id="post-alert-container"></div>
@@ -132,22 +132,22 @@
                                 
                                 <div id="image-select-area">
                                     <input type="file" id="post-image-file" class="d-none" accept="image/jpeg,image/jpg,image/png,image/webp,image/gif,video/mp4,video/webm,video/quicktime">
-                                    <button type="button" id="btn-select-image" class="btn btn-outline-secondary w-100 border-dashed py-3">
-                                        <i class="bi bi-file-earmark-play fs-4 d-block mb-1 text-info"></i>
-                                        <span>Add Photo (JPG, PNG, WEBP, GIF) or Video (MP4, WEBM, MOV)</span>
+                                    <button type="button" id="btn-select-image" class="btn btn-outline-secondary w-100 py-3 border-dashed">
+                                        <i class="bi bi-file-earmark-arrow-up fs-4 d-block mb-1 text-warning"></i>
+                                        <span class="small">Add Photo (JPG, PNG, WEBP, GIF) or Video (MP4, WEBM, MOV)</span>
                                     </button>
                                 </div>
 
                                 <!-- MEDIA PREVIEW BOX -->
                                 <div id="image-preview-area" class="d-none mt-2 position-relative">
-                                    <div class="card bg-dark border-secondary p-2 d-flex flex-row align-items-center gap-3">
-                                        <div id="media-preview-container" class="rounded overflow-hidden flex-shrink-0" style="width: 70px; height: 70px;">
+                                    <div class="card p-2 d-flex flex-row align-items-center gap-3" style="background-color: var(--publio-bg-input); border: 1px solid var(--publio-border-color);">
+                                        <div id="media-preview-container" class="rounded overflow-hidden flex-shrink-0" style="width: 64px; height: 64px;">
                                             <img id="preview-img-element" src="" alt="Preview" class="w-100 h-100 object-fit-cover">
                                             <video id="preview-video-element" class="w-100 h-100 object-fit-cover d-none" controls></video>
                                         </div>
                                         <div class="flex-grow-1 overflow-hidden">
                                             <div id="preview-file-name" class="fw-medium text-truncate small">filename.png</div>
-                                            <div id="preview-file-size" class="text-secondary extra-small">0 MB</div>
+                                            <div id="preview-file-size" class="text-secondary extra-small font-mono">0 MB</div>
                                         </div>
                                         <button type="button" id="btn-remove-image" class="btn btn-outline-danger btn-sm me-1">
                                             <i class="bi bi-trash me-1"></i> Remove
@@ -165,58 +165,65 @@
 
                                 <div class="row g-2" id="platform-checkboxes">
                                     <div class="col-6 col-sm-4">
-                                        <div class="form-check card-publio p-2 px-3 m-0 d-flex align-items-center gap-2">
-                                            <input class="form-check-input platform-checkbox mt-0" type="checkbox" value="telegram" id="chk-telegram" checked>
-                                            <label class="form-check-label text-white cursor-pointer d-flex align-items-center gap-2" for="chk-telegram">
-                                                <i class="bi bi-telegram text-info"></i> Telegram
+                                        <div class="position-relative">
+                                            <input class="platform-checkbox d-none" type="checkbox" value="telegram" id="chk-telegram" checked>
+                                            <label class="platform-chip w-100 cursor-pointer" for="chk-telegram">
+                                                <i class="bi bi-telegram text-info fs-5"></i>
+                                                <span class="platform-chip-label small">Telegram</span>
                                             </label>
                                         </div>
                                     </div>
                                     <div class="col-6 col-sm-4">
-                                        <div class="form-check card-publio p-2 px-3 m-0 d-flex align-items-center gap-2 opacity-75">
-                                            <input class="form-check-input platform-checkbox mt-0" type="checkbox" value="facebook" id="chk-facebook">
-                                            <label class="form-check-label text-white cursor-pointer d-flex align-items-center gap-2" for="chk-facebook">
-                                                <i class="bi bi-facebook text-primary"></i> Facebook
+                                        <div class="position-relative">
+                                            <input class="platform-checkbox d-none" type="checkbox" value="facebook" id="chk-facebook">
+                                            <label class="platform-chip w-100 cursor-pointer" for="chk-facebook">
+                                                <i class="bi bi-facebook text-primary fs-5"></i>
+                                                <span class="platform-chip-label small">Facebook</span>
                                             </label>
                                         </div>
                                     </div>
                                     <div class="col-6 col-sm-4">
-                                        <div class="form-check card-publio p-2 px-3 m-0 d-flex align-items-center gap-2 opacity-75">
-                                            <input class="form-check-input platform-checkbox mt-0" type="checkbox" value="instagram" id="chk-instagram">
-                                            <label class="form-check-label text-white cursor-pointer d-flex align-items-center gap-2" for="chk-instagram">
-                                                <i class="bi bi-instagram text-danger"></i> Instagram
+                                        <div class="position-relative">
+                                            <input class="platform-checkbox d-none" type="checkbox" value="instagram" id="chk-instagram">
+                                            <label class="platform-chip w-100 cursor-pointer" for="chk-instagram">
+                                                <i class="bi bi-instagram text-danger fs-5"></i>
+                                                <span class="platform-chip-label small">Instagram</span>
                                             </label>
                                         </div>
                                     </div>
                                     <div class="col-6 col-sm-4">
-                                        <div class="form-check card-publio p-2 px-3 m-0 d-flex align-items-center gap-2 opacity-75">
-                                            <input class="form-check-input platform-checkbox mt-0" type="checkbox" value="linkedin" id="chk-linkedin">
-                                            <label class="form-check-label text-white cursor-pointer d-flex align-items-center gap-2" for="chk-linkedin">
-                                                <i class="bi bi-linkedin text-info"></i> LinkedIn
+                                        <div class="position-relative">
+                                            <input class="platform-checkbox d-none" type="checkbox" value="linkedin" id="chk-linkedin">
+                                            <label class="platform-chip w-100 cursor-pointer" for="chk-linkedin">
+                                                <i class="bi bi-linkedin text-info fs-5"></i>
+                                                <span class="platform-chip-label small">LinkedIn</span>
                                             </label>
                                         </div>
                                     </div>
                                     <div class="col-6 col-sm-4">
-                                        <div class="form-check card-publio p-2 px-3 m-0 d-flex align-items-center gap-2 opacity-75">
-                                            <input class="form-check-input platform-checkbox mt-0" type="checkbox" value="x" id="chk-x">
-                                            <label class="form-check-label text-white cursor-pointer d-flex align-items-center gap-2" for="chk-x">
-                                                <i class="bi bi-twitter-x text-white"></i> X (Twitter)
+                                        <div class="position-relative">
+                                            <input class="platform-checkbox d-none" type="checkbox" value="x" id="chk-x">
+                                            <label class="platform-chip w-100 cursor-pointer" for="chk-x">
+                                                <i class="bi bi-twitter-x text-white fs-5"></i>
+                                                <span class="platform-chip-label small">X (Twitter)</span>
                                             </label>
                                         </div>
                                     </div>
                                     <div class="col-6 col-sm-4">
-                                        <div class="form-check card-publio p-2 px-3 m-0 d-flex align-items-center gap-2 opacity-75">
-                                            <input class="form-check-input platform-checkbox mt-0" type="checkbox" value="youtube" id="chk-youtube">
-                                            <label class="form-check-label text-white cursor-pointer d-flex align-items-center gap-2" for="chk-youtube">
-                                                <i class="bi bi-youtube text-danger"></i> YouTube
+                                        <div class="position-relative">
+                                            <input class="platform-checkbox d-none" type="checkbox" value="youtube" id="chk-youtube">
+                                            <label class="platform-chip w-100 cursor-pointer" for="chk-youtube">
+                                                <i class="bi bi-youtube text-danger fs-5"></i>
+                                                <span class="platform-chip-label small">YouTube</span>
                                             </label>
                                         </div>
                                     </div>
                                     <div class="col-6 col-sm-4">
-                                        <div class="form-check card-publio p-2 px-3 m-0 d-flex align-items-center gap-2 opacity-75">
-                                            <input class="form-check-input platform-checkbox mt-0" type="checkbox" value="tiktok" id="chk-tiktok">
-                                            <label class="form-check-label text-white cursor-pointer d-flex align-items-center gap-2" for="chk-tiktok">
-                                                <i class="bi bi-tiktok text-white"></i> TikTok
+                                        <div class="position-relative">
+                                            <input class="platform-checkbox d-none" type="checkbox" value="tiktok" id="chk-tiktok">
+                                            <label class="platform-chip w-100 cursor-pointer" for="chk-tiktok">
+                                                <i class="bi bi-tiktok text-white fs-5"></i>
+                                                <span class="platform-chip-label small">TikTok</span>
                                             </label>
                                         </div>
                                     </div>
@@ -225,7 +232,7 @@
 
                             <!-- ACTION BUTTONS -->
                             <div class="d-flex gap-3 pt-2">
-                                <button type="button" id="btn-save-draft" class="btn btn-outline-secondary w-50 py-2 fw-semibold">
+                                <button type="button" id="btn-save-draft" class="btn btn-outline-secondary w-50 py-2 fw-medium">
                                     <i class="bi bi-bookmark me-1"></i> Save Draft
                                 </button>
                                 <button type="submit" id="btn-publish-now" class="btn btn-publio-primary w-50 py-2">
@@ -241,14 +248,14 @@
             <div class="col-lg-5">
                 <div class="card card-publio h-100">
                     <div class="card-header card-header-publio d-flex align-items-center justify-content-between">
-                        <h5 class="mb-0 fw-bold"><i class="bi bi-clock-history me-2 text-info"></i>Recent Posts</h5>
-                        <a href="posts.html" class="small text-decoration-none text-info fw-medium">View All &rarr;</a>
+                        <h5 class="mb-0 fs-6 fw-semibold"><i class="bi bi-clock-history me-2 text-warning"></i>Recent Activity</h5>
+                        <a href="posts.html" class="small text-decoration-none text-warning fw-medium">View All &rarr;</a>
                     </div>
                     <div class="card-body p-0">
                         <div id="recent-posts-list" class="list-group list-group-flush border-0">
                             <!-- JS populates recent posts -->
                             <div class="p-4 text-center text-secondary">
-                                <div class="spinner-border spinner-border-sm text-primary mb-2" role="status"></div>
+                                <div class="spinner-border spinner-border-sm text-warning mb-2" role="status"></div>
                                 <p class="mb-0 extra-small">Loading recent posts...</p>
                             </div>
                         </div>
@@ -484,7 +491,7 @@
                         <i class="bi bi-exclamation-triangle-fill fs-6"></i>
                         <div>
                             <strong>Connection Required:</strong> ${missingNames} ${missing.length === 1 ? 'is' : 'are'} not connected.
-                            <a href="settings.html" class="alert-link">Connect in Settings &rarr;</a>
+                            <a href="settings.html" class="alert-link text-warning">Connect in Settings &rarr;</a>
                         </div>
                     </div>
                 `;
@@ -519,7 +526,7 @@
                 listContainer.innerHTML = `
                     <div class="p-4 text-center text-secondary">
                         <i class="bi bi-inbox fs-2 d-block mb-2 opacity-50"></i>
-                        <p class="mb-0">No posts created yet.</p>
+                        <p class="mb-0 small">No posts created yet.</p>
                     </div>
                 `;
                 return;
@@ -531,20 +538,20 @@
                 const captionSnippet = Utils.truncateText(post.caption, 50);
 
                 return `
-                    <div class="list-group-item bg-transparent text-white border-secondary p-3">
+                    <div class="list-group-item bg-transparent text-white border-bottom p-3" style="border-color: var(--publio-border-subtle) !important;">
                         <div class="d-flex justify-content-between align-items-start mb-1">
-                            <span class="fw-semibold text-truncate me-2" style="max-width: 220px;">${Utils.escapeHtml(captionSnippet)}</span>
+                            <span class="fw-medium text-truncate me-2" style="max-width: 220px;">${Utils.escapeHtml(captionSnippet)}</span>
                             ${badgeHtml}
                         </div>
-                        <div class="d-flex justify-content-between align-items-center mt-2 extra-small text-secondary">
+                        <div class="d-flex justify-content-between align-items-center mt-2 extra-small text-secondary font-mono">
                             <span><i class="bi bi-clock me-1"></i>${dateStr}</span>
                             ${post.status === 'draft' || post.status === 'failed' ? `
-                                <a href="dashboard.html?edit=${post.id}" class="btn btn-xs btn-outline-warning text-warning p-0 px-1 extra-small text-decoration-none">
-                                    <i class="bi bi-pencil"></i> Edit
+                                <a href="dashboard.html?edit=${post.id}" class="btn btn-xs btn-outline-warning text-warning p-0 px-2 extra-small text-decoration-none">
+                                    <i class="bi bi-pencil me-1"></i>Edit
                                 </a>
                             ` : post.status === 'published' ? `
-                                <a href="dashboard.html?reuse=${post.id}" class="btn btn-xs btn-outline-success text-success p-0 px-1 extra-small text-decoration-none">
-                                    <i class="bi bi-arrow-repeat"></i> Reuse
+                                <a href="dashboard.html?reuse=${post.id}" class="btn btn-xs btn-outline-secondary p-0 px-2 extra-small text-decoration-none">
+                                    <i class="bi bi-arrow-repeat me-1"></i>Reuse
                                 </a>
                             ` : ''}
                         </div>

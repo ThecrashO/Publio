@@ -19,28 +19,25 @@
         <div class="container">
             <a class="navbar-brand d-flex align-items-center gap-2" href="dashboard.html">
                 <img src="assets/logo.png" alt="Publio Logo" class="app-logo">
-                <span class="brand-text fw-bold fs-4">Publio</span>
+                <span class="brand-text fs-4">Publio</span>
             </a>
-            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <button class="navbar-toggler border-0 text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4 gap-1">
                     <li class="nav-item">
-                        <a class="nav-link fw-medium" href="dashboard.html"><i class="bi bi-speedometer2 me-1"></i>
-                            Dashboard</a>
+                        <a class="nav-link" href="dashboard.html"><i class="bi bi-speedometer2 me-1"></i> Dashboard</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link fw-medium" href="posts.html"><i class="bi bi-file-earmark-post me-1"></i>
-                            Posts</a>
+                        <a class="nav-link" href="posts.html"><i class="bi bi-file-earmark-post me-1"></i> Posts</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active fw-medium" href="settings.html"><i class="bi bi-gear me-1"></i> Social
-                            Settings</a>
+                        <a class="nav-link active" href="settings.html"><i class="bi bi-gear me-1"></i> Social Settings</a>
                     </li>
                 </ul>
                 <div class="d-flex align-items-center gap-3">
-                    <span id="user-display-name" class="text-secondary small d-none d-sm-inline">...</span>
+                    <span id="user-display-name" class="text-secondary small font-mono d-none d-sm-inline">...</span>
                     <button id="btn-logout" class="btn btn-outline-danger btn-sm">
                         <i class="bi bi-box-arrow-right me-1"></i> Logout
                     </button>
@@ -53,7 +50,7 @@
     <div class="container py-4">
 
         <div class="mb-4">
-            <h2 class="fw-bold mb-1">Platform Connections</h2>
+            <h2 class="h3 fw-bold mb-1">Platform Connections</h2>
             <p class="text-secondary small mb-0">Manage secure API credentials for publishing target platforms.</p>
         </div>
 
@@ -64,181 +61,146 @@
             <div class="col-lg-5">
                 <div class="card card-publio mb-4">
                     <div class="card-header card-header-publio">
-                        <h5 class="mb-0 fw-bold"><i class="bi bi-link-45deg me-2 text-primary"></i>Connected Accounts
-                        </h5>
+                        <h5 class="mb-0 fs-6 fw-semibold"><i class="bi bi-link-45deg me-2 text-warning"></i>Connected Accounts</h5>
                     </div>
                     <div class="card-body p-0">
                         <div class="list-group list-group-flush border-0" id="platform-status-list">
 
                             <!-- Telegram -->
-                            <div
-                                class="list-group-item bg-transparent text-white border-secondary p-3 d-flex align-items-center justify-content-between">
+                            <div class="list-group-item bg-transparent text-white border-bottom p-3 d-flex align-items-center justify-content-between" style="border-color: var(--publio-border-subtle) !important;">
                                 <div class="d-flex align-items-center gap-3">
-                                    <i class="bi bi-telegram fs-3 text-info"></i>
+                                    <i class="bi bi-telegram fs-4 text-info"></i>
                                     <div>
-                                        <h6 class="mb-0 fw-semibold">Telegram Bot</h6>
-                                        <span id="status-badge-telegram" class="badge bg-secondary extra-small">Not
-                                            Connected</span>
-                                        <div id="account-name-telegram" class="extra-small text-muted mt-1 d-none">
-                                        </div>
+                                        <h6 class="mb-0 fw-medium small">Telegram Bot</h6>
+                                        <span id="status-badge-telegram" class="badge badge-secondary extra-small">Not Connected</span>
+                                        <div id="account-name-telegram" class="extra-small text-muted mt-1 font-mono d-none"></div>
                                     </div>
                                 </div>
                                 <div class="d-flex gap-2 align-items-center">
-                                    <button type="button" class="btn btn-sm btn-outline-light" data-bs-toggle="collapse"
-                                        data-bs-target="#telegram-config-card">
+                                    <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="collapse" data-bs-target="#telegram-config-card">
                                         Configure
                                     </button>
-                                    <button type="button" id="btn-disconnect-telegram-side"
-                                        class="btn btn-sm btn-outline-danger d-none"
-                                        onclick="disconnectPlatform('telegram')">
+                                    <button type="button" id="btn-disconnect-telegram-side" class="btn btn-sm btn-outline-danger d-none" onclick="disconnectPlatform('telegram')">
                                         <i class="bi bi-x-lg"></i>
                                     </button>
                                 </div>
                             </div>
 
                             <!-- Facebook -->
-                            <div
-                                class="list-group-item bg-transparent text-white border-secondary p-3 d-flex align-items-center justify-content-between">
+                            <div class="list-group-item bg-transparent text-white border-bottom p-3 d-flex align-items-center justify-content-between" style="border-color: var(--publio-border-subtle) !important;">
                                 <div class="d-flex align-items-center gap-3">
-                                    <i class="bi bi-facebook fs-3 text-primary"></i>
+                                    <i class="bi bi-facebook fs-4 text-primary"></i>
                                     <div>
-                                        <h6 class="mb-0 fw-semibold">Facebook Page</h6>
-                                        <span id="status-badge-facebook" class="badge bg-secondary extra-small">Not
-                                            Connected</span>
-                                        <div id="account-name-facebook" class="extra-small text-muted mt-1 d-none">
-                                        </div>
+                                        <h6 class="mb-0 fw-medium small">Facebook Page</h6>
+                                        <span id="status-badge-facebook" class="badge badge-secondary extra-small">Not Connected</span>
+                                        <div id="account-name-facebook" class="extra-small text-muted mt-1 font-mono d-none"></div>
                                     </div>
                                 </div>
                                 <div class="d-flex gap-2 align-items-center">
-                                    <button type="button" id="btn-connect-facebook"
-                                        class="btn btn-sm btn-outline-primary" onclick="connectOAuth('facebook')">
+                                    <button type="button" id="btn-connect-facebook" class="btn btn-sm btn-outline-secondary" onclick="connectOAuth('facebook')">
                                         <i class="bi bi-facebook me-1"></i> Connect
                                     </button>
-                                    <button type="button" id="btn-disconnect-facebook"
-                                        class="btn btn-sm btn-outline-danger d-none"
-                                        onclick="disconnectPlatform('facebook')">
+                                    <button type="button" id="btn-disconnect-facebook" class="btn btn-sm btn-outline-danger d-none" onclick="disconnectPlatform('facebook')">
                                         <i class="bi bi-x-lg"></i>
                                     </button>
                                 </div>
                             </div>
 
                             <!-- Instagram -->
-                            <div
-                                class="list-group-item bg-transparent text-white border-secondary p-3 d-flex align-items-center justify-content-between">
+                            <div class="list-group-item bg-transparent text-white border-bottom p-3 d-flex align-items-center justify-content-between" style="border-color: var(--publio-border-subtle) !important;">
                                 <div class="d-flex align-items-center gap-3">
-                                    <i class="bi bi-instagram fs-3 text-danger"></i>
+                                    <i class="bi bi-instagram fs-4 text-danger"></i>
                                     <div>
-                                        <h6 class="mb-0 fw-semibold">Instagram Business</h6>
-                                        <span id="status-badge-instagram" class="badge bg-secondary extra-small">Not
-                                            Connected</span>
-                                        <div id="account-name-instagram" class="extra-small text-muted mt-1 d-none">
-                                        </div>
+                                        <h6 class="mb-0 fw-medium small">Instagram Business</h6>
+                                        <span id="status-badge-instagram" class="badge badge-secondary extra-small">Not Connected</span>
+                                        <div id="account-name-instagram" class="extra-small text-muted mt-1 font-mono d-none"></div>
                                     </div>
                                 </div>
                                 <div class="d-flex gap-2 align-items-center">
-                                    <button type="button" id="btn-connect-instagram"
-                                        class="btn btn-sm btn-outline-danger" onclick="connectOAuth('instagram')">
+                                    <button type="button" id="btn-connect-instagram" class="btn btn-sm btn-outline-secondary" onclick="connectOAuth('instagram')">
                                         <i class="bi bi-instagram me-1"></i> Connect
                                     </button>
-                                    <button type="button" id="btn-disconnect-instagram"
-                                        class="btn btn-sm btn-outline-danger d-none"
-                                        onclick="disconnectPlatform('instagram')">
+                                    <button type="button" id="btn-disconnect-instagram" class="btn btn-sm btn-outline-danger d-none" onclick="disconnectPlatform('instagram')">
                                         <i class="bi bi-x-lg"></i>
                                     </button>
                                 </div>
                             </div>
 
                             <!-- LinkedIn -->
-                            <div
-                                class="list-group-item bg-transparent text-white border-secondary p-3 d-flex align-items-center justify-content-between">
+                            <div class="list-group-item bg-transparent text-white border-bottom p-3 d-flex align-items-center justify-content-between" style="border-color: var(--publio-border-subtle) !important;">
                                 <div class="d-flex align-items-center gap-3">
-                                    <i class="bi bi-linkedin fs-3 text-info"></i>
+                                    <i class="bi bi-linkedin fs-4 text-info"></i>
                                     <div>
-                                        <h6 class="mb-0 fw-semibold">LinkedIn Profile</h6>
-                                        <span id="status-badge-linkedin" class="badge bg-secondary extra-small">Not
-                                            Connected</span>
-                                        <div id="account-name-linkedin" class="extra-small text-muted mt-1 d-none">
-                                        </div>
+                                        <h6 class="mb-0 fw-medium small">LinkedIn Profile</h6>
+                                        <span id="status-badge-linkedin" class="badge badge-secondary extra-small">Not Connected</span>
+                                        <div id="account-name-linkedin" class="extra-small text-muted mt-1 font-mono d-none"></div>
                                     </div>
                                 </div>
                                 <div class="d-flex gap-2 align-items-center">
-                                    <button type="button" id="btn-connect-linkedin" class="btn btn-sm btn-outline-info"
-                                        onclick="connectOAuth('linkedin')">
+                                    <button type="button" id="btn-connect-linkedin" class="btn btn-sm btn-outline-secondary" onclick="connectOAuth('linkedin')">
                                         <i class="bi bi-linkedin me-1"></i> Connect
                                     </button>
-                                    <button type="button" id="btn-disconnect-linkedin"
-                                        class="btn btn-sm btn-outline-danger d-none"
-                                        onclick="disconnectPlatform('linkedin')">
+                                    <button type="button" id="btn-disconnect-linkedin" class="btn btn-sm btn-outline-danger d-none" onclick="disconnectPlatform('linkedin')">
                                         <i class="bi bi-x-lg"></i>
                                     </button>
                                 </div>
                             </div>
 
                             <!-- X (Twitter) -->
-                            <div
-                                class="list-group-item bg-transparent text-white border-secondary p-3 d-flex align-items-center justify-content-between">
+                            <div class="list-group-item bg-transparent text-white border-bottom p-3 d-flex align-items-center justify-content-between" style="border-color: var(--publio-border-subtle) !important;">
                                 <div class="d-flex align-items-center gap-3">
-                                    <i class="bi bi-twitter-x fs-3 text-white"></i>
+                                    <i class="bi bi-twitter-x fs-4 text-white"></i>
                                     <div>
-                                        <h6 class="mb-0 fw-semibold">X (Twitter)</h6>
-                                        <span id="status-badge-x" class="badge bg-secondary extra-small">Not
-                                            Connected</span>
-                                        <div id="account-name-x" class="extra-small text-muted mt-1 d-none"></div>
+                                        <h6 class="mb-0 fw-medium small">X (Twitter)</h6>
+                                        <span id="status-badge-x" class="badge badge-secondary extra-small">Not Connected</span>
+                                        <div id="account-name-x" class="extra-small text-muted mt-1 font-mono d-none"></div>
                                     </div>
                                 </div>
                                 <div class="d-flex gap-2 align-items-center">
-                                    <button type="button" id="btn-connect-x" class="btn btn-sm btn-outline-light"
-                                        onclick="connectOAuth('x')">
+                                    <button type="button" id="btn-connect-x" class="btn btn-sm btn-outline-secondary" onclick="connectOAuth('x')">
                                         <i class="bi bi-twitter-x me-1"></i> Connect
                                     </button>
-                                    <button type="button" id="btn-disconnect-x"
-                                        class="btn btn-sm btn-outline-danger d-none" onclick="disconnectPlatform('x')">
+                                    <button type="button" id="btn-disconnect-x" class="btn btn-sm btn-outline-danger d-none" onclick="disconnectPlatform('x')">
                                         <i class="bi bi-x-lg"></i>
                                     </button>
                                 </div>
                             </div>
 
                             <!-- YouTube -->
-                            <div
-                                class="list-group-item bg-transparent text-white border-secondary p-3 d-flex align-items-center justify-content-between">
+                            <div class="list-group-item bg-transparent text-white border-bottom p-3 d-flex align-items-center justify-content-between" style="border-color: var(--publio-border-subtle) !important;">
                                 <div class="d-flex align-items-center gap-3">
-                                    <i class="bi bi-youtube fs-3 text-danger"></i>
+                                    <i class="bi bi-youtube fs-4 text-danger"></i>
                                     <div>
-                                        <h6 class="mb-0 fw-semibold">YouTube Channel</h6>
-                                        <span id="status-badge-youtube" class="badge bg-secondary extra-small">Not
-                                            Connected</span>
-                                        <div id="account-name-youtube" class="extra-small text-muted mt-1 d-none"></div>
+                                        <h6 class="mb-0 fw-medium small">YouTube Channel</h6>
+                                        <span id="status-badge-youtube" class="badge badge-secondary extra-small">Not Connected</span>
+                                        <div id="account-name-youtube" class="extra-small text-muted mt-1 font-mono d-none"></div>
                                     </div>
                                 </div>
                                 <div class="d-flex gap-2 align-items-center">
-                                    <button type="button" id="btn-connect-youtube" class="btn btn-sm btn-outline-danger"
-                                        onclick="connectOAuth('youtube')">
+                                    <button type="button" id="btn-connect-youtube" class="btn btn-sm btn-outline-secondary" onclick="connectOAuth('youtube')">
                                         <i class="bi bi-youtube me-1"></i> Connect
                                     </button>
-                                    <button type="button" id="btn-disconnect-youtube"
-                                        class="btn btn-sm btn-outline-danger d-none" onclick="disconnectPlatform('youtube')">
+                                    <button type="button" id="btn-disconnect-youtube" class="btn btn-sm btn-outline-danger d-none" onclick="disconnectPlatform('youtube')">
                                         <i class="bi bi-x-lg"></i>
                                     </button>
                                 </div>
+                            </div>
+
                             <!-- TikTok -->
-                            <div
-                                class="list-group-item bg-transparent text-white border-secondary p-3 d-flex align-items-center justify-content-between">
+                            <div class="list-group-item bg-transparent text-white p-3 d-flex align-items-center justify-content-between">
                                 <div class="d-flex align-items-center gap-3">
-                                    <i class="bi bi-tiktok fs-3 text-white"></i>
+                                    <i class="bi bi-tiktok fs-4 text-white"></i>
                                     <div>
-                                        <h6 class="mb-0 fw-semibold">TikTok Account</h6>
-                                        <span id="status-badge-tiktok" class="badge bg-secondary extra-small">Not
-                                            Connected</span>
-                                        <div id="account-name-tiktok" class="extra-small text-muted mt-1 d-none"></div>
+                                        <h6 class="mb-0 fw-medium small">TikTok Account</h6>
+                                        <span id="status-badge-tiktok" class="badge badge-secondary extra-small">Not Connected</span>
+                                        <div id="account-name-tiktok" class="extra-small text-muted mt-1 font-mono d-none"></div>
                                     </div>
                                 </div>
                                 <div class="d-flex gap-2 align-items-center">
-                                    <button type="button" id="btn-connect-tiktok" class="btn btn-sm btn-outline-light"
-                                        onclick="connectOAuth('tiktok')">
+                                    <button type="button" id="btn-connect-tiktok" class="btn btn-sm btn-outline-secondary" onclick="connectOAuth('tiktok')">
                                         <i class="bi bi-tiktok me-1"></i> Connect
                                     </button>
-                                    <button type="button" id="btn-disconnect-tiktok"
-                                        class="btn btn-sm btn-outline-danger d-none" onclick="disconnectPlatform('tiktok')">
+                                    <button type="button" id="btn-disconnect-tiktok" class="btn btn-sm btn-outline-danger d-none" onclick="disconnectPlatform('tiktok')">
                                         <i class="bi bi-x-lg"></i>
                                     </button>
                                 </div>
@@ -253,9 +215,8 @@
             <div class="col-lg-7">
                 <div id="telegram-config-card" class="card card-publio collapse show">
                     <div class="card-header card-header-publio d-flex align-items-center justify-content-between">
-                        <h5 class="mb-0 fw-bold text-info"><i class="bi bi-telegram me-2"></i>Telegram Bot Configuration
-                        </h5>
-                        <span class="badge bg-primary">First-Class Platform</span>
+                        <h5 class="mb-0 fs-6 fw-semibold"><i class="bi bi-telegram me-2 text-info"></i>Telegram Bot Configuration</h5>
+                        <span class="badge badge-gold">Direct API</span>
                     </div>
                     <div class="card-body p-4">
                         <form id="form-telegram-config">
@@ -265,16 +226,13 @@
                                     Telegram Bot Token <span class="text-danger">*</span>
                                 </label>
                                 <div class="input-group">
-                                    <span class="input-group-text bg-dark border-secondary text-secondary"><i
-                                            class="bi bi-key"></i></span>
-                                    <input type="password" id="tg-bot-token" class="form-control"
-                                        placeholder="123456789:ABCdefGhIJKlmNoPQRsTUVwxyZ" required>
+                                    <span class="input-group-text"><i class="bi bi-key"></i></span>
+                                    <input type="password" id="tg-bot-token" class="form-control font-mono" placeholder="123456789:ABCdefGhIJKlmNoPQRsTUVwxyZ" required>
                                     <button type="button" id="btn-toggle-token" class="btn btn-outline-secondary">
                                         <i class="bi bi-eye"></i>
                                     </button>
                                 </div>
-                                <div class="form-text extra-small text-secondary">Obtained from Telegram @BotFather.
-                                    Never exposed to browser visitors.</div>
+                                <div class="form-text extra-small text-secondary">Obtained from Telegram @BotFather. Never exposed to browser visitors.</div>
                             </div>
 
                             <!-- CHANNEL ID -->
@@ -283,13 +241,10 @@
                                     Telegram Channel / Chat ID <span class="text-danger">*</span>
                                 </label>
                                 <div class="input-group">
-                                    <span class="input-group-text bg-dark border-secondary text-secondary"><i
-                                            class="bi bi-hash"></i></span>
-                                    <input type="text" id="tg-chat-id" class="form-control"
-                                        placeholder="-1001234567890 or @mychannelname" required>
+                                    <span class="input-group-text"><i class="bi bi-hash"></i></span>
+                                    <input type="text" id="tg-chat-id" class="form-control font-mono" placeholder="-1001234567890 or @mychannelname" required>
                                 </div>
-                                <div class="form-text extra-small text-secondary">Unique channel ID (e.g.
-                                    -100xxxxxxxxxx) or public channel handle.</div>
+                                <div class="form-text extra-small text-secondary">Unique channel ID (e.g. -100xxxxxxxxxx) or public channel handle.</div>
                             </div>
 
                             <!-- CHANNEL USERNAME (OPTIONAL) -->
@@ -298,9 +253,8 @@
                                     Channel Username (Optional)
                                 </label>
                                 <div class="input-group">
-                                    <span class="input-group-text bg-dark border-secondary text-secondary">@</span>
-                                    <input type="text" id="tg-channel-username" class="form-control"
-                                        placeholder="mychannel">
+                                    <span class="input-group-text">@</span>
+                                    <input type="text" id="tg-channel-username" class="form-control font-mono" placeholder="mychannel">
                                 </div>
                             </div>
 
@@ -308,40 +262,29 @@
                                 <button type="submit" id="btn-save-telegram" class="btn btn-publio-primary w-100 py-2">
                                     <i class="bi bi-check2-circle me-1"></i> Save Telegram Credentials
                                 </button>
-                                <button type="button" id="btn-disconnect-telegram"
-                                    class="btn btn-outline-danger w-auto d-none">
+                                <button type="button" id="btn-disconnect-telegram" class="btn btn-outline-danger w-auto d-none">
                                     <i class="bi bi-trash"></i>
                                 </button>
                             </div>
                         </form>
 
                         <!-- TELEGRAM GUIDE ACCORDION -->
-                        <div class="accordion accordion-flush mt-4 border border-secondary rounded"
-                            id="tgGuideAccordion">
+                        <div class="accordion accordion-flush mt-4 rounded" id="tgGuideAccordion" style="border: 1px solid var(--publio-border-color);">
                             <div class="accordion-item bg-transparent">
                                 <h2 class="accordion-header">
-                                    <button
-                                        class="accordion-button collapsed bg-dark text-white extra-small fw-semibold"
-                                        type="button" data-bs-toggle="collapse" data-bs-target="#guideBody">
-                                        <i class="bi bi-info-circle me-2 text-info"></i> How to set up Telegram Bot &
-                                        Channel (Step-by-Step)
+                                    <button class="accordion-button collapsed text-white extra-small fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#guideBody" style="background-color: var(--publio-bg-surface-elevated);">
+                                        <i class="bi bi-info-circle me-2 text-warning"></i> How to set up Telegram Bot & Channel (Step-by-Step)
                                     </button>
                                 </h2>
-                                <div id="guideBody" class="accordion-collapse collapse"
-                                    data-bs-parent="#tgGuideAccordion">
+                                <div id="guideBody" class="accordion-collapse collapse" data-bs-parent="#tgGuideAccordion">
                                     <div class="accordion-body extra-small text-secondary lh-lg">
                                         <ol class="mb-0 ps-3">
                                             <li>Open Telegram and search for <strong>@BotFather</strong>.</li>
                                             <li>Send <code>/newbot</code>, choose a name and username for your Bot.</li>
-                                            <li>Copy the generated <strong>HTTP API Token</strong> and paste it into the
-                                                field above.</li>
-                                            <li>Add your Bot as an <strong>Administrator</strong> inside your target
-                                                Telegram Channel.</li>
-                                            <li>Ensure the Bot has administrative permission to <strong>Post
-                                                    Messages</strong>.</li>
-                                            <li>For channel ID, forward a message from your channel to
-                                                <strong>@userinfobot</strong> or <strong>@RawDataBot</strong> to find
-                                                your <code>-100...</code> ID.</li>
+                                            <li>Copy the generated <strong>HTTP API Token</strong> and paste it into the field above.</li>
+                                            <li>Add your Bot as an <strong>Administrator</strong> inside your target Telegram Channel.</li>
+                                            <li>Ensure the Bot has administrative permission to <strong>Post Messages</strong>.</li>
+                                            <li>For channel ID, forward a message from your channel to <strong>@userinfobot</strong> or <strong>@RawDataBot</strong> to find your <code>-100...</code> ID.</li>
                                         </ol>
                                     </div>
                                 </div>
@@ -360,16 +303,13 @@
         <!-- FACEBOOK SETUP GUIDE -->
         <div class="card card-publio mt-4" id="facebook-setup-card">
             <div class="card-header card-header-publio d-flex align-items-center justify-content-between">
-                <h5 class="mb-0 fw-bold text-primary"><i class="bi bi-facebook me-2"></i>Facebook Page - Setup Guide
-                </h5>
+                <h5 class="mb-0 fs-6 fw-semibold text-primary"><i class="bi bi-facebook me-2"></i>Facebook Page - Setup Guide</h5>
                 <div class="d-flex gap-2 align-items-center">
-                    <span id="fb-card-status" class="badge bg-secondary small">Not Connected</span>
-                    <button type="button" id="btn-connect-facebook-card" class="btn btn-sm btn-primary"
-                        onclick="connectOAuth('facebook')">
+                    <span id="fb-card-status" class="badge badge-secondary extra-small">Not Connected</span>
+                    <button type="button" id="btn-connect-facebook-card" class="btn btn-sm btn-outline-secondary" onclick="connectOAuth('facebook')">
                         <i class="bi bi-facebook me-1"></i> Connect Facebook
                     </button>
-                    <button type="button" id="btn-disconnect-facebook-card" class="btn btn-sm btn-outline-danger d-none"
-                        onclick="disconnectPlatform('facebook')">
+                    <button type="button" id="btn-disconnect-facebook-card" class="btn btn-sm btn-outline-danger d-none" onclick="disconnectPlatform('facebook')">
                         <i class="bi bi-x-lg me-1"></i> Disconnect
                     </button>
                 </div>
@@ -378,66 +318,50 @@
 
                 <!-- App ID Input Field -->
                 <div class="mb-3">
-                    <label class="form-label text-secondary small fw-medium">Facebook App ID <span
-                            class="text-danger">*</span></label>
+                    <label class="form-label text-secondary small fw-medium">Facebook App ID <span class="text-danger">*</span></label>
                     <div class="input-group">
-                        <span class="input-group-text bg-dark border-secondary text-secondary"><i
-                                class="bi bi-app"></i></span>
-                        <input type="text" id="facebook-app-id" class="form-control" placeholder="1234567890123456">
+                        <span class="input-group-text"><i class="bi bi-app"></i></span>
+                        <input type="text" id="facebook-app-id" class="form-control font-mono" placeholder="1234567890123456">
                     </div>
-                    <div class="form-text extra-small text-secondary">From Facebook Developers -> Your App -> Settings
-                        -> Basic -> App ID</div>
+                    <div class="form-text extra-small text-secondary">From Facebook Developers -&gt; Your App -&gt; Settings -&gt; Basic -&gt; App ID</div>
                 </div>
 
                 <!-- Step-by-Step Guide -->
-                <div class="accordion accordion-flush border border-secondary rounded" id="fbGuideAccordion">
+                <div class="accordion accordion-flush rounded" id="fbGuideAccordion" style="border: 1px solid var(--publio-border-color);">
                     <div class="accordion-item bg-transparent">
                         <h2 class="accordion-header">
-                            <button class="accordion-button collapsed bg-dark text-white extra-small fw-semibold"
-                                type="button" data-bs-toggle="collapse" data-bs-target="#fbGuideBody">
-                                <i class="bi bi-info-circle me-2 text-primary"></i> How to create a Facebook App & get
-                                App ID (Step-by-Step)
+                            <button class="accordion-button collapsed text-white extra-small fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#fbGuideBody" style="background-color: var(--publio-bg-surface-elevated);">
+                                <i class="bi bi-info-circle me-2 text-primary"></i> How to create a Facebook App & get App ID (Step-by-Step)
                             </button>
                         </h2>
                         <div id="fbGuideBody" class="accordion-collapse collapse" data-bs-parent="#fbGuideAccordion">
                             <div class="accordion-body extra-small text-secondary lh-lg">
                                 <ol class="ps-3 mb-2">
-                                    <li>Go to <a href="https://developers.facebook.com/apps" target="_blank"
-                                            class="text-primary">developers.facebook.com/apps</a> and log in with your
-                                        Facebook account.</li>
-                                    <li>Click <strong>"Create App"</strong> -> Choose type <strong>"Other"</strong> ->
-                                        <strong>"Business"</strong> -> Give it any name (e.g., Publio).</li>
-                                    <li>Inside the app, go to <strong>Settings -> Basic</strong>. Copy your <strong>App
-                                            ID</strong> and paste it into the field above.</li>
-                                    <li>Copy your <strong>App Secret</strong> (click Show) -> You'll need to add this to
-                                        Supabase Secrets.</li>
-                                    <li>In the left sidebar, click <strong>"Add Product"</strong> -> Set up
-                                        <strong>Facebook Login for Business</strong>.</li>
-                                    <li>Go to <strong>Facebook Login -> Settings</strong> -> Under <em>"Valid OAuth
-                                            Redirect URIs"</em>, add this URL:</li>
+                                    <li>Go to <a href="https://developers.facebook.com/apps" target="_blank" class="text-warning">developers.facebook.com/apps</a> and log in with your Facebook account.</li>
+                                    <li>Click <strong>"Create App"</strong> -&gt; Choose type <strong>"Other"</strong> -&gt; <strong>"Business"</strong> -&gt; Give it any name (e.g., Publio).</li>
+                                    <li>Inside the app, go to <strong>Settings -&gt; Basic</strong>. Copy your <strong>App ID</strong> and paste it into the field above.</li>
+                                    <li>Copy your <strong>App Secret</strong> (click Show) -&gt; You'll need to add this to Supabase Secrets.</li>
+                                    <li>In the left sidebar, click <strong>"Add Product"</strong> -&gt; Set up <strong>Facebook Login for Business</strong>.</li>
+                                    <li>Go to <strong>Facebook Login -&gt; Settings</strong> -&gt; Under <em>"Valid OAuth Redirect URIs"</em>, add this URL:</li>
                                 </ol>
-                                <div class="bg-dark border border-secondary rounded p-2 mb-2 font-monospace"
-                                    style="font-size:10px; word-break:break-all;">
+                                <div class="rounded p-2 mb-2 font-mono" style="background-color: var(--publio-bg-input); border: 1px solid var(--publio-border-color); font-size:11px; word-break:break-all;">
                                     https://chzcqxzebsxiqgxbmurq.supabase.co/functions/v1/oauth-facebook-callback
                                 </div>
                                 <ol class="ps-3 mb-2" start="7">
                                     <li>Click <strong>"Save Changes"</strong>.</li>
                                     <li>In your terminal, run:</li>
                                 </ol>
-                                <div class="bg-dark border border-secondary rounded p-2 mb-2 font-monospace"
-                                    style="font-size:10px;">
+                                <div class="rounded p-2 mb-2 font-mono" style="background-color: var(--publio-bg-input); border: 1px solid var(--publio-border-color); font-size:11px;">
                                     npx supabase secrets set FACEBOOK_APP_ID=your_app_id<br>
                                     npx supabase secrets set FACEBOOK_APP_SECRET=your_app_secret<br>
                                     npx supabase secrets set SITE_URL=http://localhost:8080
                                 </div>
                                 <ol class="ps-3 mb-0" start="9">
                                     <li>Paste your App ID above and click <strong>"Connect Facebook"</strong>.</li>
-                                    <li>Authorize and you'll be redirected back here with status <span
-                                            class="badge bg-success" style="font-size:9px;">Connected</span>.</li>
+                                    <li>Authorize and you'll be redirected back here with status <span class="badge badge-success" style="font-size:9px;">Connected</span>.</li>
                                 </ol>
-                                <div class="alert alert-warning py-2 px-3 mt-3 extra-small">
-                                    <i class="bi bi-exclamation-triangle me-1"></i> You must have a <strong>Facebook
-                                        Page</strong> to publish posts. Personal profiles are not supported by the API.
+                                <div class="alert alert-warning py-2 px-3 mt-3 extra-small mb-0">
+                                    <i class="bi bi-exclamation-triangle me-1"></i> You must have a <strong>Facebook Page</strong> to publish posts. Personal profiles are not supported by the API.
                                 </div>
                             </div>
                         </div>
@@ -450,16 +374,13 @@
         <!-- INSTAGRAM SETUP GUIDE -->
         <div class="card card-publio mt-4" id="instagram-setup-card">
             <div class="card-header card-header-publio d-flex align-items-center justify-content-between">
-                <h5 class="mb-0 fw-bold" style="color:#e1306c;"><i class="bi bi-instagram me-2"></i>Instagram Business -
-                    Setup Guide</h5>
+                <h5 class="mb-0 fs-6 fw-semibold text-danger"><i class="bi bi-instagram me-2"></i>Instagram Business - Setup Guide</h5>
                 <div class="d-flex gap-2 align-items-center">
-                    <span id="ig-card-status" class="badge bg-secondary small">Not Connected</span>
-                    <button type="button" id="btn-connect-instagram-card" class="btn btn-sm"
-                        style="background:#e1306c;border-color:#e1306c;color:#fff;" onclick="connectOAuth('instagram')">
+                    <span id="ig-card-status" class="badge badge-secondary extra-small">Not Connected</span>
+                    <button type="button" id="btn-connect-instagram-card" class="btn btn-sm btn-outline-secondary" onclick="connectOAuth('instagram')">
                         <i class="bi bi-instagram me-1"></i> Connect Instagram
                     </button>
-                    <button type="button" id="btn-disconnect-instagram-card"
-                        class="btn btn-sm btn-outline-danger d-none" onclick="disconnectPlatform('instagram')">
+                    <button type="button" id="btn-disconnect-instagram-card" class="btn btn-sm btn-outline-danger d-none" onclick="disconnectPlatform('instagram')">
                         <i class="bi bi-x-lg me-1"></i> Disconnect
                     </button>
                 </div>
@@ -467,58 +388,44 @@
             <div class="card-body p-4">
 
                 <div class="mb-3">
-                    <label class="form-label text-secondary small fw-medium">Facebook App ID <span
-                            class="text-muted small">(Instagram uses the same Facebook App)</span></label>
+                    <label class="form-label text-secondary small fw-medium">Facebook App ID <span class="text-muted extra-small">(Instagram uses the same Facebook App)</span></label>
                     <div class="input-group">
-                        <span class="input-group-text bg-dark border-secondary text-secondary"><i
-                                class="bi bi-app"></i></span>
-                        <input type="text" id="instagram-app-id" class="form-control"
-                            placeholder="Same App ID as Facebook above">
+                        <span class="input-group-text"><i class="bi bi-app"></i></span>
+                        <input type="text" id="instagram-app-id" class="form-control font-mono" placeholder="Same App ID as Facebook above">
                     </div>
                 </div>
 
-                <div class="accordion accordion-flush border border-secondary rounded" id="igGuideAccordion">
+                <div class="accordion accordion-flush rounded" id="igGuideAccordion" style="border: 1px solid var(--publio-border-color);">
                     <div class="accordion-item bg-transparent">
                         <h2 class="accordion-header">
-                            <button class="accordion-button collapsed bg-dark text-white extra-small fw-semibold"
-                                type="button" data-bs-toggle="collapse" data-bs-target="#igGuideBody">
-                                <i class="bi bi-info-circle me-2" style="color:#e1306c;"></i> How to connect Instagram
-                                Business Account (Step-by-Step)
+                            <button class="accordion-button collapsed text-white extra-small fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#igGuideBody" style="background-color: var(--publio-bg-surface-elevated);">
+                                <i class="bi bi-info-circle me-2 text-danger"></i> How to connect Instagram Business Account (Step-by-Step)
                             </button>
                         </h2>
                         <div id="igGuideBody" class="accordion-collapse collapse" data-bs-parent="#igGuideAccordion">
                             <div class="accordion-body extra-small text-secondary lh-lg">
                                 <div class="alert alert-info py-2 px-3 mb-3 extra-small">
-                                    <i class="bi bi-info-circle me-1"></i> Instagram uses the <strong>same Facebook
-                                        App</strong>. If you've already done the Facebook setup, skip to Step 4.
+                                    <i class="bi bi-info-circle me-1"></i> Instagram uses the <strong>same Facebook App</strong>. If you've already done the Facebook setup, skip to Step 4.
                                 </div>
                                 <ol class="ps-3 mb-2">
-                                    <li>Inside your Facebook App (from Facebook setup above), click <strong>"Add
-                                            Product"</strong> -> Set up <strong>Instagram Graph API</strong>.</li>
-                                    <li>Go to <strong>Facebook Login -> Settings</strong> -> Add this redirect URI:</li>
+                                    <li>Inside your Facebook App (from Facebook setup above), click <strong>"Add Product"</strong> -&gt; Set up <strong>Instagram Graph API</strong>.</li>
+                                    <li>Go to <strong>Facebook Login -&gt; Settings</strong> -&gt; Add this redirect URI:</li>
                                 </ol>
-                                <div class="bg-dark border border-secondary rounded p-2 mb-2 font-monospace"
-                                    style="font-size:10px; word-break:break-all;">
+                                <div class="rounded p-2 mb-2 font-mono" style="background-color: var(--publio-bg-input); border: 1px solid var(--publio-border-color); font-size:11px; word-break:break-all;">
                                     https://chzcqxzebsxiqgxbmurq.supabase.co/functions/v1/oauth-instagram-callback
                                 </div>
                                 <ol class="ps-3 mb-2" start="3">
-                                    <li>Make sure your Instagram account is set to <strong>Business</strong> or
-                                        <strong>Creator</strong>:
-                                        <br>Instagram App -> Profile -> Settings -> Account type -> Switch to
-                                        Professional.
+                                    <li>Make sure your Instagram account is set to <strong>Business</strong> or <strong>Creator</strong>:
+                                        <br>Instagram App -&gt; Profile -&gt; Settings -&gt; Account type -&gt; Switch to Professional.
                                     </li>
                                     <li>Link your Instagram to a <strong>Facebook Page</strong>:
-                                        <br>Facebook Page -> Settings -> Linked Accounts -> Instagram -> Connect.
+                                        <br>Facebook Page -&gt; Settings -&gt; Linked Accounts -&gt; Instagram -&gt; Connect.
                                     </li>
-                                    <li>Paste the Facebook App ID in the field above and click <strong>"Connect
-                                            Instagram"</strong>.</li>
-                                    <li>Authorize permissions - Publio will automatically detect your linked Instagram
-                                        Business account.</li>
+                                    <li>Paste the Facebook App ID in the field above and click <strong>"Connect Instagram"</strong>.</li>
+                                    <li>Authorize permissions - Publio will automatically detect your linked Instagram Business account.</li>
                                 </ol>
-                                <div class="alert alert-warning py-2 px-3 mt-3 extra-small">
-                                    <i class="bi bi-exclamation-triangle me-1"></i> Instagram API <strong>does not
-                                        support personal accounts</strong>. Only Business or Creator accounts linked to
-                                    a Facebook Page can publish posts via API.
+                                <div class="alert alert-warning py-2 px-3 mt-3 extra-small mb-0">
+                                    <i class="bi bi-exclamation-triangle me-1"></i> Instagram API <strong>does not support personal accounts</strong>. Only Business or Creator accounts linked to a Facebook Page can publish posts via API.
                                 </div>
                             </div>
                         </div>
@@ -531,16 +438,13 @@
         <!-- LINKEDIN SETUP GUIDE -->
         <div class="card card-publio mt-4" id="linkedin-setup-card">
             <div class="card-header card-header-publio d-flex align-items-center justify-content-between">
-                <h5 class="mb-0 fw-bold text-info"><i class="bi bi-linkedin me-2"></i>LinkedIn Profile - Setup Guide
-                </h5>
+                <h5 class="mb-0 fs-6 fw-semibold text-info"><i class="bi bi-linkedin me-2"></i>LinkedIn Profile - Setup Guide</h5>
                 <div class="d-flex gap-2 align-items-center">
-                    <span id="li-card-status" class="badge bg-secondary small">Not Connected</span>
-                    <button type="button" id="btn-connect-linkedin-card" class="btn btn-sm btn-info"
-                        onclick="connectOAuth('linkedin')" style="color:#fff;">
+                    <span id="li-card-status" class="badge badge-secondary extra-small">Not Connected</span>
+                    <button type="button" id="btn-connect-linkedin-card" class="btn btn-sm btn-outline-secondary" onclick="connectOAuth('linkedin')">
                         <i class="bi bi-linkedin me-1"></i> Connect LinkedIn
                     </button>
-                    <button type="button" id="btn-disconnect-linkedin-card" class="btn btn-sm btn-outline-danger d-none"
-                        onclick="disconnectPlatform('linkedin')">
+                    <button type="button" id="btn-disconnect-linkedin-card" class="btn btn-sm btn-outline-danger d-none" onclick="disconnectPlatform('linkedin')">
                         <i class="bi bi-x-lg me-1"></i> Disconnect
                     </button>
                 </div>
@@ -548,44 +452,34 @@
             <div class="card-body p-4">
 
                 <div class="mb-3">
-                    <label class="form-label text-secondary small fw-medium">LinkedIn Client ID <span
-                            class="text-danger">*</span></label>
+                    <label class="form-label text-secondary small fw-medium">LinkedIn Client ID <span class="text-danger">*</span></label>
                     <div class="input-group">
-                        <span class="input-group-text bg-dark border-secondary text-secondary"><i
-                                class="bi bi-key"></i></span>
-                        <input type="text" id="linkedin-client-id" class="form-control"
-                            placeholder="86xxxxxxxxxxxxxxxx">
+                        <span class="input-group-text"><i class="bi bi-key"></i></span>
+                        <input type="text" id="linkedin-client-id" class="form-control font-mono" placeholder="86xxxxxxxxxxxxxxxx">
                     </div>
-                    <div class="form-text extra-small text-secondary">From LinkedIn Developers -> Your App -> Auth ->
-                        Client ID</div>
+                    <div class="form-text extra-small text-secondary">From LinkedIn Developers -&gt; Your App -&gt; Auth -&gt; Client ID</div>
                 </div>
 
-                <div class="accordion accordion-flush border border-secondary rounded" id="liGuideAccordion">
+                <div class="accordion accordion-flush rounded" id="liGuideAccordion" style="border: 1px solid var(--publio-border-color);">
                     <div class="accordion-item bg-transparent">
                         <h2 class="accordion-header">
-                            <button class="accordion-button collapsed bg-dark text-white extra-small fw-semibold"
-                                type="button" data-bs-toggle="collapse" data-bs-target="#liGuideBody">
-                                <i class="bi bi-info-circle me-2 text-info"></i> How to create a LinkedIn App & get
-                                Client ID (Step-by-Step)
+                            <button class="accordion-button collapsed text-white extra-small fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#liGuideBody" style="background-color: var(--publio-bg-surface-elevated);">
+                                <i class="bi bi-info-circle me-2 text-info"></i> How to create a LinkedIn App & get Client ID (Step-by-Step)
                             </button>
                         </h2>
                         <div id="liGuideBody" class="accordion-collapse collapse" data-bs-parent="#liGuideAccordion">
                             <div class="accordion-body extra-small text-secondary lh-lg">
                                 <ol class="ps-3 mb-2">
-                                    <li>Go to <a href="https://www.linkedin.com/developers/apps" target="_blank"
-                                            class="text-info">linkedin.com/developers/apps</a> and sign in.</li>
-                                    <li>Click <strong>"Create App"</strong> -> Fill in App Name, LinkedIn Page (create
-                                        one if needed), and App Logo.</li>
-                                    <li>Go to the <strong>"Auth"</strong> tab. Copy your <strong>Client ID</strong> and
-                                        <strong>Client Secret</strong>.</li>
+                                    <li>Go to <a href="https://www.linkedin.com/developers/apps" target="_blank" class="text-warning">linkedin.com/developers/apps</a> and sign in.</li>
+                                    <li>Click <strong>"Create App"</strong> -&gt; Fill in App Name, LinkedIn Page (create one if needed), and App Logo.</li>
+                                    <li>Go to the <strong>"Auth"</strong> tab. Copy your <strong>Client ID</strong> and <strong>Client Secret</strong>.</li>
                                     <li>Under <em>"Authorized Redirect URLs"</em>, add:</li>
                                 </ol>
-                                <div class="bg-dark border border-secondary rounded p-2 mb-2 font-monospace"
-                                    style="font-size:10px; word-break:break-all;">
+                                <div class="rounded p-2 mb-2 font-mono" style="background-color: var(--publio-bg-input); border: 1px solid var(--publio-border-color); font-size:11px; word-break:break-all;">
                                     https://chzcqxzebsxiqgxbmurq.supabase.co/functions/v1/oauth-linkedin-callback
                                 </div>
                                 <ol class="ps-3 mb-2" start="5">
-                                    <li>Go to <strong>"Products"</strong> tab -> Request access to:
+                                    <li>Go to <strong>"Products"</strong> tab -&gt; Request access to:
                                         <ul class="mt-1">
                                             <li><strong>Share on LinkedIn</strong></li>
                                             <li><strong>Sign In with LinkedIn using OpenID Connect</strong></li>
@@ -593,15 +487,13 @@
                                     </li>
                                     <li>In your terminal, run:</li>
                                 </ol>
-                                <div class="bg-dark border border-secondary rounded p-2 mb-2 font-monospace"
-                                    style="font-size:10px;">
+                                <div class="rounded p-2 mb-2 font-mono" style="background-color: var(--publio-bg-input); border: 1px solid var(--publio-border-color); font-size:11px;">
                                     npx supabase secrets set LINKEDIN_CLIENT_ID=your_client_id<br>
                                     npx supabase secrets set LINKEDIN_CLIENT_SECRET=your_client_secret
                                 </div>
                                 <ol class="ps-3 mb-0" start="7">
                                     <li>Paste Client ID above and click <strong>"Connect LinkedIn"</strong>.</li>
-                                    <li>Authorize on LinkedIn -> redirected back with <span class="badge bg-success"
-                                            style="font-size:9px;">Connected</span>.</li>
+                                    <li>Authorize on LinkedIn -&gt; redirected back with <span class="badge badge-success" style="font-size:9px;">Connected</span>.</li>
                                 </ol>
                             </div>
                         </div>
@@ -612,17 +504,15 @@
         </div>
 
         <!-- X (TWITTER) SETUP GUIDE -->
-        <div class="card card-publio mt-4 mb-5" id="x-setup-card">
+        <div class="card card-publio mt-4 mb-4" id="x-setup-card">
             <div class="card-header card-header-publio d-flex align-items-center justify-content-between">
-                <h5 class="mb-0 fw-bold text-white"><i class="bi bi-twitter-x me-2"></i>X (Twitter) - Setup Guide</h5>
+                <h5 class="mb-0 fs-6 fw-semibold text-white"><i class="bi bi-twitter-x me-2"></i>X (Twitter) - Setup Guide</h5>
                 <div class="d-flex gap-2 align-items-center">
-                    <span id="x-card-status" class="badge bg-secondary small">Not Connected</span>
-                    <button type="button" id="btn-connect-x-card" class="btn btn-sm btn-light"
-                        onclick="connectOAuth('x')">
+                    <span id="x-card-status" class="badge badge-secondary extra-small">Not Connected</span>
+                    <button type="button" id="btn-connect-x-card" class="btn btn-sm btn-outline-secondary" onclick="connectOAuth('x')">
                         <i class="bi bi-twitter-x me-1"></i> Connect X
                     </button>
-                    <button type="button" id="btn-disconnect-x-card" class="btn btn-sm btn-outline-danger d-none"
-                        onclick="disconnectPlatform('x')">
+                    <button type="button" id="btn-disconnect-x-card" class="btn btn-sm btn-outline-danger d-none" onclick="disconnectPlatform('x')">
                         <i class="bi bi-x-lg me-1"></i> Disconnect
                     </button>
                 </div>
@@ -630,86 +520,72 @@
             <div class="card-body p-4">
 
                 <div class="mb-3">
-                    <label class="form-label text-secondary small fw-medium">X (Twitter) Client ID <span
-                            class="text-danger">*</span></label>
+                    <label class="form-label text-secondary small fw-medium">X (Twitter) Client ID <span class="text-danger">*</span></label>
                     <div class="input-group">
-                        <span class="input-group-text bg-dark border-secondary text-secondary"><i
-                                class="bi bi-key"></i></span>
-                        <input type="text" id="x-client-id" class="form-control"
-                            placeholder="xxxxxxxxxxxxxxxxxxxxxxxxxx">
+                        <span class="input-group-text"><i class="bi bi-key"></i></span>
+                        <input type="text" id="x-client-id" class="form-control font-mono" placeholder="xxxxxxxxxxxxxxxxxxxxxxxxxx">
                     </div>
-                    <div class="form-text extra-small text-secondary">From X Developer Portal -> Your App -> Keys and
-                        Tokens -> Client ID</div>
+                    <div class="form-text extra-small text-secondary">From X Developer Portal -&gt; Your App -&gt; Keys and Tokens -&gt; Client ID</div>
                 </div>
 
-                <div class="accordion accordion-flush border border-secondary rounded" id="xGuideAccordion">
+                <div class="accordion accordion-flush rounded" id="xGuideAccordion" style="border: 1px solid var(--publio-border-color);">
                     <div class="accordion-item bg-transparent">
                         <h2 class="accordion-header">
-                            <button class="accordion-button collapsed bg-dark text-white extra-small fw-semibold"
-                                type="button" data-bs-toggle="collapse" data-bs-target="#xGuideBody">
-                                <i class="bi bi-info-circle me-2 text-light"></i> How to create an X Developer App &
-                                enable OAuth 2.0 (Step-by-Step)
+                            <button class="accordion-button collapsed text-white extra-small fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#xGuideBody" style="background-color: var(--publio-bg-surface-elevated);">
+                                <i class="bi bi-info-circle me-2 text-white"></i> How to create an X Developer App & enable OAuth 2.0 (Step-by-Step)
                             </button>
                         </h2>
                         <div id="xGuideBody" class="accordion-collapse collapse" data-bs-parent="#xGuideAccordion">
                             <div class="accordion-body extra-small text-secondary lh-lg">
                                 <ol class="ps-3 mb-2">
-                                    <li>Go to <a href="https://developer.twitter.com/en/portal/dashboard"
-                                            target="_blank"
-                                            class="text-light">developer.twitter.com/portal/dashboard</a> and sign in
-                                        with your X account.</li>
-                                    <li>Click <strong>"+ Create Project"</strong> -> Name it (e.g., Publio) -> Create an
-                                        App inside it.</li>
-                                    <li>Inside the App, scroll to <strong>"User authentication settings"</strong> ->
-                                        Click <strong>"Set up"</strong>:
+                                    <li>Go to <a href="https://developer.twitter.com/en/portal/dashboard" target="_blank" class="text-warning">developer.twitter.com/portal/dashboard</a> and sign in with your X account.</li>
+                                    <li>Click <strong>"+ Create Project"</strong> -&gt; Name it (e.g., Publio) -&gt; Create an App inside it.</li>
+                                    <li>Inside the App, scroll to <strong>"User authentication settings"</strong> -&gt; Click <strong>"Set up"</strong>:
                                         <ul class="mt-1">
-                                            <li>OAuth 2.0 -> <strong>On</strong></li>
-                                            <li>App type -> <strong>"Web App, Automated App or Bot"</strong></li>
-                                            <li>Callback URI / Redirect URL -> paste this:</li>
+                                            <li>OAuth 2.0 -&gt; <strong>On</strong></li>
+                                            <li>App type -&gt; <strong>"Web App, Automated App or Bot"</strong></li>
+                                            <li>Callback URI / Redirect URL -&gt; paste this:</li>
                                         </ul>
                                     </li>
                                 </ol>
-                                <div class="bg-dark border border-secondary rounded p-2 mb-2 font-monospace"
-                                    style="font-size:10px; word-break:break-all;">
+                                <div class="rounded p-2 mb-2 font-mono" style="background-color: var(--publio-bg-input); border: 1px solid var(--publio-border-color); font-size:11px; word-break:break-all;">
                                     https://chzcqxzebsxiqgxbmurq.supabase.co/functions/v1/oauth-x-callback
                                 </div>
                                 <ol class="ps-3 mb-2" start="4">
-                                    <li>Website URL -> <code>http://localhost:8080</code></li>
-                                    <li>Click <strong>"Save"</strong>. Now go to <strong>"Keys and Tokens"</strong> tab.
-                                    </li>
-                                    <li>Under <em>"OAuth 2.0 Client ID and Client Secret"</em> -> copy both values.</li>
+                                    <li>Website URL -&gt; <code>http://localhost:8080</code></li>
+                                    <li>Click <strong>"Save"</strong>. Now go to <strong>"Keys and Tokens"</strong> tab.</li>
+                                    <li>Under <em>"OAuth 2.0 Client ID and Client Secret"</em> -&gt; copy both values.</li>
                                     <li>In your terminal, run:</li>
                                 </ol>
-                                <div class="bg-dark border border-secondary rounded p-2 mb-2 font-monospace"
-                                    style="font-size:10px;">
+                                <div class="rounded p-2 mb-2 font-mono" style="background-color: var(--publio-bg-input); border: 1px solid var(--publio-border-color); font-size:11px;">
                                     npx supabase secrets set X_CLIENT_ID=your_client_id<br>
                                     npx supabase secrets set X_CLIENT_SECRET=your_client_secret
                                 </div>
                                 <ol class="ps-3 mb-0" start="8">
                                     <li>Paste Client ID above and click <strong>"Connect X"</strong>.</li>
-                                    <li>Authorize on X -> redirected back with <span class="badge bg-success"
-                                            style="font-size:9px;">Connected</span>.</li>
+                                    <li>Authorize on X -&gt; redirected back with <span class="badge badge-success" style="font-size:9px;">Connected</span>.</li>
                                 </ol>
-                                <div class="alert alert-info py-2 px-3 mt-3 extra-small">
-                                    <i class="bi bi-shield-check me-1"></i> X uses <strong>OAuth 2.0 with PKCE</strong>
-                                    - Publio automatically generates a secure code challenge. Your credentials are never
-                                    stored in the browser.
+                                <div class="alert alert-info py-2 px-3 mt-3 extra-small mb-0">
+                                    <i class="bi bi-shield-check me-1"></i> X uses <strong>OAuth 2.0 with PKCE</strong> - Publio automatically generates a secure code challenge. Your credentials are never stored in the browser.
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
 
         <!-- YOUTUBE SETUP GUIDE -->
-        <div class="card card-publio mt-4 mb-5" id="youtube-setup-card">
+        <div class="card card-publio mt-4 mb-4" id="youtube-setup-card">
             <div class="card-header card-header-publio d-flex align-items-center justify-content-between">
-                <h5 class="mb-0 fw-bold text-danger"><i class="bi bi-youtube me-2"></i>YouTube Channel - Setup Guide</h5>
+                <h5 class="mb-0 fs-6 fw-semibold text-danger"><i class="bi bi-youtube me-2"></i>YouTube Channel - Setup Guide</h5>
                 <div class="d-flex gap-2 align-items-center">
-                    <span id="youtube-card-status" class="badge bg-secondary small">Not Connected</span>
-                    <button type="button" id="btn-connect-youtube-card" class="btn btn-sm btn-danger"
-                        onclick="connectOAuth('youtube')">
+                    <span id="youtube-card-status" class="badge badge-secondary extra-small">Not Connected</span>
+                    <button type="button" id="btn-connect-youtube-card" class="btn btn-sm btn-outline-secondary" onclick="connectOAuth('youtube')">
                         <i class="bi bi-youtube me-1"></i> Connect YouTube
                     </button>
-                    <button type="button" id="btn-disconnect-youtube-card" class="btn btn-sm btn-outline-danger d-none"
-                        onclick="disconnectPlatform('youtube')">
+                    <button type="button" id="btn-disconnect-youtube-card" class="btn btn-sm btn-outline-danger d-none" onclick="disconnectPlatform('youtube')">
                         <i class="bi bi-x-lg me-1"></i> Disconnect
                     </button>
                 </div>
@@ -717,52 +593,45 @@
             <div class="card-body p-4">
 
                 <div class="mb-3">
-                    <label class="form-label text-secondary small fw-medium">Google Client ID <span
-                            class="text-danger">*</span></label>
+                    <label class="form-label text-secondary small fw-medium">Google Client ID <span class="text-danger">*</span></label>
                     <div class="input-group">
-                        <span class="input-group-text bg-dark border-secondary text-secondary"><i
-                                class="bi bi-key"></i></span>
-                        <input type="text" id="youtube-client-id" class="form-control"
-                            placeholder="xxxxxxxxx-xxxxxxxx.apps.googleusercontent.com">
+                        <span class="input-group-text"><i class="bi bi-key"></i></span>
+                        <input type="text" id="youtube-client-id" class="form-control font-mono" placeholder="xxxxxxxxx-xxxxxxxx.apps.googleusercontent.com">
                     </div>
-                    <div class="form-text extra-small text-secondary">From Google Cloud Console -> APIs & Services -> Credentials -> OAuth 2.0 Client IDs</div>
+                    <div class="form-text extra-small text-secondary">From Google Cloud Console -&gt; APIs & Services -&gt; Credentials -&gt; OAuth 2.0 Client IDs</div>
                 </div>
 
-                <div class="accordion accordion-flush border border-secondary rounded" id="ytGuideAccordion">
+                <div class="accordion accordion-flush rounded" id="ytGuideAccordion" style="border: 1px solid var(--publio-border-color);">
                     <div class="accordion-item bg-transparent">
                         <h2 class="accordion-header">
-                            <button class="accordion-button collapsed bg-dark text-white extra-small fw-semibold"
-                                type="button" data-bs-toggle="collapse" data-bs-target="#ytGuideBody">
+                            <button class="accordion-button collapsed text-white extra-small fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#ytGuideBody" style="background-color: var(--publio-bg-surface-elevated);">
                                 <i class="bi bi-info-circle me-2 text-danger"></i> How to set up Google OAuth 2.0 & YouTube Data API v3 (Step-by-Step)
                             </button>
                         </h2>
                         <div id="ytGuideBody" class="accordion-collapse collapse" data-bs-parent="#ytGuideAccordion">
                             <div class="accordion-body extra-small text-secondary lh-lg">
                                 <ol class="ps-3 mb-2">
-                                    <li>Go to <a href="https://console.cloud.google.com/" target="_blank"
-                                            class="text-danger">console.cloud.google.com</a> and sign in with your Google account.</li>
+                                    <li>Go to <a href="https://console.cloud.google.com/" target="_blank" class="text-warning">console.cloud.google.com</a> and sign in with your Google account.</li>
                                     <li>Create a new project (e.g., "Publio Publisher").</li>
-                                    <li>Go to <strong>APIs & Services -> Library</strong> -> Search for <strong>YouTube Data API v3</strong> -> Click <strong>Enable</strong>.</li>
-                                    <li>Go to <strong>APIs & Services -> Credentials</strong> -> Click <strong>+ Create Credentials -> OAuth client ID</strong>.</li>
+                                    <li>Go to <strong>APIs & Services -&gt; Library</strong> -&gt; Search for <strong>YouTube Data API v3</strong> -&gt; Click <strong>Enable</strong>.</li>
+                                    <li>Go to <strong>APIs & Services -&gt; Credentials</strong> -&gt; Click <strong>+ Create Credentials -&gt; OAuth client ID</strong>.</li>
                                     <li>Select Application type: <strong>Web application</strong>.</li>
                                     <li>Under <em>"Authorized redirect URIs"</em>, add:</li>
                                 </ol>
-                                <div class="bg-dark border border-secondary rounded p-2 mb-2 font-monospace"
-                                    style="font-size:10px; word-break:break-all;">
+                                <div class="rounded p-2 mb-2 font-mono" style="background-color: var(--publio-bg-input); border: 1px solid var(--publio-border-color); font-size:11px; word-break:break-all;">
                                     https://chzcqxzebsxiqgxbmurq.supabase.co/functions/v1/oauth-youtube-callback
                                 </div>
                                 <ol class="ps-3 mb-2" start="7">
                                     <li>Click <strong>Create</strong>. Copy your <strong>Client ID</strong> and <strong>Client Secret</strong>.</li>
                                     <li>In your terminal, set Supabase secrets:</li>
                                 </ol>
-                                <div class="bg-dark border border-secondary rounded p-2 mb-2 font-monospace"
-                                    style="font-size:10px;">
+                                <div class="rounded p-2 mb-2 font-mono" style="background-color: var(--publio-bg-input); border: 1px solid var(--publio-border-color); font-size:11px;">
                                     npx supabase secrets set GOOGLE_CLIENT_ID=your_google_client_id<br>
                                     npx supabase secrets set GOOGLE_CLIENT_SECRET=your_google_client_secret
                                 </div>
                                 <ol class="ps-3 mb-0" start="9">
                                     <li>Paste your Google Client ID above and click <strong>"Connect YouTube"</strong>.</li>
-                                    <li>Authorize with your Google/YouTube account -> Redirected back with status <span class="badge bg-success" style="font-size:9px;">Connected</span>.</li>
+                                    <li>Authorize with your Google/YouTube account -&gt; Redirected back with status <span class="badge badge-success" style="font-size:9px;">Connected</span>.</li>
                                 </ol>
                                 <div class="alert alert-info py-2 px-3 mt-3 extra-small mb-0">
                                     <i class="bi bi-info-circle me-1"></i> Video posts publish via YouTube Data API v3 (<code>videos.insert</code>). Text-only & photo posts automatically route to the YouTube <strong>Community tab</strong>.
@@ -778,15 +647,13 @@
         <!-- TIKTOK SETUP GUIDE -->
         <div class="card card-publio mt-4 mb-5" id="tiktok-setup-card">
             <div class="card-header card-header-publio d-flex align-items-center justify-content-between">
-                <h5 class="mb-0 fw-bold text-white"><i class="bi bi-tiktok me-2"></i>TikTok Account - Setup Guide</h5>
+                <h5 class="mb-0 fs-6 fw-semibold text-white"><i class="bi bi-tiktok me-2"></i>TikTok Account - Setup Guide</h5>
                 <div class="d-flex gap-2 align-items-center">
-                    <span id="tiktok-card-status" class="badge bg-secondary small">Not Connected</span>
-                    <button type="button" id="btn-connect-tiktok-card" class="btn btn-sm btn-light"
-                        onclick="connectOAuth('tiktok')">
+                    <span id="tiktok-card-status" class="badge badge-secondary extra-small">Not Connected</span>
+                    <button type="button" id="btn-connect-tiktok-card" class="btn btn-sm btn-outline-secondary" onclick="connectOAuth('tiktok')">
                         <i class="bi bi-tiktok me-1"></i> Connect TikTok
                     </button>
-                    <button type="button" id="btn-disconnect-tiktok-card" class="btn btn-sm btn-outline-danger d-none"
-                        onclick="disconnectPlatform('tiktok')">
+                    <button type="button" id="btn-disconnect-tiktok-card" class="btn btn-sm btn-outline-danger d-none" onclick="disconnectPlatform('tiktok')">
                         <i class="bi bi-x-lg me-1"></i> Disconnect
                     </button>
                 </div>
@@ -794,50 +661,43 @@
             <div class="card-body p-4">
 
                 <div class="mb-3">
-                    <label class="form-label text-secondary small fw-medium">TikTok Client Key <span
-                            class="text-danger">*</span></label>
+                    <label class="form-label text-secondary small fw-medium">TikTok Client Key <span class="text-danger">*</span></label>
                     <div class="input-group">
-                        <span class="input-group-text bg-dark border-secondary text-secondary"><i
-                                class="bi bi-key"></i></span>
-                        <input type="text" id="tiktok-client-key" class="form-control"
-                            placeholder="awxxxxxxxxxxxxxx">
+                        <span class="input-group-text"><i class="bi bi-key"></i></span>
+                        <input type="text" id="tiktok-client-key" class="form-control font-mono" placeholder="awxxxxxxxxxxxxxx">
                     </div>
-                    <div class="form-text extra-small text-secondary">From TikTok Developer Portal -> App Details -> Client Key</div>
+                    <div class="form-text extra-small text-secondary">From TikTok Developer Portal -&gt; App Details -&gt; Client Key</div>
                 </div>
 
-                <div class="accordion accordion-flush border border-secondary rounded" id="ttGuideAccordion">
+                <div class="accordion accordion-flush rounded" id="ttGuideAccordion" style="border: 1px solid var(--publio-border-color);">
                     <div class="accordion-item bg-transparent">
                         <h2 class="accordion-header">
-                            <button class="accordion-button collapsed bg-dark text-white extra-small fw-semibold"
-                                type="button" data-bs-toggle="collapse" data-bs-target="#ttGuideBody">
-                                <i class="bi bi-info-circle me-2 text-light"></i> How to set up TikTok Developer App & Enable Content Posting API (Step-by-Step)
+                            <button class="accordion-button collapsed text-white extra-small fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#ttGuideBody" style="background-color: var(--publio-bg-surface-elevated);">
+                                <i class="bi bi-info-circle me-2 text-white"></i> How to set up TikTok Developer App & Enable Content Posting API (Step-by-Step)
                             </button>
                         </h2>
                         <div id="ttGuideBody" class="accordion-collapse collapse" data-bs-parent="#ttGuideAccordion">
                             <div class="accordion-body extra-small text-secondary lh-lg">
                                 <ol class="ps-3 mb-2">
-                                    <li>Go to <a href="https://developers.tiktok.com/" target="_blank"
-                                            class="text-light">developers.tiktok.com</a> and log in.</li>
+                                    <li>Go to <a href="https://developers.tiktok.com/" target="_blank" class="text-warning">developers.tiktok.com</a> and log in.</li>
                                     <li>Create an App (e.g. "Publio Social Publisher").</li>
                                     <li>Add <strong>Content Posting API</strong> and <strong>Login Kit</strong> to your App.</li>
                                     <li>Under <em>"Redirect URI"</em>, set:</li>
                                 </ol>
-                                <div class="bg-dark border border-secondary rounded p-2 mb-2 font-monospace"
-                                    style="font-size:10px; word-break:break-all;">
+                                <div class="rounded p-2 mb-2 font-mono" style="background-color: var(--publio-bg-input); border: 1px solid var(--publio-border-color); font-size:11px; word-break:break-all;">
                                     https://chzcqxzebsxiqgxbmurq.supabase.co/functions/v1/oauth-tiktok-callback
                                 </div>
                                 <ol class="ps-3 mb-2" start="5">
                                     <li>Copy your <strong>Client Key</strong> and <strong>Client Secret</strong>.</li>
                                     <li>In your terminal, set Supabase secrets:</li>
                                 </ol>
-                                <div class="bg-dark border border-secondary rounded p-2 mb-2 font-monospace"
-                                    style="font-size:10px;">
+                                <div class="rounded p-2 mb-2 font-mono" style="background-color: var(--publio-bg-input); border: 1px solid var(--publio-border-color); font-size:11px;">
                                     npx supabase secrets set TIKTOK_CLIENT_KEY=your_client_key<br>
                                     npx supabase secrets set TIKTOK_CLIENT_SECRET=your_client_secret
                                 </div>
                                 <ol class="ps-3 mb-0" start="7">
                                     <li>Paste Client Key above and click <strong>"Connect TikTok"</strong>.</li>
-                                    <li>Authorize your TikTok account -> Redirected back with status <span class="badge bg-success" style="font-size:9px;">Connected</span>.</li>
+                                    <li>Authorize your TikTok account -&gt; Redirected back with status <span class="badge badge-success" style="font-size:9px;">Connected</span>.</li>
                                 </ol>
                                 <div class="alert alert-info py-2 px-3 mt-3 extra-small mb-0">
                                     <i class="bi bi-info-circle me-1"></i> Publio supports <strong>Photo Mode</strong> (Photo + Caption) and <strong>Video Mode</strong> for TikTok posts.
@@ -1072,7 +932,7 @@
         // =============================================
         async function loadPlatformStatuses() {
             const accounts = await Platforms.getUserAccounts(currentUser.id);
-            const platforms = ['telegram', 'facebook', 'instagram', 'linkedin', 'x', 'youtube'];
+            const platforms = ['telegram', 'facebook', 'instagram', 'linkedin', 'x', 'youtube', 'tiktok'];
 
             platforms.forEach(p => {
                 const account = accounts.find(a => a.platform === p);
@@ -1085,16 +945,16 @@
                 const disconnectCardBtn = document.getElementById(`btn-disconnect-${p}-card`);
 
                 if (account) {
-                    if (badge) { badge.className = 'badge bg-success extra-small'; badge.textContent = 'Connected'; }
-                    if (cardBadge) { cardBadge.className = 'badge bg-success small'; cardBadge.textContent = 'Connected'; }
+                    if (badge) { badge.className = 'badge badge-success extra-small'; badge.textContent = 'Connected'; }
+                    if (cardBadge) { cardBadge.className = 'badge badge-success extra-small'; cardBadge.textContent = 'Connected'; }
                     if (nameEl) { nameEl.textContent = account.account_name || ''; nameEl.classList.remove('d-none'); }
                     if (connectBtn) connectBtn.classList.add('d-none');
                     if (disconnectBtn) disconnectBtn.classList.remove('d-none');
                     if (connectCardBtn) connectCardBtn.classList.add('d-none');
                     if (disconnectCardBtn) disconnectCardBtn.classList.remove('d-none');
                 } else {
-                    if (badge) { badge.className = 'badge bg-secondary extra-small'; badge.textContent = 'Not Connected'; }
-                    if (cardBadge) { cardBadge.className = 'badge bg-secondary small'; cardBadge.textContent = 'Not Connected'; }
+                    if (badge) { badge.className = 'badge badge-secondary extra-small'; badge.textContent = 'Not Connected'; }
+                    if (cardBadge) { cardBadge.className = 'badge badge-secondary extra-small'; cardBadge.textContent = 'Not Connected'; }
                     if (nameEl) { nameEl.classList.add('d-none'); }
                     if (connectBtn) connectBtn.classList.remove('d-none');
                     if (disconnectBtn) disconnectBtn.classList.add('d-none');

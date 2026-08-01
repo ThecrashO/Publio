@@ -1,164 +1,429 @@
 /* ==================================================
-   Publio - Custom Design System & Stylesheet
+   Publio - Modern Developer Design System (Vercel/Linear Style)
    File: css/style.css
+   Theme: Minimal Obsidian Black + Warm Gold Accent
    ================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
 :root {
-    --publio-primary: #00F2FE;
-    --publio-primary-hover: #4FACFE;
-    --publio-secondary: #8B5CF6;
-    --publio-accent: #EC4899;
-    --publio-bg-dark: #0b0f19;
-    --publio-card-bg: rgba(21, 28, 44, 0.85);
-    --publio-card-bg-solid: #151c2c;
-    --publio-border-color: rgba(255, 255, 255, 0.08);
-    --publio-border-glow: rgba(0, 242, 254, 0.3);
-    --publio-text-main: #f8fafc;
-    --publio-text-muted: #94a3b8;
-    --publio-gradient-brand: linear-gradient(135deg, #00F2FE 0%, #4FACFE 50%, #8B5CF6 100%);
-    --publio-gradient-btn: linear-gradient(135deg, #00C6FF 0%, #0072FF 100%);
-    --publio-gradient-btn-hover: linear-gradient(135deg, #0072FF 0%, #00C6FF 100%);
+    /* Color Palette - Black & Gold Theme */
+    --publio-bg-dark: #09090b;
+    --publio-bg-surface: #121215;
+    --publio-bg-surface-elevated: #18181b;
+    --publio-bg-input: #0e0e11;
     
+    --publio-border-color: #27272a;
+    --publio-border-subtle: #1f1f23;
+    --publio-border-focus: #eab308;
+    
+    --publio-gold: #eab308;
+    --publio-gold-light: #fbbf24;
+    --publio-gold-dark: #ca8a04;
+    --publio-gold-glow: rgba(234, 179, 8, 0.15);
+    
+    --publio-text-main: #f4f4f5;
+    --publio-text-muted: #a1a1aa;
+    --publio-text-dim: #71717a;
+    
+    --publio-gradient-gold: linear-gradient(135deg, #fbbf24 0%, #eab308 50%, #ca8a04 100%);
+    --publio-gradient-btn: linear-gradient(180deg, #facc15 0%, #eab308 100%);
+    --publio-gradient-btn-hover: linear-gradient(180deg, #fbbf24 0%, #ca8a04 100%);
+    
+    /* Functional Semantic Colors */
+    --publio-success: #10b981;
+    --publio-danger: #f43f5e;
+    --publio-warning: #f59e0b;
+    --publio-info: #3b82f6;
+
     /* Legacy compatibility aliases */
-    --pp-primary: var(--publio-primary);
-    --pp-primary-hover: var(--publio-primary-hover);
+    --publio-primary: var(--publio-gold);
+    --publio-primary-hover: var(--publio-gold-light);
+    --publio-secondary: #71717a;
+    --publio-accent: var(--publio-gold);
+    --publio-card-bg: var(--publio-bg-surface);
+    --publio-card-bg-solid: var(--publio-bg-surface);
+    
+    --pp-primary: var(--publio-gold);
+    --pp-primary-hover: var(--publio-gold-light);
     --pp-secondary: var(--publio-secondary);
     --pp-bg-dark: var(--publio-bg-dark);
-    --pp-card-bg: var(--publio-card-bg-solid);
+    --pp-card-bg: var(--publio-bg-surface);
     --pp-border-color: var(--publio-border-color);
     --pp-text-main: var(--publio-text-main);
     --pp-text-muted: var(--publio-text-muted);
 }
 
-body {
-    font-family: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif;
-    background-color: var(--publio-bg-dark);
-    background-image: 
-        radial-gradient(at 0% 0%, rgba(0, 242, 254, 0.07) 0px, transparent 50%),
-        radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.07) 0px, transparent 50%);
-    background-attachment: fixed;
-    color: var(--publio-text-main);
-    min-height: 100vh;
+/* Base resets & smooth transitions */
+*, *::before, *::after {
+    box-sizing: border-box;
 }
 
-/* Navbar styling */
-.navbar-publio, .navbar-postpilot {
-    background-color: rgba(11, 15, 25, 0.85);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border-bottom: 1px solid var(--publio-border-color);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+body {
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: var(--publio-bg-dark);
+    color: var(--publio-text-main);
+    min-height: 100vh;
+    letter-spacing: -0.01em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Subtle dark background noise pattern / grid gridlines */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-image: 
+        radial-gradient(circle at 50% 0%, rgba(234, 179, 8, 0.05) 0%, transparent 60%),
+        linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+    background-size: 100% 100%, 40px 40px, 40px 40px;
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* Typography & Headings */
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    color: var(--publio-text-main);
+    font-weight: 600;
+    letter-spacing: -0.02em;
 }
 
 .brand-text {
-    font-weight: 800;
-    letter-spacing: -0.5px;
-    background: var(--publio-gradient-brand);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    background: var(--publio-gradient-gold);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    filter: drop-shadow(0 2px 8px rgba(0, 242, 254, 0.25));
 }
 
-/* Card custom styling */
-.card-publio, .card-postpilot {
-    background-color: var(--publio-card-bg-solid);
-    background: var(--publio-card-bg);
+/* Clean minimal links */
+a {
+    color: var(--publio-gold-light);
+    text-decoration: none;
+    transition: color 0.15s ease;
+}
+
+a:hover {
+    color: var(--publio-gold);
+    text-decoration: none;
+}
+
+/* Minimal Navbar */
+.navbar-publio, .navbar-postpilot {
+    background-color: rgba(9, 9, 11, 0.85);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--publio-border-color);
+    padding: 0.75rem 0;
+}
+
+.navbar-publio .nav-link, .navbar-postpilot .nav-link {
+    color: var(--publio-text-muted);
+    font-size: 0.875rem;
+    font-weight: 500;
+    padding: 0.4rem 0.85rem;
+    border-radius: 6px;
+    transition: all 0.15s ease;
+}
+
+.navbar-publio .nav-link:hover, .navbar-postpilot .nav-link:hover {
+    color: var(--publio-text-main);
+    background-color: rgba(255, 255, 255, 0.04);
+}
+
+.navbar-publio .nav-link.active, .navbar-postpilot .nav-link.active {
+    color: var(--publio-gold-light);
+    background-color: rgba(234, 179, 8, 0.1);
+    font-weight: 600;
+}
+
+/* Cards & Panel Containers */
+.card-publio, .card-postpilot {
+    background-color: var(--publio-bg-surface);
     border: 1px solid var(--publio-border-color);
-    border-radius: 16px;
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    overflow: hidden;
 }
 
 .card-publio:hover, .card-postpilot:hover {
-    border-color: rgba(0, 242, 254, 0.2);
+    border-color: rgba(234, 179, 8, 0.25);
 }
 
 .card-header-publio, .card-header-postpilot {
-    background-color: rgba(255, 255, 255, 0.02);
+    background-color: var(--publio-bg-surface-elevated);
     border-bottom: 1px solid var(--publio-border-color);
-    padding: 1rem 1.25rem;
-    border-top-left-radius: 16px;
-    border-top-right-radius: 16px;
+    padding: 0.9rem 1.25rem;
 }
 
-/* Form Controls Dark Theme */
+/* Forms & Controls */
 .form-control, .form-select {
-    background-color: rgba(11, 15, 25, 0.7);
+    background-color: var(--publio-bg-input);
     border: 1px solid var(--publio-border-color);
     color: var(--publio-text-main);
-    border-radius: 10px;
-    padding: 0.65rem 0.9rem;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    border-radius: 8px;
+    padding: 0.6rem 0.85rem;
+    font-size: 0.875rem;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .form-control:focus, .form-select:focus {
-    background-color: rgba(11, 15, 25, 0.9);
-    border-color: var(--publio-primary);
+    background-color: var(--publio-bg-dark);
+    border-color: var(--publio-border-focus);
     color: var(--publio-text-main);
-    box-shadow: 0 0 0 0.25rem rgba(0, 242, 254, 0.2);
+    box-shadow: 0 0 0 3px var(--publio-gold-glow);
+    outline: none;
 }
 
 .form-control::placeholder {
-    color: var(--publio-text-muted);
+    color: var(--publio-text-dim);
 }
 
-/* Buttons */
+.input-group-text {
+    background-color: var(--publio-bg-surface-elevated) !important;
+    border-color: var(--publio-border-color) !important;
+    color: var(--publio-text-muted) !important;
+    font-size: 0.875rem;
+}
+
+/* Primary Action Buttons */
 .btn-publio-primary, .btn-postpilot-primary {
     background: var(--publio-gradient-btn);
-    color: #ffffff;
+    color: #09090b;
     border: none;
     font-weight: 600;
-    border-radius: 10px;
-    transition: all 0.25s ease-in-out;
-    box-shadow: 0 4px 15px rgba(0, 114, 255, 0.3);
+    font-size: 0.875rem;
+    border-radius: 8px;
+    padding: 0.55rem 1.1rem;
+    transition: all 0.15s ease;
+    box-shadow: 0 2px 10px rgba(234, 179, 8, 0.2);
 }
 
 .btn-publio-primary:hover, .btn-postpilot-primary:hover {
     background: var(--publio-gradient-btn-hover);
-    color: #ffffff;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 242, 254, 0.4);
+    color: #000000;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(234, 179, 8, 0.35);
 }
 
 .btn-publio-primary:active, .btn-postpilot-primary:active {
     transform: translateY(0);
 }
 
-/* Stat Cards */
+/* Secondary & Outline Buttons */
+.btn-outline-secondary {
+    border-color: var(--publio-border-color);
+    color: var(--publio-text-muted);
+    background-color: transparent;
+    font-size: 0.875rem;
+    border-radius: 8px;
+    transition: all 0.15s ease;
+}
+
+.btn-outline-secondary:hover {
+    background-color: var(--publio-bg-surface-elevated);
+    border-color: #3f3f46;
+    color: var(--publio-text-main);
+}
+
+.btn-outline-danger {
+    border-color: rgba(244, 63, 94, 0.3);
+    color: #f43f5e;
+    background-color: transparent;
+    border-radius: 8px;
+    transition: all 0.15s ease;
+}
+
+.btn-outline-danger:hover {
+    background-color: rgba(244, 63, 94, 0.1);
+    border-color: #f43f5e;
+    color: #f43f5e;
+}
+
+/* Metric Stat Cards */
 .stat-card {
-    background: var(--publio-card-bg);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background: var(--publio-bg-surface);
     border: 1px solid var(--publio-border-color);
-    border-radius: 16px;
-    padding: 1.25rem;
+    border-radius: 10px;
+    padding: 1.1rem 1.25rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    transition: transform 0.2s ease, border-color 0.2s ease;
+    transition: border-color 0.15s ease, transform 0.15s ease;
 }
 
 .stat-card:hover {
-    transform: translateY(-2px);
-    border-color: rgba(0, 242, 254, 0.25);
+    border-color: rgba(234, 179, 8, 0.3);
+    transform: translateY(-1px);
 }
 
 .stat-icon {
-    width: 50px;
-    height: 50px;
-    border-radius: 12px;
+    width: 42px;
+    height: 42px;
+    border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.5rem;
-    box-shadow: inset 0 0 12px rgba(255, 255, 255, 0.05);
+    font-size: 1.2rem;
+    border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-/* Animations */
+/* Custom Platform Selectors / Checkbox Chips */
+.platform-chip {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.55rem 0.85rem;
+    background-color: var(--publio-bg-input);
+    border: 1px solid var(--publio-border-color);
+    border-radius: 8px;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.15s ease;
+}
+
+.platform-chip:hover {
+    border-color: rgba(234, 179, 8, 0.4);
+    background-color: var(--publio-bg-surface-elevated);
+}
+
+.platform-checkbox:checked + .platform-chip-label {
+    color: var(--publio-gold-light);
+    font-weight: 600;
+}
+
+.platform-checkbox:checked ~ .platform-chip {
+    border-color: var(--publio-gold);
+    background-color: rgba(234, 179, 8, 0.08);
+}
+
+/* Badges */
+.badge {
+    font-weight: 500;
+    border-radius: 6px;
+    padding: 0.35em 0.65em;
+    font-size: 0.75rem;
+}
+
+.badge.bg-gold, .badge-gold {
+    background-color: rgba(234, 179, 8, 0.15);
+    color: var(--publio-gold-light);
+    border: 1px solid rgba(234, 179, 8, 0.3);
+}
+
+.badge-secondary {
+    background-color: var(--publio-bg-surface-elevated);
+    color: var(--publio-text-muted);
+    border: 1px solid var(--publio-border-color);
+}
+
+.badge-success {
+    background-color: rgba(16, 185, 129, 0.15);
+    color: #34d399;
+    border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.badge-danger {
+    background-color: rgba(244, 63, 94, 0.15);
+    color: #fb7185;
+    border: 1px solid rgba(244, 63, 94, 0.3);
+}
+
+.badge-warning {
+    background-color: rgba(245, 158, 11, 0.15);
+    color: #fbbf24;
+    border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+/* App Logo Styling */
+.app-logo {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    object-fit: cover;
+    border: 1px solid rgba(234, 179, 8, 0.3);
+    box-shadow: 0 0 12px rgba(234, 179, 8, 0.15);
+    transition: transform 0.2s ease;
+}
+
+.app-logo:hover {
+    transform: scale(1.05);
+}
+
+.app-logo-lg {
+    width: 64px;
+    height: 64px;
+    border-radius: 14px;
+    border: 1px solid rgba(234, 179, 8, 0.4);
+    box-shadow: 0 0 24px rgba(234, 179, 8, 0.2);
+}
+
+.app-logo-sm {
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+}
+
+/* Nav Pills / Filter Segmented Tabs */
+.nav-pills .nav-link {
+    color: var(--publio-text-muted);
+    border-radius: 6px;
+    font-size: 0.85rem;
+    padding: 0.45rem 0.9rem;
+    font-weight: 500;
+    transition: all 0.15s ease;
+}
+
+.nav-pills .nav-link:hover {
+    color: var(--publio-text-main);
+    background-color: rgba(255, 255, 255, 0.04);
+}
+
+.nav-pills .nav-link.active {
+    background-color: var(--publio-gold);
+    color: #09090b;
+    font-weight: 600;
+}
+
+/* Custom Table Styling */
+.table-dark-custom {
+    color: var(--publio-text-main);
+    background-color: transparent;
+}
+.table-dark-custom th {
+    border-bottom: 1px solid var(--publio-border-color);
+    color: var(--publio-text-dim);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
+    padding: 0.75rem 1rem;
+}
+.table-dark-custom td {
+    border-bottom: 1px solid var(--publio-border-subtle);
+    vertical-align: middle;
+    padding: 0.85rem 1rem;
+}
+.table-dark-custom tr:hover td {
+    background-color: var(--publio-bg-surface-elevated);
+}
+
+/* Toast Notifications */
+.toast {
+    background-color: var(--publio-bg-surface) !important;
+    border: 1px solid var(--publio-border-color) !important;
+    color: var(--publio-text-main) !important;
+    border-radius: 8px !important;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Micro-animations */
 .spin {
     animation: spin-anim 1s linear infinite;
 }
@@ -168,63 +433,24 @@ body {
     to { transform: rotate(360deg); }
 }
 
-/* Platform badge icons */
-.platform-pill {
-    background-color: rgba(255, 255, 255, 0.04);
-    border: 1px solid var(--publio-border-color);
-    border-radius: 24px;
-    padding: 8px 16px;
-    font-size: 0.875rem;
-    transition: all 0.2s ease;
+/* Code / Monospace Helpers */
+code, pre, .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85em;
 }
 
-.platform-pill:hover {
-    background-color: rgba(0, 242, 254, 0.1);
-    border-color: rgba(0, 242, 254, 0.3);
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
 }
-
-/* App Logo Styling */
-.app-logo {
-    width: 36px;
-    height: 36px;
-    border-radius: 10px;
-    object-fit: cover;
-    box-shadow: 0 4px 12px rgba(0, 242, 254, 0.3);
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
+::-webkit-scrollbar-track {
+    background: var(--publio-bg-dark);
 }
-
-.app-logo:hover {
-    transform: scale(1.08) rotate(2deg);
-    box-shadow: 0 6px 18px rgba(0, 242, 254, 0.5);
+::-webkit-scrollbar-thumb {
+    background: #27272a;
+    border-radius: 4px;
 }
-
-.app-logo-lg {
-    width: 72px;
-    height: 72px;
-    border-radius: 18px;
-    box-shadow: 0 8px 24px rgba(0, 242, 254, 0.45);
-}
-
-.app-logo-sm {
-    width: 26px;
-    height: 26px;
-    border-radius: 7px;
-}
-
-/* Table dark custom styling */
-.table-dark-custom {
-    color: var(--publio-text-main);
-    background-color: transparent;
-}
-.table-dark-custom th {
-    border-bottom-color: var(--publio-border-color);
-    color: var(--publio-text-muted);
-    font-weight: 600;
-    text-transform: uppercase;
-    font-size: 0.75rem;
-    letter-spacing: 0.5px;
-}
-.table-dark-custom td {
-    border-bottom-color: var(--publio-border-color);
-    vertical-align: middle;
+::-webkit-scrollbar-thumb:hover {
+    background: #3f3f46;
 }
