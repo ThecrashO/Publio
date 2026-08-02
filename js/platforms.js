@@ -3,6 +3,17 @@
 // File: js/platforms.js
 // ==================================================
 
+const normalizeTelegramChatInput = (value = '') => {
+    const trimmed = (value || '').toString().trim();
+    if (!trimmed) return '';
+
+    if (/^-?\d+$/.test(trimmed)) return trimmed;
+    if (trimmed.startsWith('@')) return trimmed;
+    if (/^[a-zA-Z][a-zA-Z0-9_]{2,31}$/.test(trimmed)) return `@${trimmed}`;
+
+    return trimmed;
+};
+
 const Platforms = {
     /**
      * Fetch user's connected social accounts
@@ -35,8 +46,8 @@ const Platforms = {
 
         // Clean inputs
         const cleanToken = botToken.trim();
-        const cleanChatId = chatId.trim();
-        const cleanUsername = channelUsername.trim();
+        const cleanChatId = normalizeTelegramChatInput(chatId);
+        const cleanUsername = (channelUsername || '').trim().replace(/^@/, '');
 
         const metadataPayload = {
             bot_token: cleanToken,

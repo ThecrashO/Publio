@@ -6,6 +6,17 @@ const corsHeaders = {
     'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
+function normalizeTelegramChatId(value: string | null | undefined) {
+    const trimmed = (value || '').toString().trim();
+    if (!trimmed) return '';
+
+    if (/^-?\d+$/.test(trimmed)) return trimmed;
+    if (trimmed.startsWith('@')) return trimmed;
+    if (/^[a-zA-Z][a-zA-Z0-9_]{2,31}$/.test(trimmed)) return `@${trimmed}`;
+
+    return trimmed;
+}
+
 serve(async (req) => {
     // Handle CORS preflight request
     if (req.method === 'OPTIONS') {
@@ -63,12 +74,32 @@ serve(async (req) => {
             });
         }
 
-        const { bot_token, chat_id } = telegramAccount.metadata;
-        if (!bot_token || !chat_id) {
-            return new Response(JSON.stringify({ error: 'Invalid Telegram metadata configuration.' }), {
+        const metadata = typeof telegramAccount.metadata === 'object' && telegramAccount.metadata !== null
+            ? telegramAccount.metadata
+            : {};
+
+        const botToken = (metadata.bot_token || '').toString().trim();
+        const channelUsername = normalizeTelegramChatId(metadata.channel_username || '');
+        let chatId = normalizeTelegramChatId(metadata.chat_id || telegramAccount.account_id || '');
+
+        if (!botToken) {
+            return new Response(JSON.stringify({ error: 'Telegram bot token is missing. Please re-save your Telegram credentials.' }), {
                 status: 400,
                 headers: { ...corsHeaders, 'Content-Type': 'application/json' }
             });
+        }
+
+        if (!chatId && !channelUsername) {
+            return new Response(JSON.stringify({ error: 'Telegram channel/chat ID is missing. Please re-save your Telegram credentials.' }), {
+                status: 400,
+                headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+            });
+        }
+
+        if (channelUsername) {
+            chatId = channelUsername;
+        } else if (!chatId) {
+            chatId = channelUsername;
         }
 
         // 4. Retrieve Post Details
@@ -97,19 +128,31 @@ serve(async (req) => {
             }, { onConflict: 'post_id, platform' });
 
         // 5. Call Telegram Bot API directly
-        let tgApiEndpoint = `https://api.telegram.org/bot${bot_token}/sendMessage`;
+        const caption = post.caption || 'Shared from Publio';
+        const isVideoUrl = /\.(mp4|webm|mov|avi|mkv)(\?.*)?$/i.test(post.image_url || '');
+
+        let tgApiEndpoint = `https://api.telegram.org/bot${botToken}/sendMessage`;
         let payload: Record<string, any> = {
-            chat_id: chat_id,
-            text: post.caption
+            chat_id: chatId,
+            text: caption
         };
 
         if (post.image_url) {
-            tgApiEndpoint = `https://api.telegram.org/bot${bot_token}/sendPhoto`;
-            payload = {
-                chat_id: chat_id,
-                photo: post.image_url,
-                caption: post.caption
-            };
+            if (isVideoUrl) {
+                tgApiEndpoint = `https://api.telegram.org/bot${botToken}/sendVideo`;
+                payload = {
+                    chat_id: chatId,
+                    video: post.image_url,
+                    caption
+                };
+            } else {
+                tgApiEndpoint = `https://api.telegram.org/bot${botToken}/sendPhoto`;
+                payload = {
+                    chat_id: chatId,
+                    photo: post.image_url,
+                    caption
+                };
+            }
         }
 
         const tgResponse = await fetch(tgApiEndpoint, {
@@ -118,7 +161,15 @@ serve(async (req) => {
             body: JSON.stringify(payload)
         });
 
-        const tgResult = await tgResponse.json();
+        let tgResult: any = {};
+        try {
+            tgResult = await tgResponse.json();
+        } catch {
+            tgResult = {
+                ok: false,
+                description: `Telegram API returned HTTP ${tgResponse.status}`
+            };
+        }
 
         // 6. Process Telegram Response & Update Database
         if (tgResult.ok) {
@@ -157,7 +208,7 @@ serve(async (req) => {
             });
 
         } else {
-            const errorMsg = tgResult.description || 'Failed to post to Telegram API.';
+            const errorMsg = tgResult.description || tgResult.error_message || 'Failed to post to Telegram API.';
 
             // Update post_platforms with error
             await supabaseAdmin
