@@ -225,7 +225,11 @@ npx supabase secrets set LINKEDIN_CLIENT_ID=your_id LINKEDIN_CLIENT_SECRET=your_
 npx supabase secrets set X_CLIENT_ID=your_id X_CLIENT_SECRET=your_secret
 npx supabase secrets set GOOGLE_CLIENT_ID=your_id GOOGLE_CLIENT_SECRET=your_secret
 npx supabase secrets set TIKTOK_CLIENT_KEY=your_key TIKTOK_CLIENT_SECRET=your_secret
-npx supabase secrets set SITE_URL=http://localhost:8080
+# For production deployment (Vercel):
+npx supabase secrets set SITE_URL=https://publio-p.vercel.app
+
+# For local development:
+# npx supabase secrets set SITE_URL=http://localhost:8080
 ```
 
 ---
