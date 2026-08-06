@@ -326,6 +326,16 @@
                     <div class="form-text extra-small text-secondary">From Facebook Developers -&gt; Your App -&gt; Settings -&gt; Basic -&gt; App ID</div>
                 </div>
 
+                <!-- Configuration ID Input Field (Optional for Business Login) -->
+                <div class="mb-3">
+                    <label for="facebook-config-id" class="form-label text-secondary small fw-medium">Configuration ID <span class="text-muted extra-small">(Optional - Facebook Login for Business)</span></label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-sliders"></i></span>
+                        <input type="text" id="facebook-config-id" class="form-control font-mono" placeholder="Optional config_id from Facebook Login for Business -> Configurations">
+                    </div>
+                    <div class="form-text extra-small text-secondary">If Meta shows 'Invalid Scopes', paste your Configuration ID from Facebook Login for Business -&gt; Configurations.</div>
+                </div>
+
                 <!-- Step-by-Step Guide -->
                 <div class="accordion accordion-flush rounded" id="fbGuideAccordion" style="border: 1px solid var(--publio-border-color);">
                     <div class="accordion-item bg-transparent">
@@ -337,18 +347,18 @@
                         <div id="fbGuideBody" class="accordion-collapse collapse" data-bs-parent="#fbGuideAccordion">
                             <div class="accordion-body extra-small text-secondary lh-lg">
                                 <ol class="ps-3 mb-2">
-                                    <li>Go to <a href="https://developers.facebook.com/apps" target="_blank" class="text-warning">developers.facebook.com/apps</a> and log in with your Facebook account.</li>
-                                    <li>Click <strong>"Create App"</strong> -&gt; Choose type <strong>"Other"</strong> -&gt; <strong>"Business"</strong> -&gt; Give it any name (e.g., Publio).</li>
-                                    <li>Inside the app, go to <strong>Settings -&gt; Basic</strong>. Copy your <strong>App ID</strong> and paste it into the field above.</li>
-                                    <li>Copy your <strong>App Secret</strong> (click Show) -&gt; You'll need to add this to Supabase Secrets.</li>
-                                    <li>In the left sidebar, click <strong>"Add Product"</strong> -&gt; Set up <strong>Facebook Login for Business</strong>.</li>
-                                    <li>Go to <strong>Facebook Login -&gt; Settings</strong> -&gt; Under <em>"Valid OAuth Redirect URIs"</em>, add this URL:</li>
+                                    <li>Go to <a href="https://developers.facebook.com/apps" target="_blank" class="text-warning">developers.facebook.com/apps</a> and log in with your Facebook account. (Facebook အကောင့်ဖြင့် Sign in ဝင်ပါ)</li>
+                                    <li>Click <strong>"Create App"</strong> -&gt; Choose type <strong>"Business"</strong> -&gt; Name it (e.g. Publio). (App Type ကို Business ရွေးပါ)</li>
+                                    <li>Go to <strong>Settings -&gt; Basic</strong>. Copy your <strong>App ID</strong> and <strong>App Secret</strong> (click Show). (App ID နှင့် App Secret ကို Copy ယူပါ)</li>
+                                    <li>In left sidebar, click <strong>"Add Product"</strong> -&gt; Set up <strong>Facebook Login for Business</strong>.</li>
+                                    <li>Go to <strong>Facebook Login for Business -&gt; Settings</strong> -&gt; Under <em>"Valid OAuth Redirect URIs"</em>, add this URL:</li>
                                 </ol>
                                 <div class="rounded p-2 mb-2 font-mono" style="background-color: var(--publio-bg-input); border: 1px solid var(--publio-border-color); font-size:11px; word-break:break-all;">
                                     https://chzcqxzebsxiqgxbmurq.supabase.co/functions/v1/oauth-facebook-callback
                                 </div>
-                                <ol class="ps-3 mb-2" start="7">
+                                <ol class="ps-3 mb-2" start="6">
                                     <li>Click <strong>"Save Changes"</strong>.</li>
+                                    <li>Go to <strong>Facebook Login for Business -&gt; Configurations</strong> -&gt; Click <strong>"Create Configuration"</strong> -&gt; Check permissions (<code>pages_manage_posts</code>, <code>pages_read_engagement</code>, <code>pages_show_list</code>, <code>public_profile</code>) -&gt; Save &amp; copy your <strong>Configuration ID</strong>. (Configuration ID ကို Copy ယူပါ)</li>
                                     <li>In your terminal, run:</li>
                                 </ol>
                                 <div class="rounded p-2 mb-2 font-mono" style="background-color: var(--publio-bg-input); border: 1px solid var(--publio-border-color); font-size:11px;">
@@ -357,11 +367,11 @@
                                     npx supabase secrets set SITE_URL=https://publio-p.vercel.app
                                 </div>
                                 <ol class="ps-3 mb-0" start="9">
-                                    <li>Paste your App ID above and click <strong>"Connect Facebook"</strong>.</li>
-                                    <li>Authorize and you'll be redirected back here with status <span class="badge badge-success" style="font-size:9px;">Connected</span>.</li>
+                                    <li>Paste your <strong>App ID</strong> and <strong>Configuration ID</strong> in the input fields above, then click <strong>"Connect Facebook"</strong>.</li>
+                                    <li>Authorize your Facebook Page -&gt; Redirected back with status <span class="badge badge-success" style="font-size:9px;">Connected</span>.</li>
                                 </ol>
                                 <div class="alert alert-warning py-2 px-3 mt-3 extra-small mb-0">
-                                    <i class="bi bi-exclamation-triangle me-1"></i> You must have a <strong>Facebook Page</strong> to publish posts. Personal profiles are not supported by the API.
+                                    <i class="bi bi-exclamation-triangle me-1"></i> You must have a <strong>Facebook Page</strong> to publish posts. Personal profiles are not supported by the API. (Facebook Page အသင့်ရှိရပါမည်)
                                 </div>
                             </div>
                         </div>
@@ -730,12 +740,12 @@
         const OAUTH_CONFIG = {
             facebook: {
                 appId: '',  // Set via Supabase Secret - FACEBOOK_APP_ID
-                scopes: 'pages_manage_posts,pages_read_engagement,pages_show_list',
+                scopes: 'public_profile,pages_manage_posts,pages_read_engagement,pages_show_list',
                 authUrl: 'https://www.facebook.com/v19.0/dialog/oauth'
             },
             instagram: {
                 appId: '',  // Same app as Facebook - FACEBOOK_APP_ID
-                scopes: 'instagram_basic,instagram_content_publish,pages_manage_posts,pages_show_list',
+                scopes: 'public_profile,instagram_basic,instagram_content_publish,pages_manage_posts,pages_show_list',
                 authUrl: 'https://www.facebook.com/v19.0/dialog/oauth'
             },
             linkedin: {
@@ -845,13 +855,22 @@
             if (platform === 'facebook') {
                 const inputAppId = document.getElementById('facebook-app-id')?.value.trim();
                 const appId = inputAppId || document.getElementById('btn-connect-facebook').dataset.appId || prompt('Enter your Facebook App ID:') || '';
-                const params = new URLSearchParams({
+                const configId = document.getElementById('facebook-config-id')?.value.trim();
+
+                const queryObj = {
                     client_id: appId,
                     redirect_uri: callbackBase,
-                    scope: OAUTH_CONFIG.facebook.scopes,
                     state: state,
                     response_type: 'code'
-                });
+                };
+
+                if (configId) {
+                    queryObj.config_id = configId;
+                } else {
+                    queryObj.scope = OAUTH_CONFIG.facebook.scopes;
+                }
+
+                const params = new URLSearchParams(queryObj);
                 if (!params.get('client_id')) { UI.showToast('Facebook App ID is required. Check setup guide.', 'warning'); return; }
                 authUrl = `${OAUTH_CONFIG.facebook.authUrl}?${params}`;
 
