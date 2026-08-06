@@ -54,8 +54,9 @@ serve(async (req) => {
 
         if (!tokenData.access_token) {
             const errMsg = tokenData.error?.message || 'Token exchange failed';
+            console.error('Facebook Token Exchange Error:', tokenData.error || tokenData);
             await supabaseAdmin.from('activity_logs').insert({ user_id: userId, platform: 'facebook', action: 'OAUTH_FAILED', status: 'failed', message: errMsg });
-            return Response.redirect(`${siteUrl}/settings.html?error=facebook_token_failed`, 302);
+            return Response.redirect(`${siteUrl}/settings.html?error=facebook_token_failed&msg=${encodeURIComponent(errMsg)}`, 302);
         }
 
         // 2. Exchange for long-lived token
@@ -70,11 +71,18 @@ serve(async (req) => {
         const meData = await meRes.json();
 
         // 4. Get managed Facebook Pages
-        const pagesRes = await fetch(`https://graph.facebook.com/v19.0/me/accounts?access_token=${longLivedToken}`);
+        const pagesRes = await fetch(`https://graph.facebook.com/v19.0/me/accounts?fields=id,name,access_token,category,tasks&access_token=${longLivedToken}`);
         const pagesData = await pagesRes.json();
 
+        if (pagesData.error) {
+            const errMsg = pagesData.error.message || 'Failed to fetch Facebook Pages';
+            console.error('Facebook me/accounts Graph API Error:', pagesData.error);
+            await supabaseAdmin.from('activity_logs').insert({ user_id: userId, platform: 'facebook', action: 'OAUTH_FAILED', status: 'failed', message: errMsg });
+            return Response.redirect(`${siteUrl}/settings.html?error=facebook_api_error&msg=${encodeURIComponent(errMsg)}`, 302);
+        }
+
         if (!pagesData.data || pagesData.data.length === 0) {
-            await supabaseAdmin.from('activity_logs').insert({ user_id: userId, platform: 'facebook', action: 'OAUTH_NO_PAGES', status: 'failed', message: 'No Facebook Pages found. Create a Facebook Page first.' });
+            await supabaseAdmin.from('activity_logs').insert({ user_id: userId, platform: 'facebook', action: 'OAUTH_NO_PAGES', status: 'failed', message: 'No Facebook Pages found. Create a Facebook Page first or grant Page permissions.' });
             return Response.redirect(`${siteUrl}/settings.html?error=facebook_no_pages`, 302);
         }
 

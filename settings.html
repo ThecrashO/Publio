@@ -730,12 +730,12 @@
         const OAUTH_CONFIG = {
             facebook: {
                 appId: '',  // Set via Supabase Secret - FACEBOOK_APP_ID
-                scopes: 'pages_manage_posts,pages_read_engagement,pages_show_list',
+                scopes: 'public_profile,email,pages_manage_posts,pages_read_engagement,pages_show_list',
                 authUrl: 'https://www.facebook.com/v19.0/dialog/oauth'
             },
             instagram: {
                 appId: '',  // Same app as Facebook - FACEBOOK_APP_ID
-                scopes: 'instagram_basic,instagram_content_publish,pages_manage_posts,pages_show_list',
+                scopes: 'public_profile,instagram_basic,instagram_content_publish,pages_manage_posts,pages_show_list',
                 authUrl: 'https://www.facebook.com/v19.0/dialog/oauth'
             },
             linkedin: {
@@ -773,16 +773,20 @@
             }
             if (params.get('error')) {
                 const errMessages = {
-                    facebook_no_pages: 'No Facebook Pages found. Please create a Facebook Page first.',
+                    facebook_no_pages: 'No Facebook Pages found. Please create a Facebook Page or make sure you select your Page during Facebook login.',
                     instagram_no_business_account: 'No Instagram Business Account found. Link your Instagram to a Facebook Page and convert to Business/Creator account.',
                     facebook_denied: 'Facebook authorization was cancelled.',
+                    facebook_token_failed: 'Facebook Token Exchange failed. Check FACEBOOK_APP_ID & FACEBOOK_APP_SECRET in Supabase Secrets.',
                     linkedin_denied: 'LinkedIn authorization was cancelled.',
                     x_denied: 'X authorization was cancelled.',
                     youtube_denied: 'YouTube Google authorization was cancelled.',
                     youtube_token_failed: 'Failed to obtain access token from Google.',
                 };
                 const errKey = params.get('error');
-                const msg = errMessages[errKey] || `Connection failed: ${errKey}`;
+                const customMsg = params.get('msg');
+                const msg = customMsg
+                    ? `Connection Error: ${decodeURIComponent(customMsg)}`
+                    : (errMessages[errKey] || `Connection failed: ${errKey}`);
                 UI.showAlert('settings-alert-container', msg, 'danger');
                 window.history.replaceState(null, null, 'settings.html');
             }
