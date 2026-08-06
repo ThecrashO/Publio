@@ -839,8 +839,10 @@
             let authUrl = '';
 
             if (platform === 'facebook') {
+                const inputAppId = document.getElementById('facebook-app-id')?.value.trim();
+                const appId = inputAppId || document.getElementById('btn-connect-facebook').dataset.appId || prompt('Enter your Facebook App ID:') || '';
                 const params = new URLSearchParams({
-                    client_id: document.getElementById('btn-connect-facebook').dataset.appId || prompt('Enter your Facebook App ID:') || '',
+                    client_id: appId,
                     redirect_uri: callbackBase,
                     scope: OAUTH_CONFIG.facebook.scopes,
                     state: state,
@@ -850,8 +852,10 @@
                 authUrl = `${OAUTH_CONFIG.facebook.authUrl}?${params}`;
 
             } else if (platform === 'instagram') {
+                const inputAppId = document.getElementById('instagram-app-id')?.value.trim() || document.getElementById('facebook-app-id')?.value.trim();
+                const appId = inputAppId || prompt('Enter your Facebook App ID (used for Instagram too):') || '';
                 const params = new URLSearchParams({
-                    client_id: prompt('Enter your Facebook App ID (used for Instagram too):') || '',
+                    client_id: appId,
                     redirect_uri: `${SUPABASE_URL}/functions/v1/oauth-instagram-callback`,
                     scope: OAUTH_CONFIG.instagram.scopes,
                     state: state,
@@ -861,7 +865,8 @@
                 authUrl = `${OAUTH_CONFIG.instagram.authUrl}?${params}`;
 
             } else if (platform === 'linkedin') {
-                const clientId = prompt('Enter your LinkedIn Client ID:') || '';
+                const inputClientId = document.getElementById('linkedin-client-id')?.value.trim();
+                const clientId = inputClientId || prompt('Enter your LinkedIn Client ID:') || '';
                 if (!clientId) { UI.showToast('LinkedIn Client ID is required.', 'warning'); return; }
                 const params = new URLSearchParams({
                     response_type: 'code',
@@ -873,7 +878,8 @@
                 authUrl = `${OAUTH_CONFIG.linkedin.authUrl}?${params}`;
 
             } else if (platform === 'x') {
-                const clientId = prompt('Enter your X (Twitter) Client ID:') || '';
+                const inputClientId = document.getElementById('x-client-id')?.value.trim();
+                const clientId = inputClientId || prompt('Enter your X (Twitter) Client ID:') || '';
                 if (!clientId) { UI.showToast('X Client ID is required.', 'warning'); return; }
                 // X requires PKCE - generate code verifier & challenge
                 const codeVerifier = generateRandomString(64);
