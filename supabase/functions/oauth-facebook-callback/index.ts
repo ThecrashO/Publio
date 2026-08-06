@@ -6,6 +6,25 @@ const corsHeaders = {
     'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
+function getSiteUrl(req: Request): string {
+    const envUrl = Deno.env.get('SITE_URL');
+    if (envUrl && envUrl.trim() !== '') {
+        return envUrl.replace(/\/$/, '');
+    }
+    const referer = req.headers.get('referer');
+    if (referer) {
+        try {
+            const u = new URL(referer);
+            return `${u.protocol}//${u.host}`;
+        } catch (_) {}
+    }
+    const origin = req.headers.get('origin');
+    if (origin && origin !== 'null') {
+        return origin.replace(/\/$/, '');
+    }
+    return 'https://publio-p.vercel.app';
+}
+
 serve(async (req) => {
     if (req.method === 'OPTIONS') {
         return new Response('ok', { headers: corsHeaders });
@@ -20,7 +39,7 @@ serve(async (req) => {
     const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? '';
     const appId = Deno.env.get('FACEBOOK_APP_ID') ?? '';
     const appSecret = Deno.env.get('FACEBOOK_APP_SECRET') ?? '';
-    const siteUrl = Deno.env.get('SITE_URL') ?? '';
+    const siteUrl = getSiteUrl(req);
 
     const redirectUri = `${supabaseUrl}/functions/v1/oauth-facebook-callback`;
 

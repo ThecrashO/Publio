@@ -1,6 +1,25 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.48.1";
 
+function getSiteUrl(req: Request): string {
+    const envUrl = Deno.env.get('SITE_URL');
+    if (envUrl && envUrl.trim() !== '') {
+        return envUrl.replace(/\/$/, '');
+    }
+    const referer = req.headers.get('referer');
+    if (referer) {
+        try {
+            const u = new URL(referer);
+            return `${u.protocol}//${u.host}`;
+        } catch (_) {}
+    }
+    const origin = req.headers.get('origin');
+    if (origin && origin !== 'null') {
+        return origin.replace(/\/$/, '');
+    }
+    return 'https://publio-p.vercel.app';
+}
+
 serve(async (req) => {
     const url = new URL(req.url);
     const code = url.searchParams.get('code');
@@ -11,7 +30,7 @@ serve(async (req) => {
     const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? '';
     const clientId = Deno.env.get('X_CLIENT_ID') ?? '';
     const clientSecret = Deno.env.get('X_CLIENT_SECRET') ?? '';
-    const siteUrl = Deno.env.get('SITE_URL') ?? '';
+    const siteUrl = getSiteUrl(req);
 
     const redirectUri = `${supabaseUrl}/functions/v1/oauth-x-callback`;
 
